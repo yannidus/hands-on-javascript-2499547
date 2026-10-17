@@ -1,5 +1,5 @@
-// Where contact form submissions are sent. Replace with the real inbox.
-const CONTACT_EMAIL = "info@akadelices.com";
+// Where contact form submissions are sent
+const CONTACT_EMAIL = "akadelicesllc@gmail.com";
 
 const INTEREST_LABELS = {
   sell: "Selling a house",
