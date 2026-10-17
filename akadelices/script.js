@@ -2,7 +2,7 @@
 const CONTACT_EMAIL = "akadelicesllc@gmail.com";
 
 const INTEREST_LABELS = {
-  sell: "Selling a house",
+  rent: "Renting a home",
   lease: "Leasing a home (group home provider)",
   partner: "Partnership / other",
 };
@@ -37,29 +37,13 @@ nav.addEventListener("click", (event) => {
   if (event.target.closest("a")) setNavOpen(false);
 });
 
-// Only show the property address field for sellers
-const updateConditionalFields = () => {
-  const interest = form.elements.interest.value;
-  form.querySelectorAll("[data-show-for]").forEach((field) => {
-    field.hidden = field.dataset.showFor !== interest;
-  });
-};
-
-form.addEventListener("change", (event) => {
-  if (event.target.name === "interest") updateConditionalFields();
-});
-updateConditionalFields();
-
 // CTA buttons preselect the matching option in the contact form
 document.querySelectorAll("[data-interest]").forEach((link) => {
   link.addEventListener("click", () => {
     const option = form.querySelector(
       `input[name="interest"][value="${link.dataset.interest}"]`
     );
-    if (option) {
-      option.checked = true;
-      updateConditionalFields();
-    }
+    if (option) option.checked = true;
   });
 });
 
@@ -98,9 +82,6 @@ form.addEventListener("submit", (event) => {
     `Email: ${data.get("email")}`,
     `Phone: ${data.get("phone") || "-"}`,
   ];
-  if (data.get("interest") === "sell") {
-    lines.push(`Property address: ${data.get("address") || "-"}`);
-  }
   lines.push("", data.get("message") || "");
 
   const subject = encodeURIComponent(`Website inquiry: ${interest}`);
