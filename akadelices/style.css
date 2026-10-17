@@ -431,16 +431,14 @@ p {
 
 /* Team */
 .team {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 32px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
   margin-top: 48px;
 }
 
 .team-member {
-  flex: 0 1 300px;
-  padding: 32px 24px;
+  padding: 32px 20px;
   border-radius: var(--radius);
   background: var(--white);
   box-shadow: var(--shadow);
@@ -687,12 +685,16 @@ p {
     grid-template-columns: 1fr;
   }
 
+  .team {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
   .section {
     padding: 72px 0;
   }
 }
 
-@media (max-width: 760px) {
+@media (max-width: 1000px) {
   .nav-toggle {
     display: block;
   }
@@ -725,7 +727,10 @@ p {
     margin-top: 14px;
     text-align: center;
   }
+}
 
+@media (max-width: 760px) {
+  .team,
   .feature-list,
   .field-row {
     grid-template-columns: 1fr;
