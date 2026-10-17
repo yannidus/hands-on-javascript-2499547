@@ -396,6 +396,12 @@ p {
   align-items: center;
 }
 
+.mission-sub {
+  margin: 0;
+  font: 600 1.2rem/1.45 var(--font-head);
+  color: var(--sage);
+}
+
 .prose p {
   color: var(--muted);
   font-size: 1.1rem;
