@@ -4,7 +4,7 @@ const CONTACT_EMAIL = "akadelicesllc@gmail.com";
 const INTEREST_LABELS = {
   rent: "Renting a home",
   lease: "Leasing a home (group home provider)",
-  partner: "Partnership / other",
+  partner: "Investing / partnership",
 };
 
 const header = document.querySelector(".site-header");
