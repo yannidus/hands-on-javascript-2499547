@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Work+Sans:wght@500;600;700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
@@ -20,13 +20,25 @@
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
 
+    <div class="topbar">
+      <div class="container topbar-inner">
+        <p class="topbar-note">Based in Charlotte &middot; Serving the Carolinas</p>
+        <div class="topbar-actions">
+          <a class="topbar-email" href="mailto:akadelicesllc@gmail.com">akadelicesllc@gmail.com</a>
+          <a class="btn btn-accent btn-small" href="#contact" data-interest="rent">Rent a home</a>
+        </div>
+      </div>
+    </div>
+
     <header class="site-header">
       <div class="container header-inner">
         <a class="logo" href="#top" aria-label="Akadelices LLC home">
-          <svg viewBox="0 0 32 32" aria-hidden="true">
-            <path d="M4 15 16 5l12 10v12a1 1 0 0 1-1 1h-7v-8h-8v8H5a1 1 0 0 1-1-1Z" />
-          </svg>
-          <span>Akadelices <small>LLC</small></span>
+          <span class="logo-mark" aria-hidden="true">
+            <svg viewBox="0 0 32 32">
+              <path d="M7 16 16 8.5 25 16v8.5a1 1 0 0 1-1 1h-5v-6h-6v6H8a1 1 0 0 1-1-1Z" />
+            </svg>
+          </span>
+          <span class="logo-text">Akadelices<small>LLC</small></span>
         </a>
         <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav">
           <span class="sr-only">Menu</span>
@@ -34,90 +46,165 @@
         </button>
         <nav id="site-nav" class="site-nav">
           <a href="#about">About</a>
+          <a href="#how">Our approach</a>
           <a href="#team">Our team</a>
           <a href="#work">Our work</a>
           <a href="#families">For families</a>
           <a href="#providers">For providers</a>
           <a href="#story">Success story</a>
-          <a href="#faq">FAQ</a>
           <a class="btn btn-small" href="#contact">Contact us</a>
         </nav>
       </div>
     </header>
 
     <main id="main">
-      <!-- Hero -->
+      <!-- Hero banner -->
       <section class="hero" id="top">
+        <img
+          class="hero-bg"
+          src="images/hero.jpg"
+          alt=""
+          width="1179"
+          height="840"
+        />
         <div class="container hero-inner">
-          <div class="hero-copy">
-            <p class="eyebrow">Based in Charlotte &middot; Serving the Carolinas</p>
-            <h1>Restoring homes.<br />Strengthening communities.</h1>
-            <p class="lead">
-              Akadelices LLC acquires homes in underserved neighborhoods, renovates them
-              with quality craftsmanship, and leases them to working families and group home
-              providers across the Carolinas.
-            </p>
-            <div class="hero-actions">
-              <a class="btn" href="#families">Rent a home</a>
-              <a class="btn btn-outline" href="#providers">For group home providers</a>
-            </div>
-          </div>
-          <div class="hero-card" aria-hidden="true">
-            <div class="house-illustration">
-              <svg viewBox="0 0 240 200">
-                <rect x="0" y="170" width="240" height="30" rx="4" class="ground" />
-                <path d="M40 95 120 35l80 60v80H40Z" class="wall" />
-                <path d="M28 100 120 28l92 72" class="roof" />
-                <rect x="104" y="125" width="32" height="50" rx="3" class="door" />
-                <rect x="58" y="110" width="30" height="26" rx="3" class="window" />
-                <rect x="152" y="110" width="30" height="26" rx="3" class="window" />
-                <circle cx="120" cy="82" r="10" class="window" />
-              </svg>
-            </div>
-            <ul class="hero-points">
-              <li>Homes for working families</li>
-              <li>Quality renovations</li>
-              <li>Long-term, stable leases</li>
-            </ul>
+          <h1>Restoring homes.<br />Strengthening communities.</h1>
+          <p class="hero-lead">
+            Akadelices LLC acquires homes in underserved neighborhoods, renovates them with
+            quality craftsmanship, and leases them to working families and group home
+            providers across the Carolinas.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-accent" href="#families">Rent a home</a>
+            <a class="btn btn-ghost" href="#providers">For group home providers</a>
           </div>
         </div>
       </section>
 
-      <!-- About -->
+      <!-- About / mission -->
       <section class="section" id="about">
-        <div class="container two-col">
-          <div>
-            <p class="eyebrow">Our mission</p>
-            <h2>Empowering Neighborhoods Through Development</h2>
-            <p class="mission-sub">
-              Building Stronger Communities Through Quality, Attainable Housing Across the
-              Carolinas
-            </p>
-          </div>
-          <div class="prose">
+        <div class="container narrow center">
+          <h2>Empowering Neighborhoods Through Development</h2>
+          <p class="mission-sub">
+            Building Stronger Communities Through Quality, Attainable Housing Across the
+            Carolinas
+          </p>
+          <div class="prose prose-large">
             <p>
-              We believe every family deserves a safe, affordable place to call home. Through
-              thoughtful real estate development, we create quality housing (from supportive
-              group homes to missing middle housing that bridges the gap between subsidized
-              housing and high-priced market-rate homes) so individuals and families can find
-              stability, build wealth, and put down roots.
+              <strong>We believe every family deserves a safe, affordable place to call
+              home.</strong> Through thoughtful real estate development, we create quality
+              housing (from supportive group homes to missing middle housing that bridges the
+              gap between subsidized housing and high-priced market-rate homes) so
+              individuals and families can find stability, build wealth, and put down roots.
             </p>
             <p>
-              Our commitment goes beyond building homes. By partnering with residents, local
-              leaders, and community organizations, and by prioritizing affordability, quality
-              craftsmanship, and sustainable development, we invest in underserved
-              neighborhoods and help create vibrant places where current and future
-              generations can thrive.
+              <strong>Our commitment goes beyond building homes.</strong> By partnering with
+              residents, local leaders, and community organizations, and by prioritizing
+              affordability, quality craftsmanship, and sustainable development, we invest in
+              underserved neighborhoods and help create vibrant places where current and
+              future generations can thrive.
             </p>
           </div>
+        </div>
+      </section>
+
+      <!-- Our approach -->
+      <section class="section section-tint" id="how">
+        <div class="container">
+          <h2 class="center">Our approach</h2>
+          <figure class="wheel">
+            <svg
+              viewBox="0 0 900 720"
+              role="img"
+              aria-labelledby="wheel-title wheel-desc"
+            >
+              <title id="wheel-title">How Akadelices works</title>
+              <desc id="wheel-desc">
+                Three steps, acquire, renovate, and lease, surrounded by what each step
+                focuses on: broker partnerships and underserved neighborhoods; quality
+                craftsmanship and safe, updated homes; working families and group home
+                providers.
+              </desc>
+              <circle class="wheel-ring" cx="450" cy="360" r="250" />
+              <g class="wheel-spokes"><line x1="450" y1="360" x2="450" y2="110" /><line x1="450" y1="360" x2="667" y2="485" /><line x1="450" y1="360" x2="233" y2="485" /></g>
+              <circle class="wheel-core" cx="450" cy="360" r="132" />
+              <g class="wheel-spokes"><line x1="450" y1="360" x2="450" y2="228" /><line x1="450" y1="360" x2="564" y2="426" /><line x1="450" y1="360" x2="336" y2="426" /></g>
+              <circle class="wheel-hub" cx="450" cy="360" r="11" />
+              <text class="wheel-pillar" x="384" y="329">Acquire</text>
+              <text class="wheel-pillar" x="516" y="329">Renovate</text>
+              <text class="wheel-pillar" x="450" y="443">Lease</text>
+              <g class="wheel-node">
+                <circle cx="200" cy="360" r="40" />
+                <g class="wheel-icon" transform="translate(200 360) scale(1.25)"><circle cx="-6" cy="0" r="7"/><path d="M1 0h17M12 0v6M16 0v4"/></g>
+                <text class="wheel-label" text-anchor="end" y="355"><tspan x="146" dy="0">Broker</tspan><tspan x="146" dy="22">partnerships</tspan></text>
+              </g>
+              <g class="wheel-node">
+                <circle cx="325" cy="143" r="40" />
+                <g class="wheel-icon" transform="translate(325 143) scale(1.25)"><path d="M-18 4l8-7 8 7v10h-16z"/><path d="M0 0l9-8 9 8v14H0z"/><path d="M6 14v-6h6v6"/></g>
+                <text class="wheel-label" text-anchor="end" y="75"><tspan x="298" dy="0">Underserved</tspan><tspan x="298" dy="22">neighborhoods</tspan></text>
+              </g>
+              <g class="wheel-node">
+                <circle cx="575" cy="143" r="40" />
+                <g class="wheel-icon" transform="translate(575 143) scale(1.25)"><path d="M-4-14h14l4 4-4 4H-4z"/><path d="M2-6v20"/></g>
+                <text class="wheel-label" text-anchor="start" y="75"><tspan x="602" dy="0">Quality</tspan><tspan x="602" dy="22">craftsmanship</tspan></text>
+              </g>
+              <g class="wheel-node">
+                <circle cx="700" cy="360" r="40" />
+                <g class="wheel-icon" transform="translate(700 360) scale(1.25)"><path d="M-16 0l16-14L16 0v14h-32z"/><path d="M-6 4l4 4 8-8"/></g>
+                <text class="wheel-label" text-anchor="start" y="355"><tspan x="754" dy="0">Safe, updated</tspan><tspan x="754" dy="22">homes</tspan></text>
+              </g>
+              <g class="wheel-node">
+                <circle cx="536" cy="595" r="40" />
+                <g class="wheel-icon" transform="translate(536 595) scale(1.25)"><circle cx="-10" cy="-8" r="4"/><circle cx="10" cy="-8" r="4"/><circle cx="0" cy="-2" r="3"/><path d="M-17 12c0-7 3-11 7-11s7 4 7 11M3 12c0-7 3-11 7-11s7 4 7 11M-4 12c0-4 2-6 4-6s4 2 4 6"/></g>
+                <text class="wheel-label" text-anchor="middle" y="660"><tspan x="554" dy="0">Working</tspan><tspan x="554" dy="22">families</tspan></text>
+              </g>
+              <g class="wheel-node">
+                <circle cx="364" cy="595" r="40" />
+                <g class="wheel-icon" transform="translate(364 595) scale(1.25)"><path d="M-16 0l16-14L16 0v14h-32z"/><path d="M0 10l-6-6a3.5 3.5 0 0 1 6-3 3.5 3.5 0 0 1 6 3z"/></g>
+                <text class="wheel-label" text-anchor="middle" y="660"><tspan x="346" dy="0">Group home</tspan><tspan x="346" dy="22">providers</tspan></text>
+              </g>
+            </svg>
+          </figure>
+          <ol class="approach">
+            <li>
+              <h3><span>1</span> Acquire</h3>
+              <p>
+                We purchase houses in underserved communities through trusted real estate
+                brokers.
+              </p>
+              <ul class="approach-tags"><li>Broker partnerships</li><li>Underserved neighborhoods</li></ul>
+            </li>
+            <li>
+              <h3><span>2</span> Renovate</h3>
+              <p>
+                We repair and update each property to be safe, accessible, and comfortable,
+                working with local contractors whenever we can.
+              </p>
+              <ul class="approach-tags"><li>Quality craftsmanship</li><li>Safe, updated homes</li></ul>
+            </li>
+            <li>
+              <h3><span>3</span> Lease</h3>
+              <p>
+                We rent the finished home to a working family or a qualified group home
+                provider on a long-term lease, so residents have a stable place to live.
+              </p>
+              <ul class="approach-tags"><li>Working families</li><li>Group home providers</li></ul>
+            </li>
+          </ol>
         </div>
       </section>
 
       <!-- Team -->
-      <section class="section section-tint" id="team">
+      <section class="section" id="team">
         <div class="container">
-          <p class="eyebrow center">Leadership</p>
-          <h2 class="center">Meet our team</h2>
+          <div class="narrow center">
+            <h2>Meet our team</h2>
+            <p class="prose-large">
+              We are a team committed to strengthening underserved neighborhoods across the
+              Carolinas through quality, attainable housing, and to treating every resident
+              and partner with fairness and respect.
+            </p>
+          </div>
           <div class="team">
             <article class="team-member">
               <img
@@ -167,44 +254,9 @@
         </div>
       </section>
 
-      <!-- How it works -->
-      <section class="section" id="how">
-        <div class="container">
-          <p class="eyebrow center">How it works</p>
-          <h2 class="center">From overlooked house to cared-for home</h2>
-          <ol class="steps">
-            <li class="step">
-              <span class="step-num">1</span>
-              <h3>We acquire</h3>
-              <p>
-                We purchase houses in underserved communities through trusted real estate
-                brokers.
-              </p>
-            </li>
-            <li class="step">
-              <span class="step-num">2</span>
-              <h3>We renovate</h3>
-              <p>
-                We repair and update each property to be safe, accessible, and comfortable,
-                working with local contractors whenever we can.
-              </p>
-            </li>
-            <li class="step">
-              <span class="step-num">3</span>
-              <h3>We lease</h3>
-              <p>
-                We rent the finished home to a working family or a qualified group home
-                provider on a long-term lease, so residents have a stable place to live.
-              </p>
-            </li>
-          </ol>
-        </div>
-      </section>
-
       <!-- Our work -->
       <section class="section section-tint" id="work">
         <div class="container">
-          <p class="eyebrow center">Our work</p>
           <h2 class="center">Before &amp; after</h2>
           <p class="lead center-block">
             A recent renovation in the Charlotte area: a new roof, fresh exterior paint, and a
@@ -239,7 +291,6 @@
       <section class="section" id="families">
         <div class="container two-col align-center">
           <div>
-            <p class="eyebrow">For working families</p>
             <h2>A quality home where your family can put down roots</h2>
             <p class="lead">
               We lease our renovated homes to working individuals and families looking for a
@@ -290,7 +341,6 @@
             </li>
           </ul>
           <div>
-            <p class="eyebrow">For group home providers</p>
             <h2>A landlord who understands your mission</h2>
             <p class="lead">
               We lease homes to licensed group home operators and care providers who serve
@@ -304,8 +354,7 @@
       <!-- Success story -->
       <section class="section section-tint" id="story">
         <div class="container">
-          <p class="eyebrow center">Success story</p>
-          <h2 class="center">Nathan&rsquo;s story</h2>
+          <h2 class="center accent-heading">Nathan&rsquo;s story</h2>
           <div class="story">
             <div class="story-text prose">
               <p>
@@ -336,9 +385,13 @@
               </p>
             </div>
             <aside class="story-aside">
-              <blockquote>
-                <p>&ldquo;Someone&rsquo;s starting point does not define their potential.&rdquo;</p>
-                <cite>The Akadelices team</cite>
+              <blockquote class="quote-card">
+                <span class="quote-marks" aria-hidden="true">&ldquo;&rdquo;</span>
+                <p>Someone&rsquo;s starting point does not define their potential.</p>
+                <footer>
+                  <cite>The Akadelices team</cite>
+                  <span>On Nathan, our tenant for three years</span>
+                </footer>
               </blockquote>
               <ul class="story-facts">
                 <li><strong>3 years</strong><span>as our tenant</span></li>
@@ -354,7 +407,6 @@
       <!-- FAQ -->
       <section class="section" id="faq">
         <div class="container narrow">
-          <p class="eyebrow center">Questions</p>
           <h2 class="center">Frequently asked questions</h2>
           <div class="faq">
             <details>
@@ -401,7 +453,6 @@
       <section class="section section-tint" id="contact">
         <div class="container two-col">
           <div>
-            <p class="eyebrow">Get in touch</p>
             <h2>Let&rsquo;s talk</h2>
             <p class="lead">
               Whether you&rsquo;re looking for a home for your family or your residents, or
@@ -450,12 +501,49 @@
     </main>
 
     <footer class="site-footer">
-      <div class="container footer-inner">
-        <p>&copy; <span id="year"></span> Akadelices LLC &middot; Based in Charlotte, NC &middot; Serving the Carolinas</p>
-        <p class="fair-housing">
-          We are committed to the letter and spirit of the Fair Housing Act.
+      <div class="container footer-grid">
+        <div class="footer-brand">
+          <a class="logo logo-large" href="#top" aria-label="Akadelices LLC home">
+            <span class="logo-mark" aria-hidden="true">
+              <svg viewBox="0 0 32 32">
+                <path d="M7 16 16 8.5 25 16v8.5a1 1 0 0 1-1 1h-5v-6h-6v6H8a1 1 0 0 1-1-1Z" />
+              </svg>
+            </span>
+            <span class="logo-text">Akadelices<small>LLC</small></span>
+          </a>
+          <p>Quality, attainable housing for working families and group home providers across the Carolinas.</p>
+        </div>
+        <nav class="footer-links" aria-label="Quick links">
+          <h2>Quick Links</h2>
+          <ul>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#how">Our Approach</a></li>
+            <li><a href="#team">Our Team</a></li>
+            <li><a href="#work">Our Work</a></li>
+            <li><a href="#families">For Families</a></li>
+            <li><a href="#providers">For Providers</a></li>
+            <li><a href="#faq">FAQ</a></li>
+          </ul>
+        </nav>
+        <div class="footer-contact">
+          <h2>Contact</h2>
+          <p>Based in Charlotte, North Carolina<br />Serving the Carolinas</p>
+          <p>
+            <span class="label">Email</span>
+            <a href="mailto:akadelicesllc@gmail.com">akadelicesllc@gmail.com</a>
+          </p>
+        </div>
+      </div>
+      <div class="container footer-bottom">
+        <p>
+          Akadelices LLC &copy; <span id="year"></span> | Equal Housing Opportunity
         </p>
+        <p>We are committed to the letter and spirit of the Fair Housing Act.</p>
       </div>
     </footer>
+
+    <a class="back-to-top" href="#top" aria-label="Back to top">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7" /></svg>
+    </a>
   </body>
 </html>

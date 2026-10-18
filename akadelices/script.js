@@ -12,13 +12,15 @@ const navToggle = document.querySelector(".nav-toggle");
 const nav = document.querySelector("#site-nav");
 const form = document.querySelector("#contact-form");
 const status = form.querySelector(".form-status");
+const backToTop = document.querySelector(".back-to-top");
 
 // Footer year
 document.querySelector("#year").textContent = new Date().getFullYear();
 
-// Header shadow once the page scrolls
+// Header shadow and back-to-top button once the page scrolls
 const updateHeader = () => {
   header.classList.toggle("scrolled", window.scrollY > 8);
+  backToTop.classList.toggle("visible", window.scrollY > 600);
 };
 window.addEventListener("scroll", updateHeader, { passive: true });
 updateHeader();
