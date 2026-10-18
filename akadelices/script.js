@@ -1,5 +1,5 @@
 // Where contact form submissions are sent
-const CONTACT_EMAIL = "akadelicesllc@gmail.com";
+const CONTACT_EMAIL = "info@akadelices.com";
 
 const INTEREST_LABELS = {
   rent: "Renting a home",
