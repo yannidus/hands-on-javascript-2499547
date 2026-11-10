@@ -48,5 +48,5 @@ python3 -m http.server 8080   # or: npx serve .
 - **Menu, flavours, designs and prices**: the data arrays at the top of each `app.js`.
 - **Product video**: replace the placeholder inside `.modal-box` with a YouTube or Vimeo embed, or a `<video>`.
 - **Partner form**: it currently only validates and shows a confirmation. To receive leads, point it at a form service or your backend in `shared/main.js`.
-- **Product images**: the machines are drawn as inline SVG. To use real renders, swap the `<svg class="machine">` in each hero for an `<img class="machine" src="...">`.
+- **Product images**: Bean Box uses real photos from `beanbox/images/` (machine, latte crop, banner used as the social share image). Frosti and ZnapCase still use inline SVG illustrations. To switch them, replace the `<svg class="machine">` in the hero with `<img class="machine machine-photo" src="images/...">` (see Bean Box). Set `og:image` to an absolute URL once the site has a domain.
 - **Each site on its own domain**: copy `shared/` into the site folder and change `../shared/` to `shared/`.

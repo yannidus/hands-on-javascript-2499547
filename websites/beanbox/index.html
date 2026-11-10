@@ -8,6 +8,7 @@
   <meta name="theme-color" content="#0b0b13" />
   <meta property="og:title" content="Bean Box — Robotic Coffee, Anytime" />
   <meta property="og:description" content="Barista-quality coffee, made by robots. Freshly ground, perfectly brewed, ready in 60 seconds." />
+  <meta property="og:image" content="images/beanbox-banner.jpg" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>☕</text></svg>" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -25,6 +26,12 @@
     .iced-thumb { background: radial-gradient(circle at 50% 60%, rgba(72,207,255,.22), transparent 65%), linear-gradient(160deg, #10243a, #0b1220); }
     #cup-liquid { transition: fill .5s, y .5s, height .5s; }
     #cup-foam, #cup-ice, #cup-syrup { transition: opacity .4s; }
+    .machine-photo {
+      width: min(420px, 86%); height: auto; border-radius: 28px; filter: drop-shadow(0 0 40px rgba(255,177,92,.25));
+      -webkit-mask-image: radial-gradient(ellipse 72% 70% at 50% 46%, #000 62%, transparent 100%);
+      mask-image: radial-gradient(ellipse 72% 70% at 50% 46%, #000 62%, transparent 100%);
+    }
+    .latte { width: 100%; aspect-ratio: 385 / 280; object-fit: cover; border-radius: 16px; margin-bottom: 16px; border: 1px solid var(--line); }
     .spec-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
     .spec { padding: 20px; border-radius: 14px; background: rgba(11,11,19,.5); border: 1px solid var(--line); }
     .spec strong { display: block; font-family: var(--font-head); font-size: 1.8rem; color: var(--accent); }
@@ -79,50 +86,7 @@
         <div class="hero-visual">
           <div class="halo"></div>
           <div class="ring"></div>
-          <svg class="machine" viewBox="0 0 320 480" role="img" aria-label="Bean Box robotic coffee kiosk">
-            <defs>
-              <linearGradient id="bb-body" x1="0" x2="1"><stop offset="0" stop-color="#1b1a22" /><stop offset=".5" stop-color="#2a2733" /><stop offset="1" stop-color="#141319" /></linearGradient>
-              <linearGradient id="bb-wood" x1="0" x2="1"><stop offset="0" stop-color="#5a3520" /><stop offset=".5" stop-color="#8a5532" /><stop offset="1" stop-color="#4a2a18" /></linearGradient>
-              <radialGradient id="bb-win" cx=".5" cy=".3" r=".9"><stop offset="0" stop-color="#ffcf8f" stop-opacity=".55" /><stop offset=".6" stop-color="#3a2416" stop-opacity=".9" /><stop offset="1" stop-color="#140c08" /></radialGradient>
-            </defs>
-            <rect x="24" y="30" width="272" height="430" rx="20" fill="url(#bb-body)" stroke="#ffb15c" stroke-opacity=".6" stroke-width="2" />
-            <rect x="24" y="30" width="272" height="56" rx="20" fill="#0f0e14" />
-            <path d="M44 58h10a8 8 0 0 1 0 0v6a10 10 0 0 1-10 10h-2a10 10 0 0 1-10-10v-6zM54 60h3a3.5 3.5 0 0 1 0 7h-3" fill="none" stroke="#ffb15c" stroke-width="2.5" transform="translate(6 -4)" />
-            <text x="80" y="66" fill="#f5f8ff" font-family="Space Grotesk, sans-serif" font-weight="700" font-size="24">Bean Box</text>
-            <rect x="44" y="104" width="170" height="226" rx="12" fill="url(#bb-win)" stroke="#ffb15c" stroke-opacity=".8" stroke-width="2" />
-            <rect x="44" y="104" width="170" height="226" rx="12" fill="none" stroke="#ffd9a8" stroke-opacity=".25" stroke-width="8" />
-            <!-- robot arm -->
-            <g class="arm">
-              <rect x="56" y="290" width="32" height="30" rx="6" fill="#e9edf5" />
-              <path d="M72 290 L96 210 L150 186" stroke="#f5f8ff" stroke-width="14" stroke-linecap="round" fill="none" />
-              <circle cx="96" cy="210" r="10" fill="#cfd6e4" />
-              <circle cx="150" cy="186" r="8" fill="#cfd6e4" />
-              <path d="M150 186 L170 206" stroke="#e9edf5" stroke-width="8" stroke-linecap="round" />
-              <path d="M164 210 l14 0 l-2 8 l-10 0z" fill="#9aa4b8" />
-            </g>
-            <!-- cup -->
-            <path d="M150 290h34l-4 34h-26z" fill="#f5f0e8" />
-            <rect x="148" y="286" width="38" height="6" rx="2" fill="#e7ddd0" />
-            <g class="steam" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round">
-              <path d="M160 278c-4-6 4-10 0-16" /><path d="M168 278c-4-6 4-10 0-16" /><path d="M176 278c-4-6 4-10 0-16" />
-            </g>
-            <!-- side panel -->
-            <rect x="228" y="104" width="50" height="86" rx="8" fill="#0b0b13" stroke="#ffb15c" stroke-opacity=".5" />
-            <rect x="234" y="112" width="38" height="8" rx="2" fill="#ffb15c" opacity=".8" />
-            <rect x="234" y="126" width="38" height="20" rx="3" fill="#ffb15c" opacity=".25" />
-            <rect x="234" y="150" width="17" height="14" rx="3" fill="#48cfff" opacity=".5" />
-            <rect x="255" y="150" width="17" height="14" rx="3" fill="#ffb15c" opacity=".5" />
-            <rect x="234" y="168" width="38" height="14" rx="3" fill="#3ee69a" opacity=".6" />
-            <rect x="232" y="202" width="42" height="28" rx="6" fill="#1e1d26" stroke="#ffb15c" stroke-opacity=".4" />
-            <path d="M246 216a8 8 0 0 1 14 0M249 220a4 4 0 0 1 8 0" stroke="#ffb15c" fill="none" stroke-width="1.6" />
-            <rect x="236" y="292" width="34" height="38" rx="6" fill="#0b0b13" stroke="#ffb15c" stroke-opacity=".4" />
-            <!-- wood base -->
-            <rect x="24" y="350" width="272" height="110" rx="0" fill="url(#bb-wood)" />
-            <path d="M24 350h272v90a20 20 0 0 1-20 20H44a20 20 0 0 1-20-20z" fill="url(#bb-wood)" />
-            <path d="M40 372h240M40 398h240M40 424h240" stroke="#2a160b" stroke-opacity=".35" />
-            <rect x="24" y="346" width="272" height="5" fill="#ffb15c" opacity=".9" />
-            <rect x="24" y="346" width="272" height="5" fill="#ffb15c" filter="blur(4px)" />
-          </svg>
+          <img class="machine machine-photo" src="images/beanbox-machine.jpg" width="443" height="609" alt="Bean Box robotic coffee kiosk with a robotic arm pouring coffee into a cup" fetchpriority="high" />
           <div class="float-chip chip-a"><span class="ico"><svg><use href="#i-clock" /></svg></span><div><b>Ready in 58s</b><span>Oat flat white · Large</span></div></div>
           <div class="float-chip chip-b"><span class="ico"><svg><use href="#i-star" /></svg></span><div><b>4.9 / 5</b><span>12k+ cups rated</span></div></div>
         </div>
@@ -272,6 +236,7 @@
           <a href="#menu" class="btn btn-secondary">Explore the menu <svg><use href="#i-arrow" /></svg></a>
         </div>
         <div class="panel reveal">
+          <img class="latte" src="images/beanbox-latte.jpg" width="385" height="280" loading="lazy" alt="Latte with heart latte art next to roasted coffee beans" />
           <div class="spec-grid">
             <div class="spec"><strong>92°C</strong><span>Brew temperature</span></div>
             <div class="spec"><strong>9 bar</strong><span>Extraction pressure</span></div>
