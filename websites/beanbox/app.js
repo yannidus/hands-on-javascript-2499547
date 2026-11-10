@@ -5,8 +5,8 @@
   // ---- Menu ---------------------------------------------------------------
   // color = drink colour in the thumbnail; foam / ice toggle details.
   const MENU = [
-    { name: "Espresso", cat: "espresso", price: 2.2, desc: "A rich double shot with a hazelnut crema.", color: "#3b2414", tag: "Classic" },
-    { name: "Americano", cat: "espresso", price: 2.6, desc: "Espresso lengthened with hot water. Clean and bold.", color: "#4a2c18" },
+    { name: "Espresso", cat: "espresso", price: 2.2, desc: "A rich double shot of Rwandan single-origin with a hazelnut crema.", color: "#3b2414", tag: "Classic" },
+    { name: "Americano", cat: "espresso", price: 2.6, desc: "Rwandan espresso lengthened with hot water. Bright and clean.", color: "#4a2c18" },
     { name: "Macchiato", cat: "espresso", price: 2.8, desc: "Espresso marked with a spoon of velvety foam.", color: "#5a361c", foam: true },
     { name: "Latte", cat: "milk", price: 3.6, desc: "Smooth espresso and steamed milk, light foam.", color: "#b07b4f", foam: true, tag: "Best seller" },
     { name: "Cappuccino", cat: "milk", price: 3.5, desc: "Equal parts espresso, milk and airy foam.", color: "#9a663d", foam: true },
