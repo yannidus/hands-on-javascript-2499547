@@ -1,0 +1,441 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ZnapCase — Design &amp; Print Your Phone Case in Minutes</title>
+  <meta name="description" content="ZnapCase is a self-service machine that prints a custom phone case from your photo or design in minutes. Upload, design, pay and watch it print. Find a ZnapCase near you or host one." />
+  <meta name="theme-color" content="#0b0b13" />
+  <meta property="og:title" content="ZnapCase — Your photo. Your case. In minutes." />
+  <meta property="og:description" content="Design and print a custom phone case on the spot." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📱</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../shared/styles.css" />
+  <style>
+    body { --accent: #a77bff; --accent-2: #ff5ec4; --accent-rgb: 167, 123, 255; }
+    .btn-primary { color: #fff; }
+    .tab.active { color: #fff; }
+    .arm { transform-origin: 74px 270px; animation: arm 5s ease-in-out infinite; }
+    @keyframes arm { 50% { transform: rotate(-6deg) translateX(6px); } }
+    .tiles rect { animation: tile 3s ease-in-out infinite; }
+    .tiles rect:nth-child(2) { animation-delay: .4s; } .tiles rect:nth-child(3) { animation-delay: .8s; }
+    .tiles rect:nth-child(4) { animation-delay: 1.2s; } .tiles rect:nth-child(5) { animation-delay: 1.6s; } .tiles rect:nth-child(6) { animation-delay: 2s; }
+    @keyframes tile { 50% { opacity: .45; } }
+
+    /* Case mockups */
+    .case {
+      --w: 150px; position: relative; width: var(--w); aspect-ratio: 9 / 19; border-radius: calc(var(--w) * .16);
+      background: #222 center / cover no-repeat; box-shadow: inset 0 0 0 3px rgba(255,255,255,.18), 0 30px 60px -20px rgba(0,0,0,.8);
+      overflow: hidden; transition: background .4s, border-radius .3s;
+    }
+    .case::before {
+      content: ""; position: absolute; top: 4%; left: 7%; width: 40%; aspect-ratio: 1; border-radius: 26%;
+      background: rgba(15,15,22,.85); box-shadow: inset 0 0 0 2px rgba(255,255,255,.15);
+    }
+    .case::after {
+      content: ""; position: absolute; top: 7.4%; left: 11%; width: 13%; aspect-ratio: 1; border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #4a5a80, #0b0b13 60%); box-shadow: calc(var(--w) * .16) 0 0 0 #0b0b13, 0 calc(var(--w) * .16) 0 0 #0b0b13;
+    }
+    .case .gloss { position: absolute; inset: 0; background: linear-gradient(115deg, rgba(255,255,255,.28), transparent 35%, transparent 70%, rgba(255,255,255,.08)); pointer-events: none; }
+    .case .txt { position: absolute; left: 0; right: 0; bottom: 12%; text-align: center; font-family: var(--font-head); font-weight: 700; font-size: calc(var(--w) * .1); color: #fff; text-shadow: 0 2px 10px rgba(0,0,0,.5); padding: 0 8%; word-break: break-word; }
+    .case.matte .gloss { opacity: .15; }
+    .case.clear { background-color: rgba(220,230,255,.12); }
+    .case.tough { box-shadow: inset 0 0 0 calc(var(--w) * .04) rgba(20,20,30,.9), 0 30px 60px -20px rgba(0,0,0,.8); }
+    .case.magsafe .mag { display: block; }
+    .case .mag { display: none; position: absolute; top: 48%; left: 50%; width: 46%; aspect-ratio: 1; transform: translate(-50%, -50%); border-radius: 50%; border: 2px solid rgba(255,255,255,.35); }
+    .menu-item .thumb .case { --w: 92px; transform: rotate(-8deg); transition: transform .4s; }
+    .menu-item:hover .thumb .case { transform: rotate(0) scale(1.06); }
+    .z-thumb { background: radial-gradient(circle at 50% 55%, rgba(167,123,255,.25), transparent 65%), linear-gradient(160deg, #1d1236, #0d0b18); }
+    #preview-case { --w: 210px; }
+    .upload {
+      display: flex; align-items: center; gap: 14px; padding: 18px; border-radius: 14px; border: 1.5px dashed rgba(var(--accent-rgb), .55);
+      background: rgba(var(--accent-rgb), .06); cursor: pointer; transition: background .2s;
+    }
+    .upload:hover, .upload.drag { background: rgba(var(--accent-rgb), .14); }
+    .upload input { display: none; }
+    .upload svg { width: 28px; height: 28px; color: var(--accent); flex-shrink: 0; }
+    .upload small { display: block; color: var(--muted); }
+    .pattern-opt { width: 46px; height: 46px; padding: 0; border-radius: 12px; overflow: hidden; }
+    .pattern-opt span { position: absolute; inset: 3px; border-radius: 9px; }
+    .text-input { width: 100%; padding: 13px 16px; border-radius: 12px; border: 1px solid var(--line); background: rgba(11,11,19,.6); outline: none; }
+    .text-input:focus { border-color: var(--accent); }
+    .timeline { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 24px; }
+    .timeline div { padding: 18px; border-radius: 14px; border: 1px solid var(--line); background: rgba(11,11,19,.5); }
+    .timeline strong { display: block; font-family: var(--font-head); font-size: 1.6rem; color: var(--accent); }
+    .timeline span { font-size: .82rem; color: var(--muted); }
+    .models { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+    .models span { padding: 8px 14px; border-radius: 999px; border: 1px solid var(--line); font-size: .85rem; background: rgba(22,35,60,.4); }
+  </style>
+</head>
+<body>
+  <div class="ambient"></div>
+
+  <header class="site-header">
+    <nav class="container nav" aria-label="Main">
+      <a href="#top" class="brand">
+        <span class="brand-mark"><svg><use href="#i-phone" /></svg></span>
+        <span>ZnapCase<small>by Ravens Tech</small></span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#designs">Designs</a></li>
+        <li><a href="#how">How it works</a></li>
+        <li><a href="#build">Design yours</a></li>
+        <li><a href="#locations">Locations</a></li>
+        <li><a href="#partner">Host ZnapCase</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+      <div class="nav-cta">
+        <a href="#partner" class="btn btn-secondary">Partner with us</a>
+        <a href="#build" class="btn btn-primary">Design a case <svg><use href="#i-arrow" /></svg></a>
+      </div>
+      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </nav>
+  </header>
+
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="grid-bg"></div>
+      <div class="container hero-grid">
+        <div>
+          <span class="eyebrow">Phone Case Customization Machine</span>
+          <h1>Your photo. Your case. <span class="grad-text">In minutes.</span></h1>
+          <p class="lead">Upload a photo from your phone, pick a design or create your own — ZnapCase prints a vivid, scratch-resistant case right in front of you.</p>
+          <div class="hero-actions">
+            <a href="#build" class="btn btn-primary">Start designing <svg><use href="#i-arrow" /></svg></a>
+            <button class="btn btn-secondary btn-play" data-video><span class="play-dot"><svg width="10" height="10"><use href="#i-play" /></svg></span> See it print</button>
+          </div>
+          <div class="hero-stats">
+            <div class="stat"><strong data-count="5" data-suffix=" min">5 min</strong><span>Design to case</span></div>
+            <div class="stat"><strong data-count="60" data-suffix="+">60+</strong><span>Phone models</span></div>
+            <div class="stat"><strong data-count="1000" data-suffix="+">1,000+</strong><span>Ready-made designs</span></div>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="halo"></div>
+          <div class="ring"></div>
+          <svg class="machine" viewBox="0 0 320 480" role="img" aria-label="ZnapCase phone case printing kiosk">
+            <defs>
+              <linearGradient id="zc-body" x1="0" x2="1"><stop offset="0" stop-color="#1a1426" /><stop offset=".5" stop-color="#2a2140" /><stop offset="1" stop-color="#140f1e" /></linearGradient>
+              <radialGradient id="zc-win" cx=".5" cy=".3" r=".9"><stop offset="0" stop-color="#d5b8ff" stop-opacity=".5" /><stop offset=".6" stop-color="#2a1a4a" stop-opacity=".95" /><stop offset="1" stop-color="#0d0818" /></radialGradient>
+              <linearGradient id="zc-case" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff5ec4" /><stop offset=".5" stop-color="#a77bff" /><stop offset="1" stop-color="#48cfff" /></linearGradient>
+            </defs>
+            <rect x="24" y="30" width="272" height="430" rx="20" fill="url(#zc-body)" stroke="#a77bff" stroke-width="2.5" />
+            <rect x="24" y="30" width="272" height="430" rx="20" fill="none" stroke="#a77bff" stroke-width="6" opacity=".35" filter="blur(4px)" />
+            <rect x="24" y="30" width="272" height="58" rx="20" fill="#0e0a18" />
+            <path d="M40 50h18l-18 22h18" fill="none" stroke="#a77bff" stroke-width="3" stroke-linejoin="round" />
+            <text x="68" y="68" fill="#f5f8ff" font-family="Space Grotesk, sans-serif" font-weight="700" font-size="24">ZnapCase</text>
+            <rect x="42" y="104" width="160" height="236" rx="12" fill="url(#zc-win)" stroke="#a77bff" stroke-width="2" />
+            <g class="arm">
+              <rect x="56" y="298" width="36" height="30" rx="6" fill="#e9edf5" />
+              <path d="M74 298 L98 220 L148 204" stroke="#f5f8ff" stroke-width="14" stroke-linecap="round" fill="none" />
+              <circle cx="98" cy="220" r="10" fill="#cfd6e4" /><circle cx="148" cy="204" r="8" fill="#cfd6e4" />
+              <path d="M148 204 l10 14" stroke="#e9edf5" stroke-width="8" stroke-linecap="round" />
+            </g>
+            <!-- printed case -->
+            <rect x="140" y="224" width="44" height="88" rx="9" fill="url(#zc-case)" transform="rotate(-12 162 268)" />
+            <rect x="146" y="230" width="16" height="16" rx="4" fill="#0e0a18" opacity=".8" transform="rotate(-12 162 268)" />
+            <rect x="120" y="318" width="74" height="10" rx="3" fill="#0e0a18" stroke="#a77bff" stroke-opacity=".6" />
+            <!-- screen tiles -->
+            <rect x="214" y="104" width="68" height="132" rx="10" fill="#0b0b13" stroke="#a77bff" stroke-opacity=".6" />
+            <g class="tiles">
+              <rect x="222" y="114" width="24" height="34" rx="4" fill="#ff5ec4" /><rect x="250" y="114" width="24" height="34" rx="4" fill="#48cfff" />
+              <rect x="222" y="152" width="24" height="34" rx="4" fill="#ffd34b" /><rect x="250" y="152" width="24" height="34" rx="4" fill="#a77bff" />
+              <rect x="222" y="190" width="24" height="34" rx="4" fill="#3ee69a" /><rect x="250" y="190" width="24" height="34" rx="4" fill="#ff7a59" />
+            </g>
+            <rect x="218" y="250" width="60" height="30" rx="6" fill="#1e1830" stroke="#a77bff" stroke-opacity=".5" />
+            <path d="M240 266a8 8 0 0 1 14 0M243 270a4 4 0 0 1 8 0" stroke="#a77bff" fill="none" stroke-width="1.6" />
+            <rect x="218" y="292" width="60" height="48" rx="8" fill="#0e0a18" stroke="#a77bff" stroke-opacity=".5" />
+            <rect x="228" y="302" width="18" height="18" fill="none" stroke="#f5f8ff" stroke-opacity=".7" /><rect x="252" y="302" width="16" height="16" fill="#f5f8ff" opacity=".6" />
+            <rect x="24" y="356" width="272" height="4" fill="#a77bff" />
+            <path d="M40 384h240M40 410h240M40 436h240" stroke="#a77bff" stroke-opacity=".18" />
+          </svg>
+          <div class="float-chip chip-a"><span class="ico"><svg><use href="#i-upload" /></svg></span><div><b>Photo uploaded</b><span>via QR · 2.4 MB</span></div></div>
+          <div class="float-chip chip-b"><span class="ico"><svg><use href="#i-printer" /></svg></span><div><b>Printing… 82%</b><span>iPhone · Glossy</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>Upload from your phone</span><span>60+ models</span><span>Glossy · Matte · Clear</span><span>MagSafe compatible</span><span>Fade-resistant UV print</span><span>Ready in minutes</span>
+      </div>
+    </div>
+
+    <!-- HOW -->
+    <section class="section" id="how">
+      <div class="container">
+        <div class="section-head center reveal">
+          <span class="eyebrow">How it works</span>
+          <h2>From camera roll <span class="grad-text">to custom case</span></h2>
+          <p>No app required. Just your phone and a few minutes.</p>
+        </div>
+        <div class="grid-4 steps">
+          <article class="card step reveal"><span class="icon-box"><svg><use href="#i-phone" /></svg></span><h3>Pick your model</h3><p>Choose your phone on the touchscreen. Every case is shaped to fit perfectly.</p></article>
+          <article class="card step reveal"><span class="icon-box"><svg><use href="#i-upload" /></svg></span><h3>Upload or choose</h3><p>Scan the QR code to send a photo from your phone, or browse 1,000+ designs.</p></article>
+          <article class="card step reveal"><span class="icon-box"><svg><use href="#i-palette" /></svg></span><h3>Make it yours</h3><p>Add text, filters and stickers, then preview your case in 3D.</p></article>
+          <article class="card step reveal"><span class="icon-box"><svg><use href="#i-printer" /></svg></span><h3>Pay &amp; print</h3><p>Tap to pay and watch the robot print and seal your case — ready in minutes.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- DESIGNS -->
+    <section class="section" id="designs">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">Design collections</span>
+          <h2>No photo? <span class="grad-text">No problem.</span></h2>
+          <p>Browse ready-made collections on the machine — refreshed every month with artist collaborations.</p>
+        </div>
+        <div class="tabs reveal" data-tabs="#menu-grid" role="tablist">
+          <button class="tab active" data-filter="all" role="tab" aria-selected="true">All</button>
+          <button class="tab" data-filter="abstract" role="tab" aria-selected="false">Abstract</button>
+          <button class="tab" data-filter="minimal" role="tab" aria-selected="false">Minimal</button>
+          <button class="tab" data-filter="nature" role="tab" aria-selected="false">Nature</button>
+          <button class="tab" data-filter="pop" role="tab" aria-selected="false">Pop &amp; Retro</button>
+        </div>
+        <div class="menu-grid" id="menu-grid"></div>
+      </div>
+    </section>
+
+    <!-- BUILDER -->
+    <section class="section" id="build">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">Design yours</span>
+          <h2>Preview your case <span class="grad-text">right now</span></h2>
+          <p>Try a photo or pattern here. Your image stays in your browser — nothing is uploaded.</p>
+        </div>
+        <div class="builder">
+          <div class="builder-preview reveal">
+            <div class="case" id="preview-case"><span class="mag"></span><span class="gloss"></span><span class="txt" id="case-text"></span></div>
+            <div class="summary" aria-live="polite">
+              <div><b id="sum-name">iPhone 16 Pro</b><small id="sum-desc">Slim · Glossy</small></div>
+              <div class="total" id="sum-total">—</div>
+            </div>
+          </div>
+
+          <form class="reveal" id="builder" onsubmit="return false">
+            <div class="opt-group">
+              <label for="model">Phone model</label>
+              <div class="field"><select id="model" name="model" class="text-input"></select></div>
+            </div>
+            <div class="opt-group">
+              <span class="opt-label">Your design</span>
+              <label class="upload" id="drop">
+                <input type="file" id="photo" accept="image/*" />
+                <svg><use href="#i-upload" /></svg>
+                <span><b>Upload a photo</b><small>Drag &amp; drop or click · JPG, PNG, HEIC</small></span>
+              </label>
+              <p class="opt-label" style="margin:18px 0 10px;font-size:.9rem">…or pick a pattern</p>
+              <div class="opt-row" id="opt-patterns"></div>
+            </div>
+            <div class="opt-group">
+              <label for="case-text-input">Add text <span class="limit-note" style="font-size:.8rem;color:var(--muted);font-weight:400">optional · max 20 characters</span></label>
+              <input id="case-text-input" name="text" class="text-input" maxlength="20" placeholder="Your name, a date, a quote…" />
+            </div>
+            <div class="opt-group">
+              <span class="opt-label">Case type</span>
+              <div class="opt-row">
+                <label class="opt"><input type="radio" name="type" value="slim" checked />Slim</label>
+                <label class="opt"><input type="radio" name="type" value="tough" />Tough <em>+drop protection</em></label>
+                <label class="opt"><input type="radio" name="type" value="magsafe" />MagSafe</label>
+              </div>
+            </div>
+            <div class="opt-group">
+              <span class="opt-label">Finish</span>
+              <div class="opt-row">
+                <label class="opt"><input type="radio" name="finish" value="glossy" checked />Glossy</label>
+                <label class="opt"><input type="radio" name="finish" value="matte" />Matte</label>
+                <label class="opt"><input type="radio" name="finish" value="clear" />Clear</label>
+              </div>
+            </div>
+            <button type="button" class="btn btn-primary" id="save-case">Get print code <svg><use href="#i-arrow-ur" /></svg></button>
+            <p class="form-note" id="save-note"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- QUALITY -->
+    <section class="section">
+      <div class="container split">
+        <div class="reveal">
+          <span class="eyebrow">Print quality</span>
+          <h2>Studio-grade prints. <span class="grad-text">Made on the spot.</span></h2>
+          <p>ZnapCase uses UV-cured inks on premium polycarbonate and TPU blanks for sharp, vibrant colour that won't fade or peel.</p>
+          <ul class="check-list">
+            <li>1440 dpi UV printing with a protective top coat</li>
+            <li>Precision-fit cases for 60+ iPhone, Samsung &amp; Pixel models</li>
+            <li>Raised edges to protect screen and camera</li>
+            <li>Wireless charging and MagSafe compatible</li>
+          </ul>
+          <div class="models"><span>iPhone 13 – 17</span><span>Galaxy S23 – S25</span><span>Galaxy A series</span><span>Pixel 8 – 10</span><span>+ more</span></div>
+        </div>
+        <div class="panel reveal">
+          <h3>What happens in 5 minutes</h3>
+          <div class="timeline">
+            <div><strong>60s</strong><span>Upload &amp; design</span></div>
+            <div><strong>3 min</strong><span>UV print &amp; cure</span></div>
+            <div><strong>30s</strong><span>Seal &amp; deliver</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VENUES -->
+    <section class="section">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">Where you'll find us</span>
+          <h2>Personalise wherever <span class="grad-text">you shop</span></h2>
+        </div>
+        <div class="venues" id="venues"></div>
+      </div>
+    </section>
+
+    <!-- LOCATIONS -->
+    <section class="section" id="locations">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">Locations</span>
+          <h2>Find a <span class="grad-text">ZnapCase</span> near you</h2>
+          <p>Live status for every machine, including which models are in stock.</p>
+        </div>
+        <div class="locator reveal">
+          <div>
+            <label class="search"><svg><use href="#i-search" /></svg><input id="loc-search" type="search" placeholder="Search by venue, area or type…" aria-label="Search locations" /></label>
+            <ul class="loc-list" id="loc-list"></ul>
+          </div>
+          <div class="map" id="map">
+            <svg class="roads" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+              <path d="M0 55 C 20 40, 45 62, 62 46 S 88 30, 100 38" stroke="rgba(167,123,255,.35)" stroke-width=".8" fill="none" />
+              <path d="M38 0 C 30 30, 46 70, 36 100" stroke="rgba(160,190,255,.18)" stroke-width=".6" fill="none" />
+              <path d="M0 20 L100 26" stroke="rgba(160,190,255,.14)" stroke-width=".5" fill="none" />
+              <path d="M78 0 C 82 40, 72 70, 80 100" stroke="rgba(160,190,255,.14)" stroke-width=".5" fill="none" />
+            </svg>
+            <div class="map-card"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GIFT CTA -->
+    <section class="section">
+      <div class="container">
+        <div class="cta-band reveal">
+          <span class="eyebrow">Gift a ZnapCase</span>
+          <h2>The most personal gift <span class="grad-text">in 5 minutes flat.</span></h2>
+          <p>Buy a digital gift code and let them design their own case at any ZnapCase machine.</p>
+          <div class="store-badges">
+            <a href="#" class="btn btn-primary">Buy a gift code <svg><use href="#i-arrow" /></svg></a>
+            <a href="#partner" class="btn btn-secondary">Corporate &amp; bulk orders</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PARTNER -->
+    <section class="section" id="partner">
+      <div class="container split">
+        <div class="reveal">
+          <span class="eyebrow">Host ZnapCase</span>
+          <h2>High-margin personalisation. <span class="grad-text">Fully automated.</span></h2>
+          <p>ZnapCase needs about 1.2 m² and a power outlet. It drives repeat visits and impulse purchases — and we take care of blanks, ink and maintenance.</p>
+          <ul class="check-list">
+            <li>Revenue share or lease options</li>
+            <li>Remote monitoring &amp; automatic blank restocking</li>
+            <li>Brand your own design collections for events</li>
+            <li>Ideal for malls, airports, campuses and tourist spots</li>
+          </ul>
+        </div>
+        <form class="panel form reveal" data-partner novalidate>
+          <div class="field"><label for="p-name">Full name</label><input id="p-name" name="name" autocomplete="name" /></div>
+          <div class="field"><label for="p-email">Work email</label><input id="p-email" name="email" type="email" autocomplete="email" /></div>
+          <div class="field"><label for="p-company">Company / venue</label><input id="p-company" name="company" autocomplete="organization" /></div>
+          <div class="field"><label for="p-venue">Venue type</label>
+            <select id="p-venue" name="venue"><option value="">Select…</option><option>Mall / retail</option><option>Electronics store</option><option>Airport / transit</option><option>Campus / university</option><option>Tourist attraction</option><option>Other</option></select>
+          </div>
+          <div class="field full"><label for="p-msg">Tell us about your space</label><textarea id="p-msg" name="message" rows="4" placeholder="Foot traffic, location, opening hours…"></textarea></div>
+          <button class="btn btn-primary" type="submit">Request a proposal <svg><use href="#i-arrow" /></svg></button>
+          <p class="form-note" role="status"></p>
+        </form>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section" id="faq">
+      <div class="container">
+        <div class="section-head center reveal">
+          <span class="eyebrow">FAQ</span>
+          <h2>Questions? <span class="grad-text">Snap answers.</span></h2>
+        </div>
+        <div class="faq reveal">
+          <details open><summary>How do I get my photo onto the machine?</summary><p>Scan the QR code on the screen with your phone and pick a photo — it transfers securely in seconds. Photos are deleted from the machine right after printing.</p></details>
+          <details><summary>Which phones are supported?</summary><p>60+ models from Apple, Samsung and Google, with new models added shortly after launch. The machine only shows models that are currently in stock.</p></details>
+          <details><summary>Will the print scratch or fade?</summary><p>No. Designs are UV-printed and sealed with a protective top coat that resists scratches, fading and peeling in everyday use.</p></details>
+          <details><summary>Can I use copyrighted images or logos?</summary><p>Please only upload images you own or have permission to use. Prints that infringe trademarks or copyright may be declined.</p></details>
+          <details><summary>What if my case comes out wrong?</summary><p>Tap “Help” on the machine or scan the support QR code. We'll reprint or refund — no questions asked.</p></details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a href="#top" class="brand"><span class="brand-mark"><svg><use href="#i-phone" /></svg></span><span>ZnapCase<small>by Ravens Tech</small></span></a>
+          <p style="margin-top:16px;max-width:320px">Design and print your phone case in minutes. Innovation in automated retail.</p>
+          <div class="socials">
+            <a href="#" aria-label="LinkedIn"><svg><use href="#i-linkedin" /></svg></a>
+            <a href="#" aria-label="YouTube"><svg><use href="#i-youtube" /></svg></a>
+            <a href="#" aria-label="Instagram"><svg><use href="#i-instagram" /></svg></a>
+            <a href="#" aria-label="Facebook"><svg><use href="#i-facebook" /></svg></a>
+          </div>
+        </div>
+        <div><h4>ZnapCase</h4><ul><li><a href="#designs">Designs</a></li><li><a href="#build">Design yours</a></li><li><a href="#locations">Locations</a></li><li><a href="#faq">FAQ</a></li></ul></div>
+        <div><h4>Business</h4><ul><li><a href="#partner">Host a machine</a></li><li><a href="#partner">Corporate gifts</a></li><li><a href="#partner">Event activations</a></li><li><a href="#partner">Contact sales</a></li></ul></div>
+        <div><h4>Ravens Tech</h4><ul><li><a href="../index.html">All products</a></li><li><a href="../beanbox/index.html">Bean Box</a></li><li><a href="../frosti/index.html">Frosti</a></li><li><a href="#">Support</a></li></ul></div>
+      </div>
+      <div class="footer-bottom">
+        <span>© <span data-year></span> Ravens Tech. All rights reserved.</span>
+        <div class="sister"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Cookies</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="modal" role="dialog" aria-modal="true" aria-label="ZnapCase video">
+    <div class="modal-box">
+      <button class="modal-close" aria-label="Close">✕</button>
+      <div><span class="icon-box" style="margin-inline:auto"><svg><use href="#i-play" /></svg></span><h3>ZnapCase in action</h3><p>Drop your product video here (e.g. a YouTube/Vimeo embed or an MP4).</p></div>
+    </div>
+  </div>
+
+  <script>
+    window.SITE = {
+      currency: { code: "USD", locale: "en-US" },
+      venues: [
+        ["mall", "Malls & Retail", "#3a2c6b", "#14203a"],
+        ["phone", "Electronics Stores", "#2c1d6b", "#120f2a"],
+        ["plane", "Airports & Transit", "#20406b", "#0b1220"],
+        ["campus", "Campuses", "#4a1d6b", "#160f2c"],
+        ["events", "Tourist Spots & Events", "#6b2050", "#1a0f22"],
+      ],
+      locations: [
+        { name: "City Centre Mall", address: "Level 2, near Electronics", type: "Mall", hours: "10am – 10pm", x: 36, y: 44 },
+        { name: "International Airport", address: "Departures, Duty Free", type: "Airport", hours: "Open 24h", x: 84, y: 30 },
+        { name: "University Campus", address: "Student Union", type: "Campus", hours: "8am – 11pm", x: 20, y: 70, busy: true },
+        { name: "Tech Hub Store", address: "Main Street", type: "Retail", hours: "9am – 9pm", x: 60, y: 58 },
+        { name: "Old Town Square", address: "Visitor Centre", type: "Tourist spot", hours: "9am – 8pm", x: 48, y: 22 },
+      ],
+    };
+  </script>
+  <script src="../shared/icons.js"></script>
+  <script src="../shared/main.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

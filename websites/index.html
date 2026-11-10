@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ravens Tech — Automated Retail</title>
+  <meta name="description" content="Ravens Tech builds robotic self-service machines: Bean Box coffee, Frosti ice cream and ZnapCase phone case printing." />
+  <meta name="theme-color" content="#0b0b13" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="shared/styles.css" />
+  <style>
+    .products { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gutter); }
+    .product { padding: 36px 32px; display: flex; flex-direction: column; gap: 6px; min-height: 340px; }
+    .product .icon-box { width: 64px; height: 64px; }
+    .product h2 { font-size: 2rem; margin-bottom: 4px; }
+    .product .sub { color: var(--text); font-weight: 500; margin-bottom: 8px; }
+    .product p { flex: 1; }
+    .product .btn { align-self: flex-start; }
+    .p-bean { --accent: #ffb15c; --accent-rgb: 255, 177, 92; }
+    .p-frosti { --accent: #48cfff; --accent-rgb: 72, 207, 255; }
+    .p-znap { --accent: #a77bff; --accent-rgb: 167, 123, 255; }
+    .p-znap .btn-primary { color: #fff; }
+    @media (max-width: 1080px) { .products { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <div class="ambient"></div>
+  <header class="site-header">
+    <nav class="container nav" aria-label="Main">
+      <a href="#" class="brand"><span class="brand-mark"><svg><use href="#i-logo" /></svg></span><span>RAVENS TECH</span></a>
+      <div class="nav-cta"><a href="mailto:hello@example.com" class="btn btn-secondary">Contact us</a></div>
+    </nav>
+  </header>
+  <main>
+    <section class="hero" style="padding-bottom:40px">
+      <div class="grid-bg"></div>
+      <div class="container">
+        <span class="eyebrow">Automated Retail Solutions</span>
+        <h1>Innovation you can <span class="grad-text">experience.</span></h1>
+        <p class="lead" style="font-size:1.15rem;max-width:620px">Next-generation robotic dispensers and customization machines that bring popular experiences to life — anytime, anywhere.</p>
+      </div>
+    </section>
+    <section class="container products" style="padding-bottom:80px">
+      <a href="beanbox/index.html" class="card product p-bean"><span class="icon-box"><svg><use href="#i-cup" /></svg></span><h2>Bean Box</h2><span class="sub">Robotic Coffee Dispenser</span><p>Barista-quality coffee, made automatically. Fresh, fast and customizable drinks for any location.</p><span class="btn btn-primary">Explore Bean Box <svg><use href="#i-arrow" /></svg></span></a>
+      <a href="frosti/index.html" class="card product p-frosti"><span class="icon-box"><svg><use href="#i-cone" /></svg></span><h2>Frosti</h2><span class="sub">Robotic Ice Cream Dispenser</span><p>A fully automated ice cream experience with fresh flavours, fast service and consistent quality.</p><span class="btn btn-primary">Explore Frosti <svg><use href="#i-arrow" /></svg></span></a>
+      <a href="znapcase/index.html" class="card product p-znap"><span class="icon-box"><svg><use href="#i-phone" /></svg></span><h2>ZnapCase</h2><span class="sub">Phone Case Customization Machine</span><p>Design, print and get your own custom phone case in minutes.</p><span class="btn btn-primary">Explore ZnapCase <svg><use href="#i-arrow" /></svg></span></a>
+    </section>
+  </main>
+  <footer class="site-footer" style="margin-top:0">
+    <div class="container footer-bottom" style="border:0;padding-top:0"><span>© <span data-year></span> Ravens Tech · Innovation in Automated Retail</span></div>
+  </footer>
+  <script src="shared/icons.js"></script>
+  <script src="shared/main.js"></script>
+</body>
+</html>

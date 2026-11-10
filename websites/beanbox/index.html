@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bean Box — Robotic Coffee, Anytime</title>
+  <meta name="description" content="Bean Box is a robotic coffee kiosk that grinds, brews and serves barista-quality coffee in about 60 seconds — 24/7. Find a Bean Box near you or host one at your venue." />
+  <meta name="theme-color" content="#0b0b13" />
+  <meta property="og:title" content="Bean Box — Robotic Coffee, Anytime" />
+  <meta property="og:description" content="Barista-quality coffee, made by robots. Freshly ground, perfectly brewed, ready in 60 seconds." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>☕</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../shared/styles.css" />
+  <style>
+    body { --accent: #ffb15c; --accent-2: #ff6b3d; --accent-rgb: 255, 177, 92; }
+    .steam path { animation: steam 3s ease-in-out infinite; opacity: 0; }
+    .steam path:nth-child(2) { animation-delay: 1s; }
+    .steam path:nth-child(3) { animation-delay: 2s; }
+    @keyframes steam { 0% { opacity: 0; transform: translateY(8px); } 40% { opacity: .8; } 100% { opacity: 0; transform: translateY(-14px); } }
+    .arm { transform-origin: 70px 230px; animation: arm 5s ease-in-out infinite; }
+    @keyframes arm { 50% { transform: rotate(-8deg); } }
+    .bean-thumb { background: radial-gradient(circle at 50% 60%, rgba(255,177,92,.25), transparent 65%), linear-gradient(160deg, #2a1a10, #120b08); }
+    .iced-thumb { background: radial-gradient(circle at 50% 60%, rgba(72,207,255,.22), transparent 65%), linear-gradient(160deg, #10243a, #0b1220); }
+    #cup-liquid { transition: fill .5s, y .5s, height .5s; }
+    #cup-foam, #cup-ice, #cup-syrup { transition: opacity .4s; }
+    .spec-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .spec { padding: 20px; border-radius: 14px; background: rgba(11,11,19,.5); border: 1px solid var(--line); }
+    .spec strong { display: block; font-family: var(--font-head); font-size: 1.8rem; color: var(--accent); }
+    .spec span { font-size: .85rem; color: var(--muted); }
+  </style>
+</head>
+<body>
+  <div class="ambient"></div>
+
+  <header class="site-header">
+    <nav class="container nav" aria-label="Main">
+      <a href="#top" class="brand">
+        <span class="brand-mark"><svg><use href="#i-cup" /></svg></span>
+        <span>Bean Box<small>by Ravens Tech</small></span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#how">How it works</a></li>
+        <li><a href="#build">Build your cup</a></li>
+        <li><a href="#locations">Locations</a></li>
+        <li><a href="#partner">Host a Bean Box</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+      <div class="nav-cta">
+        <a href="#partner" class="btn btn-secondary">Partner with us</a>
+        <a href="#locations" class="btn btn-primary">Find a Bean Box <svg><use href="#i-arrow" /></svg></a>
+      </div>
+      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </nav>
+  </header>
+
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="grid-bg"></div>
+      <div class="container hero-grid">
+        <div>
+          <span class="eyebrow">Robotic Coffee Kiosk</span>
+          <h1>Barista-quality coffee. <span class="grad-text">Made by robots.</span></h1>
+          <p class="lead">Freshly ground beans, a precision robotic barista and your exact order — brewed in about 60 seconds, any hour of the day.</p>
+          <div class="hero-actions">
+            <a href="#menu" class="btn btn-primary">See the menu <svg><use href="#i-arrow" /></svg></a>
+            <button class="btn btn-secondary btn-play" data-video><span class="play-dot"><svg width="10" height="10"><use href="#i-play" /></svg></span> Watch it brew</button>
+          </div>
+          <div class="hero-stats">
+            <div class="stat"><strong data-count="60" data-suffix="s">60s</strong><span>Average brew time</span></div>
+            <div class="stat"><strong>24/7</strong><span>Always open</span></div>
+            <div class="stat"><strong data-count="30" data-suffix="+">30+</strong><span>Drinks on the menu</span></div>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="halo"></div>
+          <div class="ring"></div>
+          <svg class="machine" viewBox="0 0 320 480" role="img" aria-label="Bean Box robotic coffee kiosk">
+            <defs>
+              <linearGradient id="bb-body" x1="0" x2="1"><stop offset="0" stop-color="#1b1a22" /><stop offset=".5" stop-color="#2a2733" /><stop offset="1" stop-color="#141319" /></linearGradient>
+              <linearGradient id="bb-wood" x1="0" x2="1"><stop offset="0" stop-color="#5a3520" /><stop offset=".5" stop-color="#8a5532" /><stop offset="1" stop-color="#4a2a18" /></linearGradient>
+              <radialGradient id="bb-win" cx=".5" cy=".3" r=".9"><stop offset="0" stop-color="#ffcf8f" stop-opacity=".55" /><stop offset=".6" stop-color="#3a2416" stop-opacity=".9" /><stop offset="1" stop-color="#140c08" /></radialGradient>
+            </defs>
+            <rect x="24" y="30" width="272" height="430" rx="20" fill="url(#bb-body)" stroke="#ffb15c" stroke-opacity=".6" stroke-width="2" />
+            <rect x="24" y="30" width="272" height="56" rx="20" fill="#0f0e14" />
+            <path d="M44 58h10a8 8 0 0 1 0 0v6a10 10 0 0 1-10 10h-2a10 10 0 0 1-10-10v-6zM54 60h3a3.5 3.5 0 0 1 0 7h-3" fill="none" stroke="#ffb15c" stroke-width="2.5" transform="translate(6 -4)" />
+            <text x="80" y="66" fill="#f5f8ff" font-family="Space Grotesk, sans-serif" font-weight="700" font-size="24">Bean Box</text>
+            <rect x="44" y="104" width="170" height="226" rx="12" fill="url(#bb-win)" stroke="#ffb15c" stroke-opacity=".8" stroke-width="2" />
+            <rect x="44" y="104" width="170" height="226" rx="12" fill="none" stroke="#ffd9a8" stroke-opacity=".25" stroke-width="8" />
+            <!-- robot arm -->
+            <g class="arm">
+              <rect x="56" y="290" width="32" height="30" rx="6" fill="#e9edf5" />
+              <path d="M72 290 L96 210 L150 186" stroke="#f5f8ff" stroke-width="14" stroke-linecap="round" fill="none" />
+              <circle cx="96" cy="210" r="10" fill="#cfd6e4" />
+              <circle cx="150" cy="186" r="8" fill="#cfd6e4" />
+              <path d="M150 186 L170 206" stroke="#e9edf5" stroke-width="8" stroke-linecap="round" />
+              <path d="M164 210 l14 0 l-2 8 l-10 0z" fill="#9aa4b8" />
+            </g>
+            <!-- cup -->
+            <path d="M150 290h34l-4 34h-26z" fill="#f5f0e8" />
+            <rect x="148" y="286" width="38" height="6" rx="2" fill="#e7ddd0" />
+            <g class="steam" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round">
+              <path d="M160 278c-4-6 4-10 0-16" /><path d="M168 278c-4-6 4-10 0-16" /><path d="M176 278c-4-6 4-10 0-16" />
+            </g>
+            <!-- side panel -->
+            <rect x="228" y="104" width="50" height="86" rx="8" fill="#0b0b13" stroke="#ffb15c" stroke-opacity=".5" />
+            <rect x="234" y="112" width="38" height="8" rx="2" fill="#ffb15c" opacity=".8" />
+            <rect x="234" y="126" width="38" height="20" rx="3" fill="#ffb15c" opacity=".25" />
+            <rect x="234" y="150" width="17" height="14" rx="3" fill="#48cfff" opacity=".5" />
+            <rect x="255" y="150" width="17" height="14" rx="3" fill="#ffb15c" opacity=".5" />
+            <rect x="234" y="168" width="38" height="14" rx="3" fill="#3ee69a" opacity=".6" />
+            <rect x="232" y="202" width="42" height="28" rx="6" fill="#1e1d26" stroke="#ffb15c" stroke-opacity=".4" />
+            <path d="M246 216a8 8 0 0 1 14 0M249 220a4 4 0 0 1 8 0" stroke="#ffb15c" fill="none" stroke-width="1.6" />
+            <rect x="236" y="292" width="34" height="38" rx="6" fill="#0b0b13" stroke="#ffb15c" stroke-opacity=".4" />
+            <!-- wood base -->
+            <rect x="24" y="350" width="272" height="110" rx="0" fill="url(#bb-wood)" />
+            <path d="M24 350h272v90a20 20 0 0 1-20 20H44a20 20 0 0 1-20-20z" fill="url(#bb-wood)" />
+            <path d="M40 372h240M40 398h240M40 424h240" stroke="#2a160b" stroke-opacity=".35" />
+            <rect x="24" y="346" width="272" height="5" fill="#ffb15c" opacity=".9" />
+            <rect x="24" y="346" width="272" height="5" fill="#ffb15c" filter="blur(4px)" />
+          </svg>
+          <div class="float-chip chip-a"><span class="ico"><svg><use href="#i-clock" /></svg></span><div><b>Ready in 58s</b><span>Oat flat white · Large</span></div></div>
+          <div class="float-chip chip-b"><span class="ico"><svg><use href="#i-star" /></svg></span><div><b>4.9 / 5</b><span>12k+ cups rated</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>Freshly ground per cup</span><span>Specialty-grade beans</span><span>Oat · Almond · Dairy</span><span>Hot &amp; iced</span><span>Card · Mobile · QR pay</span><span>Open 24/7</span>
+      </div>
+    </div>
+
+    <!-- HOW IT WORKS -->
+    <section class="section" id="how">
+      <div class="container">
+        <div class="section-head center reveal">
+          <span class="eyebrow">How it works</span>
+          <h2>From tap to <span class="grad-text">first sip</span> in four steps</h2>
+          <p>No queues, no guesswork. Every cup is made to order by a robotic barista calibrated to the same recipe every time.</p>
+        </div>
+        <div class="grid-4 steps">
+          <article class="card step reveal"><span class="icon-box"><svg><use href="#i-tap" /></svg></span><h3>Choose</h3><p>Pick your drink on the touchscreen — or order ahead in the app and skip the wait.</p></article>
+          <article class="card step reveal"><span class="icon-box"><svg><use href="#i-card" /></svg></span><h3>Pay</h3><p>Tap a card, phone or scan a QR code. Contactless, fast and secure.</p></article>
+          <article class="card step reveal"><span class="icon-box"><svg><use href="#i-robot" /></svg></span><h3>Watch</h3><p>The robot grinds, tamps, pulls and steams in front of you — real theatre, real espresso.</p></article>
+          <article class="card step reveal"><span class="icon-box"><svg><use href="#i-cup" /></svg></span><h3>Enjoy</h3><p>Lift the hatch and grab your cup. Lid, sleeve and stirrer are already waiting.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- MENU -->
+    <section class="section" id="menu">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">The menu</span>
+          <h2>Café classics, <span class="grad-text">perfected by precision</span></h2>
+          <p>Specialty beans, dialled-in extraction and silky microfoam. Menus vary slightly by location.</p>
+        </div>
+        <div class="tabs reveal" data-tabs="#menu-grid" role="tablist">
+          <button class="tab active" data-filter="all" role="tab" aria-selected="true">All drinks</button>
+          <button class="tab" data-filter="espresso" role="tab" aria-selected="false">Espresso bar</button>
+          <button class="tab" data-filter="milk" role="tab" aria-selected="false">Milk drinks</button>
+          <button class="tab" data-filter="iced" role="tab" aria-selected="false">Iced</button>
+          <button class="tab" data-filter="special" role="tab" aria-selected="false">Specials</button>
+        </div>
+        <div class="menu-grid" id="menu-grid"></div>
+      </div>
+    </section>
+
+    <!-- BUILDER -->
+    <section class="section" id="build">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">Build your cup</span>
+          <h2>Your coffee, <span class="grad-text">exactly your way</span></h2>
+          <p>Every option on the machine, right here. Save your favourite and reorder it in one tap in the app.</p>
+        </div>
+        <div class="builder">
+          <div class="builder-preview reveal">
+            <svg viewBox="0 0 200 240" width="260" aria-hidden="true">
+              <defs>
+                <clipPath id="cup-clip"><path d="M40 60h120l-14 150a14 14 0 0 1-14 12H68a14 14 0 0 1-14-12z" /></clipPath>
+                <linearGradient id="glass" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity=".18" /><stop offset=".3" stop-color="#fff" stop-opacity=".05" /><stop offset="1" stop-color="#fff" stop-opacity=".12" /></linearGradient>
+              </defs>
+              <g clip-path="url(#cup-clip)">
+                <rect x="30" y="60" width="140" height="170" fill="#0b0b13" opacity=".5" />
+                <rect id="cup-liquid" x="30" y="110" width="140" height="130" fill="#6b3f22" />
+                <rect id="cup-syrup" x="30" y="200" width="140" height="30" fill="#c77b2e" opacity="0" />
+                <rect id="cup-foam" x="30" y="96" width="140" height="18" fill="#efe2cf" opacity="0" />
+                <g id="cup-ice" opacity="0" fill="#dff6ff" fill-opacity=".35" stroke="#fff" stroke-opacity=".5">
+                  <rect x="60" y="130" width="26" height="26" rx="4" transform="rotate(12 73 143)" />
+                  <rect x="100" y="150" width="28" height="28" rx="4" transform="rotate(-10 114 164)" />
+                  <rect x="76" y="176" width="24" height="24" rx="4" transform="rotate(20 88 188)" />
+                </g>
+              </g>
+              <path d="M40 60h120l-14 150a14 14 0 0 1-14 12H68a14 14 0 0 1-14-12z" fill="url(#glass)" stroke="#f5f8ff" stroke-opacity=".5" stroke-width="2" />
+              <rect x="34" y="52" width="132" height="10" rx="4" fill="#f5f8ff" opacity=".2" />
+            </svg>
+            <div class="summary" aria-live="polite">
+              <div><b id="sum-name">Latte</b><small id="sum-desc">Medium · Whole milk · 2 shots</small></div>
+              <div class="total" id="sum-total">—</div>
+            </div>
+          </div>
+
+          <form class="reveal" id="builder" onsubmit="return false">
+            <div class="opt-group">
+              <span class="opt-label">Drink</span>
+              <div class="opt-row" id="opt-base"></div>
+            </div>
+            <div class="opt-group">
+              <span class="opt-label">Size</span>
+              <div class="opt-row">
+                <label class="opt"><input type="radio" name="size" value="S" />Small <em>8oz</em></label>
+                <label class="opt"><input type="radio" name="size" value="M" checked />Medium <em>12oz</em></label>
+                <label class="opt"><input type="radio" name="size" value="L" />Large <em>16oz</em></label>
+              </div>
+            </div>
+            <div class="opt-group">
+              <span class="opt-label">Milk</span>
+              <div class="opt-row">
+                <label class="opt"><input type="radio" name="milk" value="Whole milk" checked /><span class="swatch" style="background:#f8f4ec"></span>Whole</label>
+                <label class="opt"><input type="radio" name="milk" value="Oat milk" /><span class="swatch" style="background:#e6d3b0"></span>Oat</label>
+                <label class="opt"><input type="radio" name="milk" value="Almond milk" /><span class="swatch" style="background:#d9bf9a"></span>Almond</label>
+                <label class="opt"><input type="radio" name="milk" value="Skim milk" /><span class="swatch" style="background:#eef3f8"></span>Skim</label>
+              </div>
+            </div>
+            <div class="opt-group">
+              <label for="shots">Strength — <span id="shots-val">2 shots</span></label>
+              <input type="range" id="shots" name="shots" min="1" max="4" value="2" />
+              <div class="range-labels"><span>Mellow</span><span>Balanced</span><span>Bold</span><span>Rocket</span></div>
+            </div>
+            <div class="opt-group">
+              <span class="opt-label">Syrup</span>
+              <div class="opt-row">
+                <label class="opt"><input type="radio" name="syrup" value="" checked />None</label>
+                <label class="opt"><input type="radio" name="syrup" value="Vanilla" />Vanilla</label>
+                <label class="opt"><input type="radio" name="syrup" value="Caramel" />Caramel</label>
+                <label class="opt"><input type="radio" name="syrup" value="Hazelnut" />Hazelnut</label>
+              </div>
+            </div>
+            <div class="opt-group">
+              <span class="opt-label">Temperature</span>
+              <div class="opt-row">
+                <label class="opt"><input type="radio" name="temp" value="hot" checked />🔥 Hot</label>
+                <label class="opt"><input type="radio" name="temp" value="iced" />🧊 Iced</label>
+              </div>
+            </div>
+            <button type="button" class="btn btn-primary" id="save-cup">Save to app <svg><use href="#i-arrow-ur" /></svg></button>
+            <p class="form-note" id="save-note"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- QUALITY -->
+    <section class="section">
+      <div class="container split">
+        <div class="reveal">
+          <span class="eyebrow">Bean to cup</span>
+          <h2>Robot precision. <span class="grad-text">Craft-roaster beans.</span></h2>
+          <p>We partner with specialty roasters and load every Bean Box with beans roasted within the last 21 days. The robot does what great baristas do — just the same way, every single time.</p>
+          <ul class="check-list">
+            <li>Whole beans ground fresh for every cup — never pre-ground</li>
+            <li>Temperature, dose and pressure logged on every shot</li>
+            <li>Automatic milk-line cleaning cycles throughout the day</li>
+            <li>Recyclable cups and compostable grounds collection</li>
+          </ul>
+          <a href="#menu" class="btn btn-secondary">Explore the menu <svg><use href="#i-arrow" /></svg></a>
+        </div>
+        <div class="panel reveal">
+          <div class="spec-grid">
+            <div class="spec"><strong>92°C</strong><span>Brew temperature</span></div>
+            <div class="spec"><strong>9 bar</strong><span>Extraction pressure</span></div>
+            <div class="spec"><strong>18g</strong><span>Double-shot dose</span></div>
+            <div class="spec"><strong data-count="300" data-suffix="+">300+</strong><span>Cups per day capacity</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VENUES -->
+    <section class="section">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">Where you'll find us</span>
+          <h2>Coffee wherever <span class="grad-text">people are</span></h2>
+        </div>
+        <div class="venues" id="venues"></div>
+      </div>
+    </section>
+
+    <!-- LOCATIONS -->
+    <section class="section" id="locations">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">Locations</span>
+          <h2>Find a <span class="grad-text">Bean Box</span> near you</h2>
+          <p>Live status for every machine — so you know it's brewing before you walk over.</p>
+        </div>
+        <div class="locator reveal">
+          <div>
+            <label class="search"><svg><use href="#i-search" /></svg><input id="loc-search" type="search" placeholder="Search by venue, area or type…" aria-label="Search locations" /></label>
+            <ul class="loc-list" id="loc-list"></ul>
+          </div>
+          <div class="map" id="map">
+            <svg class="roads" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+              <path d="M0 62 C 25 55, 40 70, 60 52 S 90 40, 100 44" stroke="rgba(255,177,92,.25)" stroke-width=".8" fill="none" />
+              <path d="M30 0 C 34 30, 26 60, 40 100" stroke="rgba(160,190,255,.18)" stroke-width=".6" fill="none" />
+              <path d="M0 22 L100 30" stroke="rgba(160,190,255,.14)" stroke-width=".5" fill="none" />
+              <path d="M72 0 C 70 40, 80 70, 76 100" stroke="rgba(160,190,255,.14)" stroke-width=".5" fill="none" />
+            </svg>
+            <div class="map-card"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- APP CTA -->
+    <section class="section">
+      <div class="container">
+        <div class="cta-band reveal">
+          <span class="eyebrow">The Bean Box app</span>
+          <h2>Order ahead. <span class="grad-text">Skip the wait.</span></h2>
+          <p>Save your perfect cup, collect loyalty beans on every order and get a free drink on your 10th.</p>
+          <div class="store-badges">
+            <a href="#" class="btn btn-primary"><svg><use href="#i-apple" /></svg> App Store</a>
+            <a href="#" class="btn btn-secondary"><svg><use href="#i-gplay" /></svg> Google Play</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PARTNER -->
+    <section class="section" id="partner">
+      <div class="container split">
+        <div class="reveal">
+          <span class="eyebrow">Host a Bean Box</span>
+          <h2>Premium coffee for your venue. <span class="grad-text">Zero staff.</span></h2>
+          <p>Bean Box needs about 1.5 m² and a standard power outlet. We install, stock, clean and maintain it — you earn from every cup.</p>
+          <ul class="check-list">
+            <li>Revenue share or lease options</li>
+            <li>Remote monitoring &amp; automatic restock alerts</li>
+            <li>Branded wraps and custom menus available</li>
+            <li>Installed and live in under two weeks</li>
+          </ul>
+        </div>
+        <form class="panel form reveal" data-partner novalidate>
+          <div class="field"><label for="p-name">Full name</label><input id="p-name" name="name" autocomplete="name" /></div>
+          <div class="field"><label for="p-email">Work email</label><input id="p-email" name="email" type="email" autocomplete="email" /></div>
+          <div class="field"><label for="p-company">Company / venue</label><input id="p-company" name="company" autocomplete="organization" /></div>
+          <div class="field"><label for="p-venue">Venue type</label>
+            <select id="p-venue" name="venue"><option value="">Select…</option><option>Mall / retail</option><option>Hotel / resort</option><option>Campus / university</option><option>Airport / transit</option><option>Office / co-working</option><option>Hospital</option><option>Other</option></select>
+          </div>
+          <div class="field full"><label for="p-msg">Tell us about your space</label><textarea id="p-msg" name="message" rows="4" placeholder="Foot traffic, location, opening hours…"></textarea></div>
+          <button class="btn btn-primary" type="submit">Request a proposal <svg><use href="#i-arrow" /></svg></button>
+          <p class="form-note" role="status"></p>
+        </form>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section" id="faq">
+      <div class="container">
+        <div class="section-head center reveal">
+          <span class="eyebrow">FAQ</span>
+          <h2>Good questions, <span class="grad-text">quick answers</span></h2>
+        </div>
+        <div class="faq reveal">
+          <details open><summary>How long does a drink take?</summary><p>Most drinks are ready in 45–75 seconds. Iced and multi-shot drinks can take slightly longer.</p></details>
+          <details><summary>Is the coffee really fresh?</summary><p>Yes. Whole beans are ground for each cup and milk is kept refrigerated at 2–4°C inside the machine. Every Bean Box is restocked and inspected on a regular schedule.</p></details>
+          <details><summary>Which payment methods are accepted?</summary><p>Contactless cards, Apple Pay, Google Pay and QR-code payments via the app. Supported mobile-money options vary by country.</p></details>
+          <details><summary>Do you have dairy-free options?</summary><p>Oat and almond milk are available at every Bean Box, plus black coffee, Americano and cold brew.</p></details>
+          <details><summary>Something went wrong with my order — what now?</summary><p>Scan the QR code on the machine or tap “Help” in the app. Failed orders are refunded automatically, usually within minutes.</p></details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a href="#top" class="brand"><span class="brand-mark"><svg><use href="#i-cup" /></svg></span><span>Bean Box<small>by Ravens Tech</small></span></a>
+          <p style="margin-top:16px;max-width:320px">Robotic, barista-quality coffee. Innovation in automated retail.</p>
+          <div class="socials">
+            <a href="#" aria-label="LinkedIn"><svg><use href="#i-linkedin" /></svg></a>
+            <a href="#" aria-label="YouTube"><svg><use href="#i-youtube" /></svg></a>
+            <a href="#" aria-label="Instagram"><svg><use href="#i-instagram" /></svg></a>
+            <a href="#" aria-label="Facebook"><svg><use href="#i-facebook" /></svg></a>
+          </div>
+        </div>
+        <div><h4>Bean Box</h4><ul><li><a href="#menu">Menu</a></li><li><a href="#build">Build your cup</a></li><li><a href="#locations">Locations</a></li><li><a href="#faq">FAQ</a></li></ul></div>
+        <div><h4>Business</h4><ul><li><a href="#partner">Host a machine</a></li><li><a href="#partner">Franchise</a></li><li><a href="#partner">Corporate events</a></li><li><a href="#partner">Contact sales</a></li></ul></div>
+        <div><h4>Ravens Tech</h4><ul><li><a href="../index.html">All products</a></li><li><a href="../frosti/index.html">Frosti</a></li><li><a href="../znapcase/index.html">ZnapCase</a></li><li><a href="#">Support</a></li></ul></div>
+      </div>
+      <div class="footer-bottom">
+        <span>© <span data-year></span> Ravens Tech. All rights reserved.</span>
+        <div class="sister"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Cookies</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="modal" role="dialog" aria-modal="true" aria-label="Bean Box video">
+    <div class="modal-box">
+      <button class="modal-close" aria-label="Close">✕</button>
+      <div><span class="icon-box" style="margin-inline:auto"><svg><use href="#i-play" /></svg></span><h3>Bean Box in action</h3><p>Drop your product video here (e.g. a YouTube/Vimeo embed or an MP4).</p></div>
+    </div>
+  </div>
+
+  <script>
+    window.SITE = {
+      currency: { code: "USD", locale: "en-US" },
+      locations: [
+        { name: "City Centre Mall", address: "Level 2, Food Court", type: "Mall", hours: "Open 24h", x: 34, y: 40 },
+        { name: "Grand Plaza Hotel", address: "Main Lobby", type: "Hotel", hours: "Open 24h", x: 58, y: 30, busy: true },
+        { name: "International Airport", address: "Departures, Gate B", type: "Airport", hours: "Open 24h", x: 82, y: 62 },
+        { name: "University Campus", address: "Library Atrium", type: "Campus", hours: "6am – 1am", x: 22, y: 72 },
+        { name: "Tech Park Tower", address: "Ground floor", type: "Office", hours: "6am – 10pm", x: 64, y: 54 },
+        { name: "Central Bus Terminal", address: "Main Hall", type: "Transit", hours: "Open 24h", x: 44, y: 66 },
+      ],
+    };
+  </script>
+  <script src="../shared/icons.js"></script>
+  <script src="../shared/main.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

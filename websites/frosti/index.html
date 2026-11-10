@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Frosti — Robotic Ice Cream, Served Fresh</title>
+  <meta name="description" content="Frosti is a fully automated robotic ice cream kiosk. Pick your flavours and toppings and watch a robot build your cone in under 90 seconds. Find Frosti near you or host one at your venue." />
+  <meta name="theme-color" content="#0b0b13" />
+  <meta property="og:title" content="Frosti — Robotic Ice Cream, Served Fresh" />
+  <meta property="og:description" content="Fresh flavours, fun toppings, built by a robot in front of you." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍦</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../shared/styles.css" />
+  <style>
+    body { --accent: #48cfff; --accent-2: #ff7ec8; --accent-rgb: 72, 207, 255; }
+    .arm { transform-origin: 80px 270px; animation: arm 4.5s ease-in-out infinite; }
+    @keyframes arm { 50% { transform: rotate(7deg); } }
+    .snowfall circle { animation: snow 6s linear infinite; }
+    .snowfall circle:nth-child(2n) { animation-duration: 8s; animation-delay: -3s; }
+    .snowfall circle:nth-child(3n) { animation-duration: 7s; animation-delay: -5s; }
+    @keyframes snow { from { transform: translateY(-30px); opacity: 0; } 20% { opacity: .8; } to { transform: translateY(240px); opacity: 0; } }
+    .ice-thumb { background: radial-gradient(circle at 50% 55%, rgba(72,207,255,.22), transparent 65%), linear-gradient(160deg, #10243a, #0b1220); }
+    .pink-thumb { background: radial-gradient(circle at 50% 55%, rgba(255,126,200,.25), transparent 65%), linear-gradient(160deg, #2a1230, #120b18); }
+    #preview .scoop { transition: fill .4s, opacity .4s, transform .4s; transform-box: fill-box; transform-origin: center bottom; }
+    #preview .scoop.off { opacity: 0; transform: translateY(-30px) scale(.6); }
+    #preview .topping { transition: opacity .3s; }
+    .flavor-chip .swatch { width: 22px; height: 22px; }
+    .limit-note { font-size: .8rem; color: var(--muted); font-weight: 400; margin-left: 8px; font-family: var(--font-body); }
+    .feature-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+    .feature-strip .card { display: flex; gap: 16px; align-items: flex-start; padding: 22px; }
+    .feature-strip .icon-box { margin: 0; flex-shrink: 0; }
+    .feature-strip h3 { font-size: 1.05rem; margin-bottom: 4px; }
+    .feature-strip p { font-size: .88rem; margin: 0; }
+    @media (max-width: 1080px) { .feature-strip { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 640px) { .feature-strip { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <div class="ambient"></div>
+
+  <header class="site-header">
+    <nav class="container nav" aria-label="Main">
+      <a href="#top" class="brand">
+        <span class="brand-mark"><svg><use href="#i-cone" /></svg></span>
+        <span>Frosti<small>by Ravens Tech</small></span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#menu">Flavours</a></li>
+        <li><a href="#how">How it works</a></li>
+        <li><a href="#build">Build a cone</a></li>
+        <li><a href="#locations">Locations</a></li>
+        <li><a href="#partner">Host Frosti</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+      <div class="nav-cta">
+        <a href="#partner" class="btn btn-secondary">Partner with us</a>
+        <a href="#locations" class="btn btn-primary">Find Frosti <svg><use href="#i-arrow" /></svg></a>
+      </div>
+      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </nav>
+  </header>
+
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="grid-bg"></div>
+      <div class="container hero-grid">
+        <div>
+          <span class="eyebrow">Robotic Ice Cream Dispenser</span>
+          <h1>Scoops of joy, <span class="grad-text">served by a robot.</span></h1>
+          <p class="lead">Pick your flavours, pile on the toppings and watch Frosti build your cone right in front of you — fresh, fast and perfectly portioned every time.</p>
+          <div class="hero-actions">
+            <a href="#build" class="btn btn-primary">Build your cone <svg><use href="#i-arrow" /></svg></a>
+            <button class="btn btn-secondary btn-play" data-video><span class="play-dot"><svg width="10" height="10"><use href="#i-play" /></svg></span> Watch Frosti</button>
+          </div>
+          <div class="hero-stats">
+            <div class="stat"><strong data-count="90" data-suffix="s">90s</strong><span>From order to cone</span></div>
+            <div class="stat"><strong data-count="12" data-suffix="+">12+</strong><span>Rotating flavours</span></div>
+            <div class="stat"><strong>-18°C</strong><span>Always perfectly frozen</span></div>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="halo"></div>
+          <div class="ring"></div>
+          <svg class="machine" viewBox="0 0 320 480" role="img" aria-label="Frosti robotic ice cream kiosk">
+            <defs>
+              <linearGradient id="fr-body" x1="0" x2="1"><stop offset="0" stop-color="#cfd8e6" /><stop offset=".45" stop-color="#f5f8ff" /><stop offset="1" stop-color="#aeb9cc" /></linearGradient>
+              <radialGradient id="fr-win" cx=".5" cy=".3" r=".9"><stop offset="0" stop-color="#bff0ff" stop-opacity=".5" /><stop offset=".6" stop-color="#123049" stop-opacity=".95" /><stop offset="1" stop-color="#081624" /></radialGradient>
+            </defs>
+            <rect x="24" y="30" width="272" height="430" rx="22" fill="url(#fr-body)" />
+            <rect x="24" y="30" width="272" height="430" rx="22" fill="none" stroke="#48cfff" stroke-width="3" />
+            <rect x="24" y="30" width="272" height="430" rx="22" fill="none" stroke="#48cfff" stroke-width="6" opacity=".35" filter="blur(4px)" />
+            <rect x="24" y="30" width="272" height="58" rx="22" fill="#0e1a2c" />
+            <path d="M44 52h18l-9 20z" fill="none" stroke="#48cfff" stroke-width="2.5" stroke-linejoin="round" /><path d="M43 52a10 10 0 0 1 20 0" fill="none" stroke="#48cfff" stroke-width="2.5" />
+            <text x="74" y="68" fill="#f5f8ff" font-family="Space Grotesk, sans-serif" font-weight="700" font-size="26">Frosti</text>
+            <rect x="42" y="104" width="180" height="236" rx="14" fill="url(#fr-win)" stroke="#48cfff" stroke-width="2" />
+            <g class="snowfall" fill="#dff6ff">
+              <circle cx="70" cy="120" r="1.6" /><circle cx="110" cy="112" r="1.2" /><circle cx="150" cy="124" r="1.8" /><circle cx="190" cy="116" r="1.3" /><circle cx="90" cy="130" r="1" /><circle cx="170" cy="108" r="1.5" />
+            </g>
+            <!-- arm -->
+            <g class="arm">
+              <rect x="62" y="296" width="36" height="32" rx="7" fill="#f5f8ff" />
+              <path d="M80 296 L104 214 L160 196" stroke="#f5f8ff" stroke-width="15" stroke-linecap="round" fill="none" />
+              <circle cx="104" cy="214" r="10" fill="#c6d1e2" /><circle cx="160" cy="196" r="8" fill="#c6d1e2" />
+              <path d="M160 196 l16 18" stroke="#f5f8ff" stroke-width="8" stroke-linecap="round" />
+            </g>
+            <!-- cone -->
+            <path d="M168 262h30l-15 46z" fill="#d9a35b" /><path d="M172 268l20 10M176 280l12 6" stroke="#a8742f" stroke-width="1.5" />
+            <circle cx="183" cy="252" r="16" fill="#ffd3e8" /><circle cx="183" cy="234" r="12" fill="#fff4dc" />
+            <circle cx="178" cy="248" r="1.5" fill="#ff5b8a" /><circle cx="188" cy="244" r="1.5" fill="#48cfff" /><circle cx="184" cy="232" r="1.5" fill="#7bdc6b" />
+            <!-- panel -->
+            <rect x="234" y="104" width="46" height="96" rx="8" fill="#0b0b13" stroke="#48cfff" stroke-opacity=".6" />
+            <circle cx="257" cy="128" r="12" fill="none" stroke="#48cfff" stroke-width="2" /><path d="M252 124h10l-5 10z" fill="#48cfff" />
+            <rect x="240" y="148" width="34" height="8" rx="2" fill="#ff7ec8" opacity=".7" />
+            <rect x="240" y="160" width="34" height="8" rx="2" fill="#48cfff" opacity=".5" />
+            <rect x="240" y="176" width="34" height="16" rx="4" fill="#48cfff" />
+            <rect x="236" y="214" width="42" height="28" rx="6" fill="#e3e9f3" stroke="#48cfff" stroke-opacity=".5" />
+            <path d="M250 228a8 8 0 0 1 14 0M253 232a4 4 0 0 1 8 0" stroke="#0e1a2c" fill="none" stroke-width="1.6" />
+            <rect x="236" y="296" width="42" height="44" rx="8" fill="#0e1a2c" stroke="#48cfff" stroke-opacity=".5" />
+            <!-- base -->
+            <rect x="24" y="356" width="272" height="4" fill="#48cfff" />
+            <path d="M40 382h240M40 408h240M40 434h240" stroke="#8a97ad" stroke-opacity=".35" />
+            <rect x="120" y="374" width="80" height="8" rx="4" fill="#0e1a2c" opacity=".6" />
+          </svg>
+          <div class="float-chip chip-a"><span class="ico"><svg><use href="#i-cone" /></svg></span><div><b>Strawberry + Vanilla</b><span>Waffle cone · Sprinkles</span></div></div>
+          <div class="float-chip chip-b"><span class="ico"><svg><use href="#i-snow" /></svg></span><div><b>-18°C</b><span>Live freezer temp</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>Fresh daily batches</span><span>12+ rotating flavours</span><span>Vegan &amp; dairy-free options</span><span>Toppings galore</span><span>Contactless pay</span><span>Kids love it</span>
+      </div>
+    </div>
+
+    <!-- HOW -->
+    <section class="section" id="how">
+      <div class="container">
+        <div class="section-head center reveal">
+          <span class="eyebrow">How it works</span>
+          <h2>Your cone, <span class="grad-text">built in 90 seconds</span></h2>
+          <p>A friendly robot, a perfectly chilled freezer and zero waiting in line.</p>
+        </div>
+        <div class="grid-4 steps">
+          <article class="card step reveal"><span class="icon-box"><svg><use href="#i-tap" /></svg></span><h3>Pick</h3><p>Choose a cone or cup, up to three scoops and your favourite toppings on the big touchscreen.</p></article>
+          <article class="card step reveal"><span class="icon-box"><svg><use href="#i-card" /></svg></span><h3>Pay</h3><p>Tap your card or phone, or scan the QR code — no cash needed.</p></article>
+          <article class="card step reveal"><span class="icon-box"><svg><use href="#i-robot" /></svg></span><h3>Watch</h3><p>The robot scoops, sprinkles and drizzles behind glass — the best show in the mall.</p></article>
+          <article class="card step reveal"><span class="icon-box"><svg><use href="#i-heart" /></svg></span><h3>Enjoy</h3><p>Your treat arrives at the pickup window, napkin included. Share the moment!</p></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- MENU -->
+    <section class="section" id="menu">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">Flavours &amp; favourites</span>
+          <h2>Something for <span class="grad-text">every sweet tooth</span></h2>
+          <p>Classic scoops, signature creations and seasonal specials. Flavours rotate — check the machine screen for today's line-up.</p>
+        </div>
+        <div class="tabs reveal" data-tabs="#menu-grid" role="tablist">
+          <button class="tab active" data-filter="all" role="tab" aria-selected="true">Everything</button>
+          <button class="tab" data-filter="classic" role="tab" aria-selected="false">Classics</button>
+          <button class="tab" data-filter="signature" role="tab" aria-selected="false">Signature cones</button>
+          <button class="tab" data-filter="vegan" role="tab" aria-selected="false">Vegan</button>
+          <button class="tab" data-filter="seasonal" role="tab" aria-selected="false">Seasonal</button>
+        </div>
+        <div class="menu-grid" id="menu-grid"></div>
+      </div>
+    </section>
+
+    <!-- BUILDER -->
+    <section class="section" id="build">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">Build a cone</span>
+          <h2>Stack it <span class="grad-text">your way</span></h2>
+          <p>Play with combinations here, then send it to any Frosti with the app.</p>
+        </div>
+        <div class="builder">
+          <div class="builder-preview reveal">
+            <svg id="preview" viewBox="0 0 200 260" width="250" aria-hidden="true">
+              <defs>
+                <pattern id="waffle" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+                  <rect width="10" height="10" fill="#d9a35b" /><path d="M0 0h10M0 0v10" stroke="#a8742f" stroke-width="2" />
+                </pattern>
+              </defs>
+              <!-- cone or cup -->
+              <g id="holder-cone"><path d="M62 150h76l-38 104z" fill="url(#waffle)" /><path d="M58 146h84v10H58z" rx="4" fill="#c88f45" /></g>
+              <g id="holder-cup" style="display:none"><path d="M52 150h96l-10 90a10 10 0 0 1-10 9H72a10 10 0 0 1-10-9z" fill="#f5f8ff" /><path d="M52 150h96l-2 18H54z" fill="#48cfff" /></g>
+              <!-- scoops (bottom to top) -->
+              <circle class="scoop" id="scoop-0" cx="100" cy="132" r="38" fill="#fff4dc" />
+              <circle class="scoop" id="scoop-1" cx="100" cy="88" r="32" fill="#ffc7df" />
+              <circle class="scoop" id="scoop-2" cx="100" cy="52" r="26" fill="#6b3f22" />
+              <!-- toppings -->
+              <g class="topping" id="top-sprinkles">
+                <rect x="78" y="110" width="8" height="3" rx="1.5" fill="#ff5b8a" transform="rotate(30 82 111)" />
+                <rect x="112" y="118" width="8" height="3" rx="1.5" fill="#48cfff" transform="rotate(-20 116 119)" />
+                <rect x="96" y="104" width="8" height="3" rx="1.5" fill="#ffd34b" transform="rotate(70 100 105)" />
+                <rect x="86" y="70" width="8" height="3" rx="1.5" fill="#7bdc6b" transform="rotate(-40 90 71)" />
+                <rect x="108" y="78" width="8" height="3" rx="1.5" fill="#ff5b8a" transform="rotate(15 112 79)" />
+                <rect x="98" y="40" width="8" height="3" rx="1.5" fill="#48cfff" transform="rotate(50 102 41)" />
+              </g>
+              <g class="topping" id="top-chips" fill="#3a2416">
+                <path d="M84 120l4-6 4 6z" /><path d="M116 108l4-6 4 6z" /><path d="M92 82l4-6 4 6z" /><path d="M110 60l4-6 4 6z" />
+              </g>
+              <path class="topping" id="top-sauce" d="M74 36c10-14 42-14 52 0 4 6-2 10-6 6-2 10-8 4-10 12-2-8-8-2-10-10-4 6-10 2-8-4-6 4-22 2-18-4z" fill="#5a2a12" />
+              <circle class="topping" id="top-cherry" cx="100" cy="24" r="9" fill="#e5203f" />
+              <path class="topping" id="top-cherry-stem" d="M100 16c2-8 8-12 12-12" stroke="#3b7d2d" stroke-width="2" fill="none" />
+            </svg>
+            <div class="summary" aria-live="polite">
+              <div><b id="sum-name">Waffle cone</b><small id="sum-desc">Vanilla</small></div>
+              <div class="total" id="sum-total">—</div>
+            </div>
+          </div>
+
+          <form class="reveal" id="builder" onsubmit="return false">
+            <div class="opt-group">
+              <span class="opt-label">Serve it in</span>
+              <div class="opt-row">
+                <label class="opt"><input type="radio" name="holder" value="cone" checked />🍦 Waffle cone</label>
+                <label class="opt"><input type="radio" name="holder" value="cup" />🥣 Cup</label>
+              </div>
+            </div>
+            <div class="opt-group">
+              <span class="opt-label">Flavours <span class="limit-note">Pick up to 3 scoops</span></span>
+              <div class="opt-row" id="opt-flavours"></div>
+            </div>
+            <div class="opt-group">
+              <span class="opt-label">Toppings</span>
+              <div class="opt-row" id="opt-toppings"></div>
+            </div>
+            <button type="button" class="btn btn-primary" id="save-cone">Send to the app <svg><use href="#i-arrow-ur" /></svg></button>
+            <p class="form-note" id="save-note"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="section">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">Why Frosti</span>
+          <h2>Hygienic, consistent <span class="grad-text">and seriously fun</span></h2>
+        </div>
+        <div class="feature-strip">
+          <div class="card reveal"><span class="icon-box"><svg><use href="#i-shield" /></svg></span><div><h3>Touch-free hygiene</h3><p>Sealed, UV-sanitised serving chamber. No hands touch your ice cream.</p></div></div>
+          <div class="card reveal"><span class="icon-box"><svg><use href="#i-snow" /></svg></span><div><h3>Always frozen right</h3><p>Freezer temperature monitored 24/7 with automatic alerts.</p></div></div>
+          <div class="card reveal"><span class="icon-box"><svg><use href="#i-leaf" /></svg></span><div><h3>Vegan options</h3><p>Plant-based scoops and dairy-free toppings on every machine.</p></div></div>
+          <div class="card reveal"><span class="icon-box"><svg><use href="#i-sparkle" /></svg></span><div><h3>Instagram-ready</h3><p>Light show, robot theatre and a cone worth posting.</p></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VENUES -->
+    <section class="section">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">Where you'll find us</span>
+          <h2>Treats wherever <span class="grad-text">fun happens</span></h2>
+        </div>
+        <div class="venues" id="venues"></div>
+      </div>
+    </section>
+
+    <!-- LOCATIONS -->
+    <section class="section" id="locations">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">Locations</span>
+          <h2>Find <span class="grad-text">Frosti</span> near you</h2>
+          <p>See which machines are open right now and what's in the freezer.</p>
+        </div>
+        <div class="locator reveal">
+          <div>
+            <label class="search"><svg><use href="#i-search" /></svg><input id="loc-search" type="search" placeholder="Search by venue, area or type…" aria-label="Search locations" /></label>
+            <ul class="loc-list" id="loc-list"></ul>
+          </div>
+          <div class="map" id="map">
+            <svg class="roads" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+              <path d="M0 40 C 25 48, 45 30, 65 44 S 90 60, 100 52" stroke="rgba(72,207,255,.3)" stroke-width=".8" fill="none" />
+              <path d="M24 0 C 30 40, 20 70, 32 100" stroke="rgba(160,190,255,.18)" stroke-width=".6" fill="none" />
+              <path d="M0 78 L100 70" stroke="rgba(160,190,255,.14)" stroke-width=".5" fill="none" />
+              <path d="M68 0 C 64 40, 76 70, 70 100" stroke="rgba(160,190,255,.14)" stroke-width=".5" fill="none" />
+            </svg>
+            <div class="map-card"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- APP CTA -->
+    <section class="section">
+      <div class="container">
+        <div class="cta-band reveal">
+          <span class="eyebrow">Frosti Club</span>
+          <h2>Every 8th scoop <span class="grad-text">is on us.</span></h2>
+          <p>Join Frosti Club in the app for birthday treats, secret flavours and early access to seasonal drops.</p>
+          <div class="store-badges">
+            <a href="#" class="btn btn-primary"><svg><use href="#i-apple" /></svg> App Store</a>
+            <a href="#" class="btn btn-secondary"><svg><use href="#i-gplay" /></svg> Google Play</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PARTNER -->
+    <section class="section" id="partner">
+      <div class="container split">
+        <div class="reveal">
+          <span class="eyebrow">Host Frosti</span>
+          <h2>A crowd-pulling dessert stop. <span class="grad-text">No staff needed.</span></h2>
+          <p>Frosti fits in about 2 m², runs on a standard outlet and draws families and teens alike. We handle stocking, cleaning and maintenance.</p>
+          <ul class="check-list">
+            <li>Revenue share, lease or purchase options</li>
+            <li>Remote stock and temperature monitoring</li>
+            <li>Custom flavours &amp; co-branded wraps for events</li>
+            <li>Food-safety compliant and fully insured</li>
+          </ul>
+        </div>
+        <form class="panel form reveal" data-partner novalidate>
+          <div class="field"><label for="p-name">Full name</label><input id="p-name" name="name" autocomplete="name" /></div>
+          <div class="field"><label for="p-email">Work email</label><input id="p-email" name="email" type="email" autocomplete="email" /></div>
+          <div class="field"><label for="p-company">Company / venue</label><input id="p-company" name="company" autocomplete="organization" /></div>
+          <div class="field"><label for="p-venue">Venue type</label>
+            <select id="p-venue" name="venue"><option value="">Select…</option><option>Mall / retail</option><option>Cinema / entertainment</option><option>Hotel / resort</option><option>Theme park / events</option><option>Airport / transit</option><option>Other</option></select>
+          </div>
+          <div class="field full"><label for="p-msg">Tell us about your space</label><textarea id="p-msg" name="message" rows="4" placeholder="Foot traffic, location, opening hours…"></textarea></div>
+          <button class="btn btn-primary" type="submit">Request a proposal <svg><use href="#i-arrow" /></svg></button>
+          <p class="form-note" role="status"></p>
+        </form>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section" id="faq">
+      <div class="container">
+        <div class="section-head center reveal">
+          <span class="eyebrow">FAQ</span>
+          <h2>The <span class="grad-text">scoop</span> on Frosti</h2>
+        </div>
+        <div class="faq reveal">
+          <details open><summary>Is the ice cream fresh?</summary><p>Yes. Ice cream is made in small batches by our partner creameries and stored at a constant -18°C. Machines are restocked and deep-cleaned on a fixed schedule.</p></details>
+          <details><summary>Do you have vegan or allergen-free options?</summary><p>Every Frosti carries at least one plant-based flavour. Full allergen information is shown on-screen for each flavour and topping before you pay.</p></details>
+          <details><summary>How many scoops can I get?</summary><p>Up to three scoops per cone or cup, each in a different flavour if you like.</p></details>
+          <details><summary>Which payment methods are accepted?</summary><p>Contactless cards, Apple Pay, Google Pay and QR payments through the app. Supported mobile-money options vary by country.</p></details>
+          <details><summary>What if my order fails?</summary><p>Failed orders are refunded automatically. You can also scan the help QR code on the machine to reach our support team.</p></details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a href="#top" class="brand"><span class="brand-mark"><svg><use href="#i-cone" /></svg></span><span>Frosti<small>by Ravens Tech</small></span></a>
+          <p style="margin-top:16px;max-width:320px">Robotic ice cream, served fresh. Innovation in automated retail.</p>
+          <div class="socials">
+            <a href="#" aria-label="LinkedIn"><svg><use href="#i-linkedin" /></svg></a>
+            <a href="#" aria-label="YouTube"><svg><use href="#i-youtube" /></svg></a>
+            <a href="#" aria-label="Instagram"><svg><use href="#i-instagram" /></svg></a>
+            <a href="#" aria-label="Facebook"><svg><use href="#i-facebook" /></svg></a>
+          </div>
+        </div>
+        <div><h4>Frosti</h4><ul><li><a href="#menu">Flavours</a></li><li><a href="#build">Build a cone</a></li><li><a href="#locations">Locations</a></li><li><a href="#faq">FAQ</a></li></ul></div>
+        <div><h4>Business</h4><ul><li><a href="#partner">Host a machine</a></li><li><a href="#partner">Events &amp; rentals</a></li><li><a href="#partner">Custom flavours</a></li><li><a href="#partner">Contact sales</a></li></ul></div>
+        <div><h4>Ravens Tech</h4><ul><li><a href="../index.html">All products</a></li><li><a href="../beanbox/index.html">Bean Box</a></li><li><a href="../znapcase/index.html">ZnapCase</a></li><li><a href="#">Support</a></li></ul></div>
+      </div>
+      <div class="footer-bottom">
+        <span>© <span data-year></span> Ravens Tech. All rights reserved.</span>
+        <div class="sister"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Cookies</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="modal" role="dialog" aria-modal="true" aria-label="Frosti video">
+    <div class="modal-box">
+      <button class="modal-close" aria-label="Close">✕</button>
+      <div><span class="icon-box" style="margin-inline:auto"><svg><use href="#i-play" /></svg></span><h3>Frosti in action</h3><p>Drop your product video here (e.g. a YouTube/Vimeo embed or an MP4).</p></div>
+    </div>
+  </div>
+
+  <script>
+    window.SITE = {
+      currency: { code: "USD", locale: "en-US" },
+      venues: [
+        ["mall", "Malls & Retail", "#3a2c6b", "#14203a"],
+        ["events", "Cinemas & Fun Parks", "#6b2050", "#1a0f22"],
+        ["hotel", "Hotels & Resorts", "#1d4a6b", "#0f1a2c"],
+        ["plane", "Airports & Transit", "#20406b", "#0b1220"],
+        ["campus", "Campuses", "#22506b", "#0f1a2c"],
+      ],
+      locations: [
+        { name: "City Centre Mall", address: "Level 1, Kids Zone", type: "Mall", hours: "10am – 10pm", x: 30, y: 46 },
+        { name: "Starlight Cinema", address: "Main Foyer", type: "Entertainment", hours: "11am – 12am", x: 56, y: 36, busy: true },
+        { name: "Waterfront Promenade", address: "Pier Entrance", type: "Outdoor", hours: "9am – 11pm", x: 80, y: 56 },
+        { name: "Funland Theme Park", address: "Central Plaza", type: "Theme park", hours: "9am – 8pm", x: 18, y: 74 },
+        { name: "Grand Plaza Hotel", address: "Pool Terrace", type: "Hotel", hours: "8am – 10pm", x: 66, y: 66 },
+        { name: "International Airport", address: "Departures, Gate A", type: "Airport", hours: "Open 24h", x: 88, y: 22 },
+      ],
+    };
+  </script>
+  <script src="../shared/icons.js"></script>
+  <script src="../shared/main.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
