@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bean Box — 3D Website Concepts</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="shared/concepts.css" />
+  <style>
+    body { background: #0b0b10; color: #f4eee4; padding: clamp(24px, 5vw, 72px) clamp(16px, 4vw, 56px); }
+    h1 { font: 600 clamp(3rem, 9vw, 7.5rem)/.9 "Inter Tight"; letter-spacing: -.06em; margin: 0 0 18px; }
+    h1 span { color: #e8743a; }
+    .lead { font: 400 1.15rem/1.6 Inter; color: #9a948c; max-width: 640px; margin: 0 0 56px; }
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    a.card { display: flex; flex-direction: column; border-radius: 16px; overflow: hidden; border: 1px solid rgba(244,238,228,.12); transition: transform .3s, border-color .3s; background: #121218; }
+    a.card:hover { transform: translateY(-4px); border-color: #e8743a; }
+    .thumb { aspect-ratio: 16/10; background: #1a1a20 center/cover; }
+    .body { padding: 22px 24px 26px; }
+    .tag { font: 600 .75rem "Inter Tight"; letter-spacing: .08em; text-transform: uppercase; color: #e8743a; }
+    h2 { font: 600 2rem/1 "Inter Tight"; letter-spacing: -.04em; margin: 10px 0 12px; }
+    .body p { font: 400 .98rem/1.55 Inter; color: #9a948c; margin: 0 0 16px; }
+    .open { font: 600 .95rem "Inter Tight"; }
+    .note { margin-top: 48px; font: 400 .9rem/1.6 Inter; color: #6f6a64; max-width: 760px; }
+    @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <h1>Bean Box <span>3D</span><br>website concepts</h1>
+  <p class="lead">Three directions for a robotic coffee dispenser website: barista-quality coffee made automatically, with fresh, fast and customizable drinks for any location. Every concept uses the same interactive 3D model of the machine.</p>
+  <div class="grid">
+    <a class="card" href="a-showroom/index.html"><div class="thumb" style="background-image:url(previews/a.jpg)"></div><div class="body"><span class="tag">Concept A</span><h2>Showroom</h2><p>A dark product stage with a huge product name and the machine on a turntable. Drag to rotate, and use the arrows to switch the drink being brewed.</p><span class="open">Open concept →</span></div></a>
+    <a class="card" href="b-blueprint/index.html"><div class="thumb" style="background-image:url(previews/b.jpg)"></div><div class="body"><span class="tag">Concept B</span><h2>Blueprint</h2><p>A warm paper page with technical line drawings. Scroll and the machine explodes into its seven systems, each one numbered and explained.</p><span class="open">Open concept →</span></div></a>
+    <a class="card" href="c-journey/index.html"><div class="thumb" style="background-image:url(previews/c.jpg)"></div><div class="body"><span class="tag">Concept C</span><h2>Journey</h2><p>A cinematic scroll story. The camera follows one cup: choose, grind, brew (you scroll to fill it), customize, anywhere, and origin in Rwanda.</p><span class="open">Open concept →</span></div></a>
+  </div>
+  <p class="note">Concept mock-ups for review. Text, figures and contact details are placeholders to confirm. The 3D model is a procedural stand-in built in the browser with three.js; it can be swapped for your real CAD or 3D scan as a .glb file.</p>
+</body>
+</html>

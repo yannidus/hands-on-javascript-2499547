@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bean Box — Concept B · Blueprint</title>
+  <meta name="description" content="Bean Box robotic coffee dispenser: barista-quality coffee made automatically. Explore the engineering, system by system." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../shared/concepts.css" />
+  <style>
+    :root { --paper: #e8e4dd; --paper-2: #dfdad1; --ink: #111114; --muted: #6a655e; --accent: #d0633a; --dark: #0d0d12; }
+    body { background: var(--paper); color: var(--ink); }
+    .mono { font-family: "JetBrains Mono", monospace; }
+    .hdr { position: fixed; inset: 0 0 auto; z-index: 50; display: flex; justify-content: space-between; align-items: center; padding: 20px clamp(16px, 4vw, 56px); background: rgba(232,228,221,.86); backdrop-filter: blur(10px); }
+    .logo { display: flex; align-items: center; gap: 10px; font: 700 1.55rem/1 "Inter Tight"; letter-spacing: -.04em; }
+    .logo svg { width: 30px; height: 30px; }
+    .hdr-r { display: flex; gap: 14px; align-items: center; }
+    .btn-sq { display: inline-flex; align-items: center; gap: 10px; background: var(--accent); color: #fff; padding: 12px 20px; font: 600 1rem "Inter Tight"; border: 0; cursor: pointer; }
+    .btn-sq .dots { display: grid; grid-template-columns: 4px 4px; gap: 3px; } .btn-sq .dots i { width: 4px; height: 4px; background: currentColor; }
+    .burger { width: 44px; display: grid; gap: 8px; background: none; border: 0; padding: 6px 0; cursor: pointer; } .burger i { height: 2px; background: var(--ink); }
+
+    /* hero */
+    .hero { position: relative; padding-top: 96px; overflow: hidden; }
+    .huge { white-space: nowrap; font: 600 clamp(5rem, 14vw, 13rem)/.92 "Inter Tight"; letter-spacing: -.065em; margin: 0; }
+    .huge div { display: inline-block; animation: slide 28s linear infinite; }
+    .huge em { font-style: normal; color: #fbf9f5; margin: 0 .12em; }
+    @keyframes slide { to { transform: translateX(-50%); } }
+    .hero-3d { position: relative; height: min(66vh, 640px); margin-top: -2vw; }
+    .hero-3d canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .dim { position: absolute; font: 500 .78rem "JetBrains Mono"; color: var(--muted); white-space: nowrap; pointer-events: none; transform: translate(-50%, -50%); }
+    .hero-copy { text-align: center; padding: 10px 20px 110px; }
+    .hero-copy h1 { font: 600 clamp(2.8rem, 7vw, 6rem)/.92 "Inter Tight"; letter-spacing: -.055em; margin: 0 0 24px; }
+    .hero-copy p { max-width: 640px; margin: 0 auto; font: 400 clamp(1.05rem, 1.5vw, 1.3rem)/1.55 Inter; color: var(--muted); }
+
+    /* exploded scrollytelling */
+    .explode { position: relative; height: 900vh; background: var(--paper-2); }
+    .sticky { position: sticky; top: 0; height: 100svh; display: grid; grid-template-columns: minmax(320px, 0.9fr) 1.4fr; overflow: hidden; }
+    .sticky canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .panel { position: relative; z-index: 2; align-self: center; padding: 0 clamp(16px, 4vw, 56px); max-width: 560px; }
+    .panel .num { font: 500 1.3rem "JetBrains Mono"; color: var(--accent); }
+    .panel h2 { font: 600 clamp(2.4rem, 4.6vw, 4.4rem)/.95 "Inter Tight"; letter-spacing: -.05em; margin: 18px 0 22px; }
+    .panel p { font: 400 1.12rem/1.6 Inter; color: var(--muted); margin: 0 0 24px; }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chip { border: 1.5px solid var(--ink); border-radius: 999px; padding: 5px 13px; font: 600 .76rem "Inter Tight"; text-transform: uppercase; letter-spacing: .04em; }
+    .panel-inner { transition: opacity .35s, transform .35s; }
+    .panel-inner.out { opacity: 0; transform: translateY(14px); }
+    .rail { position: absolute; z-index: 2; right: clamp(16px, 3vw, 40px); top: 50%; transform: translateY(-50%); display: grid; gap: 10px; }
+    .rail i { width: 8px; height: 8px; border-radius: 50%; border: 1.5px solid var(--ink); transition: background .3s, transform .3s; }
+    .rail i.on { background: var(--accent); border-color: var(--accent); transform: scale(1.4); }
+    .tag3d { position: absolute; z-index: 3; pointer-events: none; transform: translate(-50%, -100%); display: flex; flex-direction: column; align-items: center; transition: opacity .3s; }
+    .tag3d b { background: var(--accent); color: #fff; font: 500 .8rem "JetBrains Mono"; padding: 5px 10px; white-space: nowrap; }
+    .tag3d i { width: 1.5px; height: 46px; background: var(--accent); }
+    .tag3d i::after { content: ""; display: block; width: 9px; height: 9px; border-radius: 50%; background: var(--accent); margin: 44px 0 0 -3.75px; }
+    .scrollcue { position: absolute; z-index: 2; left: clamp(16px, 4vw, 56px); bottom: 26px; font: 500 .8rem "JetBrains Mono"; color: var(--muted); }
+
+    /* efficiency */
+    .eff { padding: 130px clamp(16px, 4vw, 56px); text-align: center; }
+    .eff h2 { font: 600 clamp(3.4rem, 9vw, 8rem)/.9 "Inter Tight"; letter-spacing: -.06em; margin: 0 0 28px; }
+    .eff > p { max-width: 700px; margin: 0 auto 80px; font: 400 1.2rem/1.6 Inter; color: var(--muted); }
+    .stats { display: grid; grid-template-columns: repeat(3, 1fr); max-width: 1180px; margin: 0 auto; border-top: 1.5px solid var(--ink); }
+    .stats div { padding: 34px 20px 10px; text-align: left; border-right: 1.5px solid var(--ink); }
+    .stats div:last-child { border-right: 0; }
+    .stats strong { display: block; font: 600 clamp(3rem, 6vw, 5.4rem)/1 "Inter Tight"; letter-spacing: -.05em; }
+    .stats span { font: 400 1rem Inter; color: var(--muted); }
+
+    /* title block spec sheet */
+    .sheet { max-width: 1180px; margin: 0 auto 140px; padding: 0 clamp(16px, 4vw, 56px); }
+    .tb { display: grid; grid-template-columns: repeat(4, 1fr); border: 1.5px solid var(--ink); }
+    .tb > div { padding: 16px 18px; border-right: 1.5px solid var(--ink); border-bottom: 1.5px solid var(--ink); }
+    .tb > div:nth-child(4n) { border-right: 0; }
+    .tb > div:nth-last-child(-n+4) { border-bottom: 0; }
+    .tb small { display: block; font: 500 .7rem "JetBrains Mono"; color: var(--muted); letter-spacing: .08em; text-transform: uppercase; margin-bottom: 6px; }
+    .tb b { font: 500 1.1rem "Inter Tight"; }
+    .tb .big { grid-column: span 2; }
+    .tb .big b { font-size: 2rem; letter-spacing: -.03em; }
+
+    /* dark CTA */
+    .cta { background: var(--dark); color: #f3eee6; padding: 140px clamp(16px, 4vw, 56px) 60px; }
+    .cta h2 { font: 600 clamp(3.4rem, 9vw, 8rem)/.9 "Inter Tight"; letter-spacing: -.06em; margin: 0 0 60px; max-width: 1180px; }
+    .cta .cols { display: grid; grid-template-columns: 1fr 1fr 1.4fr; gap: 48px; max-width: 1180px; }
+    .cta h4 { font: 500 1.6rem "Inter Tight"; margin: 0 0 20px; }
+    .cta p, .cta a { display: block; color: #8f8a84; font: 400 1.1rem/2 Inter; margin: 0; }
+    .cta form { display: grid; gap: 14px; }
+    .cta input { background: transparent; border: 0; border-bottom: 1px solid rgba(243,238,230,.3); color: inherit; padding: 12px 0; outline: none; }
+    .cta input:focus { border-color: var(--accent); }
+    .foot { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-top: 90px; padding-top: 24px; border-top: 1px solid rgba(243,238,230,.12); color: #8f8a84; font: 400 .9rem Inter; }
+
+    @media (max-width: 900px) {
+      .sticky { grid-template-columns: 1fr; grid-template-rows: 1fr auto; }
+      .panel { align-self: end; padding-bottom: 34px; background: linear-gradient(transparent, var(--paper-2) 28%); padding-top: 70px; }
+      .panel h2 { font-size: 2.3rem; } .panel p { font-size: 1rem; }
+      .stats, .cta .cols { grid-template-columns: 1fr; }
+      .stats div { border-right: 0; border-bottom: 1.5px solid var(--ink); }
+      .tb { grid-template-columns: 1fr 1fr; }
+      .tb > div:nth-child(4n) { border-right: 1.5px solid var(--ink); } .tb > div:nth-child(2n) { border-right: 0; }
+      .btn-sq .lbl, .rail, .scrollcue { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hdr">
+    <a href="#" class="logo"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="12" fill="none" stroke="#d0633a" stroke-width="5" stroke-dasharray="18 7" /><circle cx="16" cy="16" r="4" fill="#111114" /></svg>Bean Box</a>
+    <div class="hdr-r"><a href="#contact" class="btn-sq"><span class="dots"><i></i><i></i><i></i><i></i></span><span class="lbl">Host a machine</span></a><button class="burger" aria-label="Menu"><i></i><i></i></button></div>
+  </header>
+
+  <section class="hero">
+    <div class="huge" aria-hidden="true"><div>Precision<em>/</em>Freshness<em>/</em>Precision<em>/</em>Freshness<em>/</em></div></div>
+    <div class="hero-3d" id="hero3d">
+      <canvas id="c1" aria-label="Rotating line drawing of the Bean Box machine"></canvas>
+      <span class="dim" id="dimH">H 1950</span><span class="dim" id="dimW">W 1000</span>
+    </div>
+    <div class="hero-copy">
+      <h1>Barista quality,<br>made automatically</h1>
+      <p>Bean Box is a robotic coffee dispenser engineered like a café in a cabinet: fresh, fast and customizable drinks for any location. Scroll to take it apart.</p>
+    </div>
+  </section>
+
+  <section class="explode" id="explode">
+    <div class="sticky" id="sticky">
+      <canvas id="c2" aria-label="Exploded line drawing of the Bean Box components"></canvas>
+      <div class="panel"><div class="panel-inner" id="panel"></div></div>
+      <div class="rail" id="rail"></div>
+      <div class="tag3d" id="tag"><b id="tagText">[01]</b><i></i></div>
+      <div class="scrollcue">Scroll ↓ to explore</div>
+    </div>
+  </section>
+
+  <section class="eff">
+    <h2>Efficient to the max</h2>
+    <p>Every system is engineered to do one thing perfectly, then get out of the way. The result is consistent café-grade coffee, low running costs and almost no waste.</p>
+    <div class="stats">
+      <div><strong>60 s</strong><span>From tap to first sip</span></div>
+      <div><strong>300</strong><span>Cups per day, unattended</span></div>
+      <div><strong>1 m²</strong><span>Footprint, standard outlet</span></div>
+    </div>
+  </section>
+
+  <section class="sheet">
+    <div class="tb">
+      <div class="big"><small>Model</small><b>Bean Box · BB-01</b></div><div><small>Type</small><b>Robotic coffee dispenser</b></div><div><small>Scale</small><b>1 : 20</b></div>
+      <div><small>Dimensions</small><b>1000 × 800 × 1950 mm</b></div><div><small>Power</small><b>220–240 V · 16 A</b></div><div><small>Capacity</small><b>300 cups / day</b></div><div><small>Menu</small><b>30+ hot &amp; iced</b></div>
+      <div><small>Milk</small><b>2 × refrigerated, 3 °C</b></div><div><small>Payments</small><b>Card · Mobile · QR</b></div><div><small>Connectivity</small><b>4G / Wi-Fi telemetry</b></div><div><small>Coffee</small><b>100% Rwandan Arabica</b></div>
+    </div>
+  </section>
+
+  <section class="cta" id="contact">
+    <h2>Build your café<br>with us</h2>
+    <div class="cols">
+      <div><h4>Visit us</h4><p>Showroom address</p><p>City, Country</p></div>
+      <div><h4>Get in touch</h4><a href="#">+000 000 000</a><a href="#">hello@beanbox.example</a></div>
+      <form onsubmit="event.preventDefault(); this.querySelector('button').textContent='Thanks, we\'ll be in touch ✓'">
+        <h4>Request a proposal</h4>
+        <input placeholder="Full name*" required aria-label="Full name" /><input placeholder="Work email*" type="email" required aria-label="Work email" /><input placeholder="Venue / company" aria-label="Venue" />
+        <button class="btn-sq" style="justify-self:start">Send →</button>
+      </form>
+    </div>
+    <div class="foot"><span>© Bean Box by Ravens Tech</span><span>Concept B · Blueprint</span></div>
+  </section>
+
+  <script type="importmap">{ "imports": { "three": "../vendor/three.module.min.js" } }</script>
+  <script type="module">
+    import * as THREE from "three";
+    import { createBeanBox, fitRenderer, PARTS } from "../shared/beanbox3d.js";
+
+    await document.fonts.ready;
+    const ORDER = ["arm", "hopper", "brew", "milk", "cups", "screen", "header"];
+    const COPY = {
+      intro: { num: "[00]", title: "One machine. Seven systems.", text: "Every Bean Box is a complete café, engineered into a 1 m² cabinet. Keep scrolling and it comes apart, system by system.", chips: ["BB-01", "1000 × 800 × 1950 mm"] },
+      arm: { title: "6-axis robotic barista", text: "A collaborative arm with millimetre repeatability tamps, pours and serves. It works behind glass, so the brewing is part of the show.", chips: ["6 axes", "±0.1 mm", "Food-safe"] },
+      hopper: { title: "Bean hopper & grinder", text: "2 kg of whole Rwandan Arabica, sealed against light and air. Flat burrs grind fresh for every single cup, never in advance.", chips: ["2 kg", "Grind per cup", "Burr grinder"] },
+      brew: { title: "Brew stage", text: "9 bar extraction at 92 °C with dose and pressure logged on every shot. Glass, paper or your own cup, from 8 to 16 oz.", chips: ["9 bar", "92 °C", "8–16 oz"] },
+      milk: { title: "Refrigerated milk module", text: "Two milks held at 3 °C, steamed to silky microfoam on demand. Automatic rinse cycles keep the lines clean between drinks.", chips: ["2 milks", "3 °C", "Auto-clean"] },
+      cups: { title: "Cup dispenser", text: "A gravity-fed stack of up to 150 cups drops one at a time onto the brew stage. Recyclable cups and lids as standard.", chips: ["150 cups", "Recyclable"] },
+      screen: { title: "Touchscreen & payment", text: "A bright 15.6\" touchscreen with 30+ drinks. Tap a card or phone, scan a QR code, or order ahead in the app.", chips: ['15.6"', "NFC", "QR / app"] },
+      header: { title: "Illuminated header", text: "An amber-lit sign and light strips you can see from across the mall. They dim automatically outside opening hours.", chips: ["LED", "Auto-dim"] },
+    };
+
+    /* ---------- hero: rotating line drawing ---------- */
+    function lineScene(fill) {
+      const scene = new THREE.Scene();
+      const bb = createBeanBox({ mode: "line", fill });
+      scene.add(bb.group);
+      const grid = new THREE.GridHelper(4, 20, 0xb9b2a6, 0xcfc9be); grid.position.y = 0; scene.add(grid);
+      return { scene, bb };
+    }
+    const r1 = new THREE.WebGLRenderer({ canvas: document.getElementById("c1"), antialias: true, alpha: true }); r1.setPixelRatio(Math.min(devicePixelRatio, 2));
+    const h = lineScene(0xe8e4dd);
+    const cam1 = new THREE.PerspectiveCamera(24, 1, 0.1, 50);
+    const hero3d = document.getElementById("hero3d");
+    const dimH = document.getElementById("dimH"), dimW = document.getElementById("dimW");
+    const v = new THREE.Vector3();
+    function place(el, x, y, z, cam, box) { v.set(x, y, z).applyMatrix4(h.bb.group.matrixWorld).project(cam); el.style.left = (v.x * 0.5 + 0.5) * box.clientWidth + "px"; el.style.top = (-v.y * 0.5 + 0.5) * box.clientHeight + "px"; }
+    // dimension lines
+    const dimMat = new THREE.LineBasicMaterial({ color: 0xd0633a });
+    const dims = new THREE.Group();
+    const seg = (a, b) => dims.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(...a), new THREE.Vector3(...b)]), dimMat));
+    seg([0.62, 0, 0.4], [0.62, 1.97, 0.4]); seg([0.57, 0, 0.4], [0.67, 0, 0.4]); seg([0.57, 1.97, 0.4], [0.67, 1.97, 0.4]);
+    seg([-0.51, -0.01, 0.62], [0.51, -0.01, 0.62]); seg([-0.51, -0.01, 0.57], [-0.51, -0.01, 0.67]); seg([0.51, -0.01, 0.57], [0.51, -0.01, 0.67]);
+    h.bb.group.add(dims);
+
+    /* ---------- exploded: sticky scene ---------- */
+    const r2 = new THREE.WebGLRenderer({ canvas: document.getElementById("c2"), antialias: true, alpha: true }); r2.setPixelRatio(Math.min(devicePixelRatio, 2));
+    const e = lineScene(0xdfdad1);
+    const cam2 = new THREE.PerspectiveCamera(26, 1, 0.1, 50);
+    const sticky = document.getElementById("sticky"), explode = document.getElementById("explode");
+    const panel = document.getElementById("panel"), rail = document.getElementById("rail"), tag = document.getElementById("tag"), tagText = document.getElementById("tagText");
+    const steps = ["intro", ...ORDER];
+    rail.innerHTML = steps.map(() => "<i></i>").join("");
+    let shown = -1;
+    function showStep(i) {
+      if (i === shown) return;
+      shown = i;
+      const k = steps[i], c = COPY[k];
+      panel.classList.add("out");
+      setTimeout(() => {
+        panel.innerHTML = `<span class="num">${c.num || `[0${i}]`}</span><h2>${c.title}</h2><p>${c.text}</p><div class="chips">${c.chips.map((x) => `<span class="chip">${x}</span>`).join("")}</div>`;
+        panel.classList.remove("out");
+      }, 180);
+      [...rail.children].forEach((d, j) => d.classList.toggle("on", j === i));
+      e.bb.highlight(i ? k : null);
+      tagText.textContent = i ? `[0${i}] ${PARTS[k].label}` : "";
+      tag.style.opacity = i ? 1 : 0;
+    }
+
+    function progress() {
+      const r = explode.getBoundingClientRect();
+      return Math.min(1, Math.max(0, -r.top / (r.height - innerHeight)));
+    }
+
+    const clock = new THREE.Clock();
+    function resize() {
+      fitRenderer(r1, cam1, hero3d);
+      fitRenderer(r2, cam2, sticky);
+    }
+    resize(); addEventListener("resize", resize);
+    showStep(0);
+
+    r1.setAnimationLoop(() => {
+      const dt = clock.getDelta(), t = clock.elapsedTime;
+      // hero
+      const narrow = innerWidth < 700;
+      const a1 = t * 0.25;
+      const a1s = -0.5 + Math.sin(a1) * 0.65; // swing between front-left and front-right
+      const d1 = narrow ? 8.6 : 7.0;
+      cam1.position.set(Math.sin(a1s) * d1, 1.9, Math.cos(a1s) * d1);
+      cam1.lookAt(0, 1.02, 0);
+      h.bb.setBrew((t % 9) / 9); h.bb.update(dt, t);
+      r1.render(h.scene, cam1);
+      place(dimH, 0.72, 0.98, 0.4, cam1, hero3d);
+      place(dimW, 0, -0.08, 0.7, cam1, hero3d);
+
+      // exploded
+      const p = progress();
+      const n = steps.length;
+      const stepF = p * n;
+      const i = Math.min(n - 1, Math.floor(stepF));
+      showStep(i);
+      const ex = Math.min(1, Math.max(0, (p - 0.04) / 0.08));
+      e.bb.setExplode(ex);
+      e.bb.setBrew(0.45); e.bb.update(dt, t);
+      const ang = -0.6 + p * 1.6 + Math.sin(t * 0.3) * 0.04;
+      const dist = narrow ? 9.2 : 7.6;
+      const lookX = narrow ? 0 : -0.55;
+      cam2.position.set(Math.sin(ang) * dist + lookX, 2.6, Math.cos(ang) * dist);
+      cam2.lookAt(lookX, narrow ? 1.35 : 1.0, 0);
+      e.scene.updateMatrixWorld();
+      r2.render(e.scene, cam2);
+      // leader tag on highlighted part
+      if (i > 0) {
+        const g = e.bb.parts[steps[i]];
+        const box = new THREE.Box3().setFromObject(g);
+        const c = box.getCenter(new THREE.Vector3()); c.y = box.max.y;
+        c.project(cam2);
+        tag.style.left = (c.x * 0.5 + 0.5) * sticky.clientWidth + "px";
+        tag.style.top = Math.max(150, (-c.y * 0.5 + 0.5) * sticky.clientHeight - 6) + "px"; // stay clear of the fixed header
+      }
+    });
+  </script>
+</body>
+</html>

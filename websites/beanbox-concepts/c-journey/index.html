@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bean Box — Concept C · Journey</title>
+  <meta name="description" content="Bean Box robotic coffee dispenser: barista-quality coffee made automatically. Follow one cup from tap to first sip." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../shared/concepts.css" />
+  <style>
+    :root { --bg: #0d0907; --cream: #f5eee3; --muted: #a39686; --accent: #ffb15c; --copper: #e8743a; --green: #3f8a4a; }
+    body { background: radial-gradient(ellipse 70% 60% at 70% 45%, #2a160b 0%, var(--bg) 62%) fixed, var(--bg); color: var(--cream); }
+    #c { position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: 0; }
+    .hdr { position: fixed; inset: 0 0 auto; z-index: 50; display: flex; justify-content: space-between; align-items: center; padding: 22px clamp(16px, 4vw, 56px); }
+    .logo { display: flex; align-items: center; gap: 10px; font: 700 1.55rem/1 "Inter Tight"; letter-spacing: -.04em; }
+    .logo svg { width: 30px; height: 30px; }
+    .hdr-r { display: flex; gap: 14px; align-items: center; }
+    .btn-sq { display: inline-flex; align-items: center; gap: 10px; background: var(--accent); color: #1a0f08; padding: 12px 20px; font: 600 1rem "Inter Tight"; border: 0; cursor: pointer; }
+    .btn-sq .dots { display: grid; grid-template-columns: 4px 4px; gap: 3px; } .btn-sq .dots i { width: 4px; height: 4px; background: currentColor; }
+    .burger { width: 44px; display: grid; gap: 8px; background: none; border: 0; padding: 6px 0; cursor: pointer; } .burger i { height: 2px; background: var(--cream); }
+    .progress { position: fixed; z-index: 50; left: clamp(16px, 4vw, 56px); top: 50%; transform: translateY(-50%); display: grid; gap: 14px; }
+    .progress a { display: flex; align-items: center; gap: 12px; font: 500 .78rem "Inter Tight"; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); opacity: .55; transition: opacity .3s, color .3s; }
+    .progress a::before { content: ""; width: 18px; height: 1.5px; background: currentColor; transition: width .3s; }
+    .progress a.on { opacity: 1; color: var(--accent); } .progress a.on::before { width: 36px; }
+
+    main { position: relative; z-index: 1; }
+    .ch { min-height: 100vh; display: flex; align-items: center; padding: 120px clamp(16px, 4vw, 56px) 80px clamp(16px, 14vw, 220px); pointer-events: none; }
+    .ch.tall { min-height: 220vh; align-items: flex-start; }
+    .ch.tall .copy { position: sticky; top: 22vh; }
+    .ch.right { justify-content: flex-end; padding-right: clamp(16px, 6vw, 96px); }
+    .copy { max-width: 520px; pointer-events: auto; position: relative; }
+    .copy::before { content: ""; position: absolute; inset: -60px -90px; z-index: -1; background: radial-gradient(ellipse at center, rgba(13,9,7,.72), transparent 70%); pointer-events: none; }
+    .k { font: 500 1.05rem "Inter Tight"; color: var(--accent); letter-spacing: .02em; }
+    .copy h2 { font: 600 clamp(3rem, 7vw, 6.4rem)/.9 "Inter Tight"; letter-spacing: -.06em; margin: 16px 0 22px; }
+    .copy p { font: 400 clamp(1.05rem, 1.4vw, 1.25rem)/1.6 Inter; color: #cfc4b6; margin: 0; text-shadow: 0 2px 20px rgba(0,0,0,.6); }
+    .hero h1 { font: 600 clamp(4.4rem, 12vw, 11rem)/.84 "Inter Tight"; letter-spacing: -.07em; margin: 0 0 30px; }
+    .hero h1 span { display: block; }
+    .hero h1 span:nth-child(2) { color: var(--accent); }
+    .hero .copy { max-width: 640px; }
+    .hero .ctas { display: flex; gap: 12px; margin-top: 32px; flex-wrap: wrap; }
+    .ghost { display: inline-flex; align-items: center; gap: 10px; border: 1.5px solid var(--cream); padding: 11px 20px; font: 600 1rem "Inter Tight"; border-radius: 999px; }
+    .meter { margin-top: 26px; width: min(360px, 100%); }
+    .meter div { height: 6px; border-radius: 6px; background: rgba(245,238,227,.12); overflow: hidden; }
+    .meter i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--accent), var(--copper)); border-radius: 6px; }
+    .meter span { display: flex; justify-content: space-between; margin-top: 10px; font: 500 .82rem Inter; color: var(--muted); }
+    .drinks { display: flex; gap: 8px; margin-top: 26px; flex-wrap: wrap; }
+    .drinks b { border: 1.5px solid rgba(245,238,227,.4); border-radius: 999px; padding: 7px 16px; font: 600 .82rem "Inter Tight"; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); transition: all .3s; }
+    .drinks b.on { background: var(--accent); border-color: var(--accent); color: #1a0f08; }
+    .venues { display: flex; flex-wrap: wrap; gap: 10px 22px; margin-top: 26px; font: 600 clamp(1.4rem, 2.4vw, 2rem)/1.1 "Inter Tight"; letter-spacing: -.03em; }
+    .venues span:nth-child(odd) { color: var(--accent); }
+    .flag { display: inline-block; width: 34px; height: 23px; vertical-align: -3px; margin-right: 10px; border-radius: 3px; background: linear-gradient(#00a1de 0 50%, #fad201 50% 75%, #20603d 75%); position: relative; }
+    .flag::after { content: ""; position: absolute; top: 3px; right: 4px; width: 7px; height: 7px; border-radius: 50%; background: #fad201; }
+
+    /* solid outro */
+    .solid { position: relative; z-index: 2; background: var(--bg); }
+    .kinetic { overflow: hidden; border-block: 1px solid rgba(245,238,227,.12); padding: 26px 0; white-space: nowrap; }
+    .kinetic div { display: inline-block; font: 600 clamp(4rem, 11vw, 10rem)/1 "Inter Tight"; letter-spacing: -.06em; animation: slide 24s linear infinite; }
+    .kinetic em { font-style: normal; color: var(--accent); margin: 0 .2em; }
+    .kinetic.rev div { animation-direction: reverse; color: transparent; -webkit-text-stroke: 1.5px rgba(245,238,227,.5); }
+    @keyframes slide { to { transform: translateX(-50%); } }
+    .contact { padding: 130px clamp(16px, 4vw, 56px) 60px; max-width: 1240px; margin: 0 auto; }
+    .contact h2 { font: 600 clamp(3.4rem, 9vw, 8rem)/.9 "Inter Tight"; letter-spacing: -.06em; margin: 0 0 60px; }
+    .cols { display: grid; grid-template-columns: 1fr 1fr 1.4fr; gap: 48px; }
+    .cols h4 { font: 500 1.6rem "Inter Tight"; margin: 0 0 20px; }
+    .cols p, .cols a { display: block; color: var(--muted); font: 400 1.1rem/2 Inter; margin: 0; }
+    .cols form { display: grid; gap: 14px; }
+    .cols input { background: transparent; border: 0; border-bottom: 1px solid rgba(245,238,227,.3); color: inherit; padding: 12px 0; outline: none; }
+    .cols input:focus { border-color: var(--accent); }
+    .foot { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-top: 90px; padding-top: 24px; border-top: 1px solid rgba(245,238,227,.12); color: var(--muted); font: 400 .9rem Inter; }
+    @media (max-width: 900px) {
+      .progress, .btn-sq .lbl { display: none; }
+      .ch, .ch.right { padding: 110px 20px 40px; align-items: flex-end; justify-content: flex-start; }
+      .ch.tall .copy { top: auto; bottom: 30px; position: sticky; }
+      .ch.tall { align-items: flex-end; }
+      .copy { background: linear-gradient(transparent, rgba(13,9,7,.85) 30%); padding-top: 40px; }
+      .cols { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="c" aria-label="3D Bean Box machine that animates as you scroll"></canvas>
+  <header class="hdr">
+    <a href="#" class="logo"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="12" fill="none" stroke="#ffb15c" stroke-width="5" stroke-dasharray="18 7" /><circle cx="16" cy="16" r="4" fill="#f5eee3" /></svg>Bean Box</a>
+    <div class="hdr-r"><a href="#contact" class="btn-sq"><span class="dots"><i></i><i></i><i></i><i></i></span><span class="lbl">Host a machine</span></a><button class="burger" aria-label="Menu"><i></i><i></i></button></div>
+  </header>
+  <nav class="progress" id="progress" aria-label="Chapters">
+    <a href="#ch0">Intro</a><a href="#ch1">Choose</a><a href="#ch2">Grind</a><a href="#ch3">Brew</a><a href="#ch4">Customize</a><a href="#ch5">Anywhere</a><a href="#ch6">Origin</a>
+  </nav>
+
+  <main>
+    <section class="ch hero" id="ch0" data-ch="0">
+      <div class="copy">
+        <h1><span>Fresh.</span><span>Fast.</span><span>Yours.</span></h1>
+        <p>Bean Box is a robotic coffee dispenser that makes barista-quality coffee automatically: fresh, fast and customizable drinks for any location. Scroll to follow one cup.</p>
+        <div class="ctas"><a href="#ch1" class="btn-sq">Follow the cup ↓</a><a href="#contact" class="ghost">Host a machine</a></div>
+      </div>
+    </section>
+    <section class="ch right" id="ch1" data-ch="1">
+      <div class="copy"><span class="k">01 — Choose</span><h2>Tap. Pay. Done.</h2><p>Pick from 30+ hot and iced drinks on a bright touchscreen, then tap a card or phone. Prefer your own phone? Order ahead in the app and walk straight up.</p></div>
+    </section>
+    <section class="ch" id="ch2" data-ch="2">
+      <div class="copy"><span class="k">02 — Grind</span><h2>Ground for you. Just now.</h2><p>Whole beans fall from a sealed hopper into a burr grinder, ground fresh for your cup only. Nothing is pre-ground and nothing sits waiting.</p></div>
+    </section>
+    <section class="ch tall right" id="ch3" data-ch="3">
+      <div class="copy"><span class="k">03 — Brew</span><h2>A barista that never rushes.</h2><p>The robotic arm pulls a 9-bar shot at 92 °C and pours with millimetre precision. Keep scrolling to fill the cup.</p>
+        <div class="meter"><div><i id="meter"></i></div><span><b id="meterTxt">0 s</b><span>~60 s</span></span></div></div>
+    </section>
+    <section class="ch tall" id="ch4" data-ch="4">
+      <div class="copy"><span class="k">04 — Make it yours</span><h2>Your cup, exactly.</h2><p>Size, milk, strength, syrup, hot or iced. The same perfect recipe every time, and your favourite saved for next time.</p>
+        <div class="drinks" id="drinks"><b data-d="espresso">Espresso</b><b data-d="latte">Latte</b><b data-d="iced">Iced latte</b></div></div>
+    </section>
+    <section class="ch right" id="ch5" data-ch="5">
+      <div class="copy"><span class="k">05 — Anywhere</span><h2>1 m². Open 24/7.</h2><p>All Bean Box needs is a standard outlet. We install, stock, clean and monitor it remotely, wherever people need great coffee.</p>
+        <div class="venues"><span>Malls</span><span>Offices</span><span>Hotels</span><span>Campuses</span><span>Airports</span><span>Hospitals</span></div></div>
+    </section>
+    <section class="ch" id="ch6" data-ch="6">
+      <div class="copy"><span class="k">06 — Origin</span><h2><span class="flag" aria-hidden="true"></span>Grown in Rwanda.</h2><p>Every cup starts as specialty Arabica from Rwanda's highland hills: hand-picked, washed at local stations and roasted in small batches. The robot simply finishes what the farmers began.</p></div>
+    </section>
+  </main>
+
+  <div class="solid">
+    <div class="kinetic" aria-hidden="true"><div>Fresh<em>·</em>Fast<em>·</em>Customizable<em>·</em>Fresh<em>·</em>Fast<em>·</em>Customizable<em>·</em></div></div>
+    <div class="kinetic rev" aria-hidden="true"><div>Any location · Any hour · Any location · Any hour · </div></div>
+    <section class="contact" id="contact">
+      <h2>Brew better with us</h2>
+      <div class="cols">
+        <div><h4>Visit us</h4><p>Showroom address</p><p>City, Country</p></div>
+        <div><h4>Get in touch</h4><a href="#">+000 000 000</a><a href="#">hello@beanbox.example</a></div>
+        <form onsubmit="event.preventDefault(); this.querySelector('button').textContent='Thanks, we\'ll be in touch ✓'">
+          <h4>Host a Bean Box</h4>
+          <input placeholder="Full name*" required aria-label="Full name" /><input placeholder="Work email*" type="email" required aria-label="Work email" /><input placeholder="Venue / company" aria-label="Venue" />
+          <button class="btn-sq" style="justify-self:start">Send →</button>
+        </form>
+      </div>
+      <div class="foot"><span>© Bean Box by Ravens Tech</span><span>Concept C · Journey</span></div>
+    </section>
+  </div>
+
+  <script type="importmap">{ "imports": { "three": "../vendor/three.module.min.js" } }</script>
+  <script type="module">
+    import * as THREE from "three";
+    import { RoomEnvironment } from "../vendor/RoomEnvironment.js";
+    import { createBeanBox, makeRenderer, studioLights } from "../shared/beanbox3d.js";
+
+    await document.fonts.ready;
+    const canvas = document.getElementById("c");
+    const renderer = makeRenderer(canvas);
+    const scene = new THREE.Scene();
+    scene.environment = new THREE.PMREMGenerator(renderer).fromScene(new RoomEnvironment(), 0.04).texture;
+    scene.environmentIntensity = 0.3;
+    studioLights(scene);
+    const bb = createBeanBox({ mode: "real" });
+    scene.add(bb.group);
+    const floor = new THREE.Mesh(new THREE.CircleGeometry(6, 64), new THREE.ShadowMaterial({ opacity: 0.6 }));
+    floor.rotation.x = -Math.PI / 2; floor.receiveShadow = true; scene.add(floor);
+    const ring = new THREE.Mesh(new THREE.TorusGeometry(1.0, 0.006, 8, 128), new THREE.MeshBasicMaterial({ color: 0xffb15c, transparent: true, opacity: 0.8 }));
+    ring.rotation.x = Math.PI / 2; ring.position.y = 0.004; scene.add(ring);
+    const grid = new THREE.PolarGridHelper(6, 24, 10, 64, 0x3a2414, 0x24160d); grid.position.y = 0.002; grid.material.transparent = true; grid.material.opacity = 0; scene.add(grid);
+
+    // falling / swirling beans
+    const N = 70;
+    const beanGeo = new THREE.SphereGeometry(0.018, 10, 8); beanGeo.scale(1, 0.62, 0.72);
+    const beans = new THREE.InstancedMesh(beanGeo, new THREE.MeshStandardMaterial({ color: 0x5a3218, roughness: 0.5 }), N);
+    beans.castShadow = true; scene.add(beans);
+    const seeds = Array.from({ length: N }, (_, i) => ({ a: (i / N) * Math.PI * 2 * 3, r: 0.9 + Math.random() * 0.7, y: 0.9 + Math.random() * 1.6, s: 0.6 + Math.random() * 0.8 }));
+    const HOP = new THREE.Vector3(-0.33, 1.47, -0.2);
+    const dummy = new THREE.Object3D();
+
+    const camera = new THREE.PerspectiveCamera(30, 1, 0.05, 60);
+    // camera keyframes per chapter: [position, target] (desktop puts the machine right of the text)
+    const K = [
+      { p: [-3.4, 1.7, 6.0], t: [-0.75, 1.0, 0] },  // 0 hero
+      { p: [1.25, 1.4, 1.6], t: [0.55, 1.22, 0.3] }, // 1 screen
+      { p: [-0.05, 1.62, 1.55], t: [-0.78, 1.3, -0.2] }, // 2 hopper (on the right)
+      { p: [-0.5, 1.2, 1.05], t: [-0.12, 1.0, 0.05] }, // 3 brew (cup on right)
+      { p: [0.35, 1.2, 1.45], t: [-0.32, 1.02, 0.05] }, // 4 customize (cup on the right)
+      { p: [-3.2, 4.4, 9.2], t: [1.5, 0.7, 0] },  // 5 anywhere (pulled back, machine left)
+      { p: [2.4, 1.5, 5.6], t: [-1.0, 1.0, 0] },   // 6 origin (machine right)
+    ];
+    const KM = [ // narrow screens: machine centred in the top half
+      { p: [-2.2, 2.0, 7.4], t: [0, 0.6, 0] }, { p: [1.1, 1.3, 2.0], t: [0.33, 1.0, 0.3] }, { p: [-0.35, 1.55, 1.6], t: [-0.25, 1.05, -0.15] },
+      { p: [-0.25, 1.15, 1.35], t: [-0.02, 0.82, 0.05] }, { p: [0.3, 1.1, 1.3], t: [0.02, 0.82, 0.05] }, { p: [-5.5, 4.4, 9.5], t: [0, 0.2, 0] }, { p: [2.6, 1.4, 5.4], t: [0, 0.6, 0] },
+    ];
+    const sections = [...document.querySelectorAll("[data-ch]")];
+    const navLinks = [...document.querySelectorAll("#progress a")];
+    const meter = document.getElementById("meter"), meterTxt = document.getElementById("meterTxt");
+    const drinkTags = [...document.querySelectorAll("#drinks b")];
+    const sm = (t) => t * t * (3 - 2 * t);
+    const cl = (t) => Math.min(1, Math.max(0, t));
+    const vA = new THREE.Vector3(), vB = new THREE.Vector3(), tA = new THREE.Vector3(), tB = new THREE.Vector3();
+
+    function state() {
+      const mid = innerHeight * 0.5;
+      let i = 0;
+      for (let j = 0; j < sections.length; j++) if (sections[j].getBoundingClientRect().top <= mid) i = j;
+      const r = sections[i].getBoundingClientRect();
+      const local = cl((mid - r.top) / r.height);
+      return { i, local };
+    }
+    function resize() {
+      renderer.setSize(innerWidth, innerHeight, false);
+      camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix();
+    }
+    resize(); addEventListener("resize", resize);
+
+    const clock = new THREE.Clock();
+    let curDrink = "latte", shownCh = -1;
+    renderer.setAnimationLoop(() => {
+      const dt = clock.getDelta(), t = clock.elapsedTime;
+      const { i, local } = state();
+      const keys = innerWidth < 900 ? KM : K;
+      // hold on this chapter's view, then glide to the next one in the last 40% of the section
+      const tall = sections[i].classList.contains("tall");
+      const move = sm(cl((local - (tall ? 0.78 : 0.6)) / (tall ? 0.22 : 0.4)));
+      const a = keys[i], b = keys[Math.min(i + 1, keys.length - 1)];
+      vA.fromArray(a.p).lerp(vB.fromArray(b.p), move);
+      tA.fromArray(a.t).lerp(tB.fromArray(b.t), move);
+      // subtle drift so it never feels static
+      vA.x += Math.sin(t * 0.3) * 0.05; vA.y += Math.sin(t * 0.21) * 0.03;
+      const ease = 1 - Math.exp(-Math.min(dt, 0.25) * 5); // frame-rate independent smoothing
+      camera.position.lerp(vA, ease);
+      camera.userData.t = (camera.userData.t || tA.clone()).lerp(tA, ease);
+      camera.lookAt(camera.userData.t);
+
+      // brew + drink
+      let brew;
+      if (i === 3) brew = 0.08 + cl(local / 0.78) * 0.66;
+      else if (i === 4) brew = 0.82;
+      else brew = (t % 10) / 10;
+      bb.setBrew(brew);
+      if (i === 3) { const s = cl((brew - 0.08) / 0.66); meter.style.width = s * 100 + "%"; meterTxt.textContent = Math.round(s * 60) + " s"; }
+      let want = "latte";
+      if (i === 4) want = local < 0.26 ? "espresso" : local < 0.52 ? "latte" : "iced";
+      if (want !== curDrink) { curDrink = want; bb.setDrink(want); }
+      drinkTags.forEach((d) => d.classList.toggle("on", d.dataset.d === curDrink));
+      bb.update(dt, t);
+
+      // beans swirl into the hopper during "Grind"
+      const g = i === 2 ? cl(local / 0.7) : i === 1 ? cl((local - 0.7) / 0.3) * 0.15 : 0;
+      beans.visible = g > 0.001;
+      if (beans.visible) {
+        for (let k = 0; k < N; k++) {
+          const sd = seeds[k];
+          const ph = ((t * 0.18 * sd.s + k / N) % 1);
+          const pull = Math.max(ph, g);
+          const ang = sd.a + t * 0.9 * sd.s + pull * 4;
+          const r = sd.r * (1 - pull);
+          dummy.position.set(HOP.x + Math.cos(ang) * r, HOP.y + 0.1 + (sd.y - HOP.y) * (1 - pull) * 0.6, HOP.z + Math.sin(ang) * r);
+          dummy.rotation.set(t * sd.s * 3 + k, t * 2 + k, 0);
+          dummy.scale.setScalar(pull > 0.97 ? 0 : 1);
+          dummy.updateMatrix(); beans.setMatrixAt(k, dummy.matrix);
+        }
+        beans.instanceMatrix.needsUpdate = true;
+      }
+      // "anywhere" floor grid
+      grid.material.opacity += ((i === 5 ? 0.8 : 0) - grid.material.opacity) * 0.08;
+      ring.scale.setScalar(1 + (i === 5 ? Math.sin(t * 2) * 0.05 + 0.2 : 0));
+
+      if (i !== shownCh) { shownCh = i; navLinks.forEach((l, j) => l.classList.toggle("on", j === i)); }
+      renderer.render(scene, camera);
+    });
+  </script>
+</body>
+</html>

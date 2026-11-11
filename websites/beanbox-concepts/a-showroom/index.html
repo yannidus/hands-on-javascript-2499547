@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bean Box — Concept A · Showroom</title>
+  <meta name="description" content="Bean Box robotic coffee dispenser: barista-quality coffee made automatically. Fresh, fast and customizable drinks for any location." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../shared/concepts.css" />
+  <style>
+    :root { --bg: #0b0b10; --paper: #e8e4dd; --ink: #0d0d12; --cream: #f4eee4; --accent: #e8743a; --amber: #ffb15c; --muted: #8f8a84; }
+    body { background: var(--bg); color: var(--cream); }
+    /* header */
+    .hdr { position: fixed; inset: 0 0 auto; z-index: 50; display: flex; align-items: center; justify-content: space-between; padding: 22px clamp(16px, 4vw, 56px); mix-blend-mode: normal; transition: background .3s; }
+    .hdr.solid { background: rgba(11,11,16,.85); backdrop-filter: blur(12px); }
+    .hdr.on-paper { color: var(--ink); background: rgba(232,228,221,.85); }
+    .logo { display: flex; align-items: center; gap: 10px; font: 700 1.55rem/1 "Inter Tight", sans-serif; letter-spacing: -.04em; }
+    .logo svg { width: 30px; height: 30px; }
+    .hdr-r { display: flex; gap: 14px; align-items: center; }
+    .btn-sq { display: inline-flex; align-items: center; gap: 10px; background: var(--accent); color: #fff; padding: 12px 20px; font: 600 1rem "Inter Tight", sans-serif; border: 0; cursor: pointer; transition: filter .2s; }
+    .btn-sq:hover { filter: brightness(1.1); }
+    .btn-sq .dots { display: grid; grid-template-columns: 4px 4px; gap: 3px; }
+    .btn-sq .dots i { width: 4px; height: 4px; background: currentColor; }
+    .burger { width: 44px; display: grid; gap: 8px; background: none; border: 0; cursor: pointer; color: inherit; padding: 6px 0; }
+    .burger i { height: 2px; background: currentColor; }
+    /* hero */
+    .stage { position: relative; height: 100svh; min-height: 680px; overflow: hidden; background: radial-gradient(ellipse 60% 45% at 50% 62%, rgba(232,116,58,.16), transparent 70%), var(--bg); }
+    .stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; cursor: grab; touch-action: pan-y; }
+    .stage canvas:active { cursor: grabbing; }
+    .stage-top { position: absolute; z-index: 2; left: 0; right: 0; top: 108px; text-align: center; pointer-events: none; }
+    .pills { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-bottom: 18px; }
+    .pill { border: 1.5px solid currentColor; border-radius: 999px; padding: 5px 14px; font: 600 .78rem "Inter Tight", sans-serif; letter-spacing: .04em; text-transform: uppercase; }
+    .title { font: 600 clamp(4rem, 13vw, 11rem)/.86 "Inter Tight", sans-serif; letter-spacing: -.06em; color: var(--accent); margin: 0; }
+    .now { margin-top: 10px; font: 500 1rem Inter, sans-serif; color: var(--muted); min-height: 1.5em; }
+    .now b { color: var(--cream); font-weight: 500; }
+    .stage-bottom { position: absolute; z-index: 2; left: 0; right: 0; bottom: 28px; display: flex; justify-content: center; align-items: center; gap: 14px; }
+    .arrow { width: 72px; height: 54px; border-radius: 999px; border: 1.5px solid var(--cream); background: transparent; color: var(--cream); font-size: 1.4rem; cursor: pointer; transition: background .2s, color .2s; }
+    .arrow:hover { background: var(--cream); color: var(--ink); }
+    .seal { position: absolute; z-index: 2; left: clamp(16px, 4vw, 56px); bottom: 22px; width: 104px; height: 104px; }
+    .seal svg { width: 100%; height: 100%; animation: spin 24s linear infinite; }
+    .seal span { position: absolute; inset: 0; display: grid; place-items: center; font: 700 .7rem/1.1 "Inter Tight"; text-align: center; color: var(--ink); }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .hint { position: absolute; z-index: 2; right: clamp(16px, 4vw, 56px); bottom: 40px; font: 500 .8rem Inter; color: var(--muted); display: flex; gap: 8px; align-items: center; }
+    .hint i { width: 26px; height: 26px; border: 1.5px solid var(--muted); border-radius: 50%; display: grid; place-items: center; font-style: normal; }
+    .loader { position: absolute; inset: 0; display: grid; place-items: center; color: var(--muted); font: 500 .9rem Inter; z-index: 1; }
+    /* paper sections */
+    .paper { background: var(--paper); color: var(--ink); }
+    .marquee { overflow: hidden; padding: 70px 0 30px; white-space: nowrap; }
+    .marquee div { display: inline-block; font: 600 clamp(5rem, 16vw, 14rem)/1 "Inter Tight"; letter-spacing: -.06em; animation: slide 22s linear infinite; }
+    .marquee em { font-style: normal; color: #fff; opacity: .9; margin: 0 .15em; }
+    @keyframes slide { to { transform: translateX(-50%); } }
+    .intro { text-align: center; padding: 30px 20px 110px; max-width: 880px; margin: 0 auto; }
+    .intro h2 { font: 600 clamp(2.6rem, 6.5vw, 5.4rem)/.95 "Inter Tight"; letter-spacing: -.05em; margin: 0 0 28px; }
+    .intro p { font: 400 clamp(1.1rem, 1.6vw, 1.35rem)/1.55 Inter; color: #5f5a54; margin: 0 auto; max-width: 680px; }
+    .feat { max-width: 1240px; margin: 0 auto; padding: 0 clamp(16px, 4vw, 56px) 120px; display: grid; gap: 110px; }
+    .f { display: grid; grid-template-columns: 1.15fr 1fr; gap: 56px; align-items: center; }
+    .f:nth-child(even) .media { order: 2; }
+    .media { border-radius: 14px; overflow: hidden; background: #0d0d12; aspect-ratio: 4/3; position: relative; }
+    .media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .media::after { content: ""; position: absolute; inset: auto 0 0; height: 30%; background: linear-gradient(transparent, #0d0d12); }
+    .num { font: 500 1.4rem "Inter Tight"; margin-bottom: 26px; display: block; }
+    .f h3 { font: 600 clamp(2.6rem, 5vw, 4.4rem)/.95 "Inter Tight"; letter-spacing: -.05em; margin: 0 0 24px; }
+    .f p { font: 400 1.15rem/1.6 Inter; color: #5f5a54; margin: 0; max-width: 460px; }
+    .f p b { color: var(--ink); font-weight: 500; }
+    /* specs */
+    .specs { padding: 120px clamp(16px, 4vw, 56px); max-width: 1240px; margin: 0 auto; }
+    .specs h2 { font: 600 clamp(3rem, 8vw, 7rem)/.9 "Inter Tight"; letter-spacing: -.06em; margin: 0 0 56px; }
+    .spec-grid { display: grid; grid-template-columns: repeat(2, 1fr); column-gap: 64px; }
+    .row { display: flex; justify-content: space-between; gap: 20px; padding: 20px 0; border-bottom: 1px solid rgba(244,238,228,.16); font: 400 1.1rem Inter; }
+    .row span { color: var(--muted); }
+    .row b { font-weight: 500; text-align: right; }
+    /* contact */
+    .contact { position: relative; padding: 140px clamp(16px, 4vw, 56px) 80px; max-width: 1240px; margin: 0 auto; }
+    .contact::before { content: ""; position: absolute; left: 50%; top: 60px; width: 520px; height: 260px; transform: translateX(-50%); background: radial-gradient(ellipse, rgba(232,116,58,.35), transparent 70%); filter: blur(30px); z-index: -1; }
+    .contact h2 { font: 600 clamp(3.4rem, 9vw, 8rem)/.9 "Inter Tight"; letter-spacing: -.06em; margin: 0 0 70px; }
+    .cols { display: grid; grid-template-columns: 1fr 1fr 1.4fr; gap: 48px; }
+    .cols h4 { font: 500 1.6rem "Inter Tight"; margin: 0 0 22px; letter-spacing: -.02em; }
+    .cols a, .cols p { display: block; color: var(--muted); font: 400 1.1rem/2 Inter; margin: 0; }
+    .cols a { text-decoration: underline dotted; text-underline-offset: 6px; }
+    form.lead { display: grid; gap: 16px; }
+    form.lead input, form.lead select { background: transparent; border: 0; border-bottom: 1px solid rgba(244,238,228,.3); color: var(--cream); padding: 12px 0; font: 400 1.05rem Inter; outline: none; }
+    form.lead input:focus { border-color: var(--accent); }
+    form.lead select option { background: var(--bg); }
+    .foot { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; padding: 30px clamp(16px, 4vw, 56px); border-top: 1px solid rgba(244,238,228,.12); color: var(--muted); font: 400 .9rem Inter; }
+    @media (max-width: 900px) {
+      .f, .cols, .spec-grid { grid-template-columns: 1fr; }
+      .f:nth-child(even) .media { order: 0; }
+      .feat { gap: 80px; }
+      .hint { display: none; }
+      .btn-sq .lbl { display: none; }
+    }
+    @media (max-width: 560px) {
+      .stage-top { top: 92px; }
+      .seal { width: 78px; height: 78px; bottom: 96px; }
+      .arrow { width: 60px; height: 46px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hdr" id="hdr">
+    <a href="#" class="logo"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="12" fill="none" stroke="#e8743a" stroke-width="5" stroke-dasharray="18 7" /><circle cx="16" cy="16" r="4" fill="currentColor" /></svg>Bean Box</a>
+    <div class="hdr-r">
+      <a href="#contact" class="btn-sq"><span class="dots"><i></i><i></i><i></i><i></i></span><span class="lbl">Host a machine</span></a>
+      <button class="burger" aria-label="Menu"><i></i><i></i></button>
+    </div>
+  </header>
+
+  <section class="stage" id="stage">
+    <div class="loader" id="loader">Loading 3D showroom…</div>
+    <canvas id="c" aria-label="Interactive 3D model of the Bean Box robotic coffee dispenser. Drag to rotate."></canvas>
+    <div class="stage-top">
+      <div class="pills"><span class="pill">Robotic barista</span><span class="pill">60 sec</span><span class="pill">24/7</span><span class="pill">1 m² footprint</span></div>
+      <h1 class="title">Bean Box</h1>
+      <div class="now" id="now" aria-live="polite">Now brewing: <b>Latte</b></div>
+    </div>
+    <div class="seal" aria-hidden="true">
+      <svg viewBox="0 0 100 100"><defs><path id="circ" d="M50 50 m-38 0 a38 38 0 1 1 76 0 a38 38 0 1 1 -76 0" /></defs>
+        <circle cx="50" cy="50" r="49" fill="#e8743a" /><circle cx="50" cy="50" r="30" fill="none" stroke="#0d0d12" stroke-width="1.5" />
+        <text font-family="Inter Tight" font-weight="700" font-size="9.4" letter-spacing="1.6" fill="#0d0d12"><textPath href="#circ">100% RWANDAN ARABICA · FRESH GROUND · </textPath></text></svg>
+      <span>Barista<br>quality</span>
+    </div>
+    <div class="stage-bottom">
+      <button class="arrow" id="prev" aria-label="Previous drink">←</button>
+      <button class="arrow" id="next" aria-label="Next drink">→</button>
+    </div>
+    <div class="hint"><i>↻</i>Drag to rotate</div>
+  </section>
+
+  <section class="paper" id="paper">
+    <div class="marquee" aria-hidden="true"><div>Fresh<em>/</em>Fast<em>/</em>Yours<em>/</em>Fresh<em>/</em>Fast<em>/</em>Yours<em>/</em></div></div>
+    <div class="intro">
+      <h2>Barista quality, made automatically</h2>
+      <p>Bean Box grinds, brews and serves café-grade coffee in about a minute. No queue, no staff, no compromise: fresh, fast and customizable drinks for any location, any hour.</p>
+    </div>
+    <div class="feat">
+      <article class="f"><div class="media"><img data-shot="grinder" alt="Close-up of the Bean Box bean hopper and grinder" /></div><div><span class="num">[01]</span><h3>Fresh, every single cup</h3><p>Whole <b>Rwandan Arabica</b> beans are ground on demand for each drink. Milk stays chilled at 3°C in a sealed module, and every shot is logged for temperature, dose and pressure.</p></div></article>
+      <article class="f"><div class="media"><img data-shot="pour" alt="The robotic arm pouring coffee into a glass" /></div><div><span class="num">[02]</span><h3>Fast, without the rush</h3><p>A 6-axis robotic barista moves with millimetre precision, so a latte takes <b>about 60 seconds</b>, from tap to first sip. Up to 300 cups a day, with no queue.</p></div></article>
+      <article class="f"><div class="media"><img data-shot="screen" alt="The Bean Box touchscreen showing drink options" /></div><div><span class="num">[03]</span><h3>Customizable to the last sip</h3><p>Choose from <b>30+ drinks</b>, then set the size, milk, strength, syrup, hot or iced. Save your favourite in the app and reorder it with one tap.</p></div></article>
+      <article class="f"><div class="media"><img data-shot="wide" alt="Bean Box standing in a small footprint" /></div><div><span class="num">[04]</span><h3>Any location, any hour</h3><p>Just <b>1 m²</b> and a standard power outlet. Malls, offices, hotels, campuses and airports: we install, stock and monitor it remotely, 24/7.</p></div></article>
+    </div>
+  </section>
+
+  <section class="specs">
+    <h2>Specifications</h2>
+    <div class="spec-grid">
+      <div>
+        <div class="row"><span>Footprint</span><b>1.0 × 0.8 m</b></div>
+        <div class="row"><span>Height</span><b>1.95 m</b></div>
+        <div class="row"><span>Brew time</span><b>~60 seconds</b></div>
+        <div class="row"><span>Capacity</span><b>300 cups / day</b></div>
+        <div class="row"><span>Menu</span><b>30+ hot &amp; iced drinks</b></div>
+      </div>
+      <div>
+        <div class="row"><span>Power</span><b>220–240 V, standard outlet</b></div>
+        <div class="row"><span>Milk</span><b>Refrigerated, 2 types</b></div>
+        <div class="row"><span>Payments</span><b>Card · Mobile · QR</b></div>
+        <div class="row"><span>Connectivity</span><b>4G / Wi-Fi remote monitoring</b></div>
+        <div class="row"><span>Coffee</span><b>100% Rwandan Arabica</b></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <h2>Serve better with us</h2>
+    <div class="cols">
+      <div><h4>Visit us</h4><p>Showroom address</p><p>City, Country</p></div>
+      <div><h4>Get in touch</h4><a href="#">+000 000 000</a><a href="#">hello@beanbox.example</a></div>
+      <form class="lead" onsubmit="event.preventDefault(); this.querySelector('button').textContent='Thanks! We\'ll be in touch ✓'">
+        <h4>Host a Bean Box</h4>
+        <input placeholder="Full name*" required aria-label="Full name" />
+        <input placeholder="Work email*" type="email" required aria-label="Work email" />
+        <select aria-label="Venue type"><option>Venue type</option><option>Mall</option><option>Office</option><option>Hotel</option><option>Campus</option><option>Airport</option></select>
+        <button class="btn-sq" type="submit" style="justify-self:start">Send request →</button>
+      </form>
+    </div>
+  </section>
+  <footer class="foot"><span>© Bean Box by Ravens Tech</span><span>Concept A · Showroom</span></footer>
+
+  <script type="importmap">{ "imports": { "three": "../vendor/three.module.min.js" } }</script>
+  <script type="module">
+    import * as THREE from "three";
+    import { OrbitControls } from "../vendor/OrbitControls.js";
+    import { RoomEnvironment } from "../vendor/RoomEnvironment.js";
+    import { createBeanBox, makeRenderer, fitRenderer, studioLights, DRINKS } from "../shared/beanbox3d.js";
+
+    await document.fonts.ready;
+    const canvas = document.getElementById("c");
+    const stage = document.getElementById("stage");
+    const renderer = makeRenderer(canvas);
+    const scene = new THREE.Scene();
+    const pmrem = new THREE.PMREMGenerator(renderer);
+    scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+    scene.environmentIntensity = 0.35;
+    studioLights(scene);
+
+    const camera = new THREE.PerspectiveCamera(30, 1, 0.1, 50);
+    const bb = createBeanBox({ mode: "real" });
+    scene.add(bb.group);
+
+    // turntable + glowing ring + shadow floor
+    const floor = new THREE.Mesh(new THREE.CircleGeometry(1.6, 64), new THREE.ShadowMaterial({ opacity: 0.55 }));
+    floor.rotation.x = -Math.PI / 2; floor.receiveShadow = true; scene.add(floor);
+    const ring = new THREE.Mesh(new THREE.TorusGeometry(1.0, 0.008, 8, 128), new THREE.MeshBasicMaterial({ color: 0xe8743a }));
+    ring.rotation.x = Math.PI / 2; ring.position.y = 0.005; scene.add(ring);
+    const disc = new THREE.Mesh(new THREE.CircleGeometry(1.0, 64), new THREE.MeshBasicMaterial({ color: 0x141417, transparent: true, opacity: 0.85 }));
+    disc.rotation.x = -Math.PI / 2; disc.position.y = 0.002; scene.add(disc);
+
+    const controls = new OrbitControls(camera, canvas);
+    controls.enableDamping = true; controls.enablePan = false; controls.enableZoom = false;
+    controls.minPolarAngle = 1.2; controls.maxPolarAngle = 1.62;
+    controls.autoRotate = true; controls.autoRotateSpeed = 0.6;
+    controls.target.set(0, 0.95, 0);
+
+    function frame() {
+      fitRenderer(renderer, camera, stage);
+      const narrow = stage.clientWidth < 700;
+      // keep the machine in the lower ~55% of the stage, under the title
+      camera.fov = narrow ? 30 : 26; camera.updateProjectionMatrix();
+      const dist = narrow ? 9.8 : 9.0;
+      const ty = narrow ? 1.55 : 1.52;
+      camera.position.set(-dist * 0.42, ty + 0.55, dist * 0.9);
+      controls.target.set(0, ty, 0);
+      controls.update();
+    }
+    frame();
+    addEventListener("resize", frame);
+
+    // drink carousel
+    const keys = Object.keys(DRINKS);
+    let di = 1, t0 = 0;
+    const now = document.getElementById("now");
+    function setDrink(i) { di = (i + keys.length) % keys.length; bb.setDrink(keys[di]); now.innerHTML = `Now brewing: <b>${DRINKS[keys[di]].name}</b>`; t0 = clock.elapsedTime; }
+    document.getElementById("prev").onclick = () => setDrink(di - 1);
+    document.getElementById("next").onclick = () => setDrink(di + 1);
+
+    const clock = new THREE.Clock();
+    const CYCLE = 9;
+    document.getElementById("loader").remove();
+    renderer.setAnimationLoop(() => {
+      const dt = clock.getDelta();
+      const t = clock.elapsedTime;
+      bb.setBrew(((t - t0) % CYCLE) / CYCLE);
+      bb.update(dt, t);
+      controls.update();
+      renderer.render(scene, camera);
+    });
+
+    // feature images rendered from the same model
+    const shots = {
+      grinder: { pos: [-0.12, 1.42, 1.05], target: [-0.3, 1.22, -0.2], brew: 0.04, drink: "latte", fov: 30 },
+      pour: { pos: [0.22, 1.12, 0.92], target: [-0.04, 1.02, 0.02], brew: 0.42, drink: "latte", fov: 34 },
+      screen: { pos: [0.62, 1.28, 1.15], target: [0.335, 1.18, 0.39], brew: 0.0, drink: "latte", fov: 32 },
+      wide: { pos: [-2.6, 1.9, 4.2], target: [0, 0.95, 0], brew: 0.9, drink: "iced", fov: 26 },
+    };
+    const off = makeRenderer(document.createElement("canvas"), { alpha: false });
+    off.setPixelRatio(1); off.setSize(960, 720, false);
+    off.setClearColor(0x0d0d12);
+    const shotCam = new THREE.PerspectiveCamera(30, 4 / 3, 0.05, 50);
+    for (const img of document.querySelectorAll("[data-shot]")) {
+      const s = shots[img.dataset.shot];
+      const keep = bb.drink;
+      bb.setDrink(s.drink); bb.setBrew(s.brew); bb.update(0, 1.3);
+      shotCam.fov = s.fov; shotCam.position.set(...s.pos); shotCam.lookAt(...s.target); shotCam.updateProjectionMatrix();
+      ring.visible = disc.visible = false;
+      off.render(scene, shotCam);
+      img.src = off.domElement.toDataURL("image/jpeg", 0.9);
+      ring.visible = disc.visible = true;
+      bb.setDrink(keys[di]);
+    }
+
+    // header style per section
+    const hdr = document.getElementById("hdr"), paper = document.getElementById("paper");
+    addEventListener("scroll", () => {
+      const r = paper.getBoundingClientRect();
+      hdr.classList.toggle("on-paper", r.top < 60 && r.bottom > 60);
+      hdr.classList.toggle("solid", scrollY > 40);
+    }, { passive: true });
+  </script>
+</body>
+</html>
