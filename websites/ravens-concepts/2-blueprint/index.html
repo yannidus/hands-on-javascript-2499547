@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ravens Tech — Engineered Experiences</title>
+  <meta name="description" content="Ravens Tech robotic machines, Frosti, Bean Box and ZnapCase, drawn and explained like engineering." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .hero { padding-top: 110px; }
+    .huge { overflow: hidden; white-space: nowrap; }
+    .huge div { display: inline-block; font: 700 clamp(4.6rem, 13vw, 12rem)/.9 var(--head); letter-spacing: -.05em; animation: slide 30s linear infinite; }
+    .huge em { font-style: normal; color: #fff; -webkit-text-stroke: 2px var(--ink); margin: 0 .1em; }
+    @keyframes slide { to { transform: translateX(-50%); } }
+    .lineup { position: relative; height: min(64vh, 600px); }
+    .lineup canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .callout { position: absolute; transform: translate(-50%, 0); text-align: center; pointer-events: auto; }
+    .callout a { display: inline-flex; gap: 8px; align-items: center; font: 500 .82rem "JetBrains Mono"; padding: 6px 10px; background: var(--k); color: #0b0b13; }
+    .callout a:hover { filter: brightness(1.1); }
+    .callout i { display: block; width: 1.5px; height: 26px; background: var(--k); margin: 0 auto; }
+    .intro { display: grid; grid-template-columns: 1.1fr 1fr; gap: 56px; padding: 30px 0 110px; align-items: end; }
+    .intro h1 { font-size: clamp(2.8rem, 6vw, 5.4rem); }
+    .intro h1 span { color: var(--accent); }
+    .intro p { font-size: 1.15rem; max-width: 520px; }
+    .intro .acts { display: flex; gap: 12px; margin-top: 24px; }
+    .sheet { padding: 0 0 120px; }
+    .sheet h2 { font-size: clamp(2.6rem, 6vw, 5rem); margin-bottom: 40px; }
+    .rows { border-top: 1.5px solid var(--ink); }
+    .row { display: grid; grid-template-columns: 90px 1.2fr 1.4fr 220px 60px; gap: 24px; align-items: center; padding: 26px 0; border-bottom: 1.5px solid var(--ink); transition: background .2s; }
+    .row:hover { background: rgba(255,255,255,.55); }
+    .row .n { font: 500 1.1rem "JetBrains Mono"; color: var(--k); }
+    .row h3 { font-size: clamp(2rem, 4vw, 3.4rem); }
+    .row small { display: block; font: 500 .78rem "JetBrains Mono"; color: var(--muted); margin-top: 6px; }
+    .row img { height: 150px; width: 100%; object-fit: contain; }
+    .row .go { width: 52px; height: 52px; border-radius: 50%; border: 1.5px solid var(--ink); display: grid; place-items: center; font-size: 1.3rem; transition: background .2s, color .2s; }
+    .row:hover .go { background: var(--ink); color: #fff; }
+    .tech { padding: 0 0 120px; }
+    .tech h2 { font-size: clamp(2.6rem, 6vw, 5rem); margin-bottom: 40px; }
+    .tb { display: grid; grid-template-columns: repeat(4, 1fr); border: 1.5px solid var(--ink); background: rgba(255,255,255,.4); }
+    .tb > div { padding: 26px 22px; border-right: 1.5px solid var(--ink); }
+    .tb > div:last-child { border-right: 0; }
+    .tb small { font: 500 .74rem "JetBrains Mono"; color: var(--accent); }
+    .tb b { display: block; font: 600 1.5rem var(--head); margin: 12px 0 8px; letter-spacing: -.02em; }
+    .places { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 30px; }
+    @media (max-width: 960px) { .intro { grid-template-columns: 1fr; gap: 20px; } .row { grid-template-columns: 50px 1fr 52px; } .row p, .row img { display: none; } .tb { grid-template-columns: 1fr 1fr; } .tb > div:nth-child(2) { border-right: 0; } .tb > div:nth-child(-n+2) { border-bottom: 1.5px solid var(--ink); } .lineup { height: 52vh; } .callout a { font-size: .7rem; padding: 4px 6px; } }
+  </style>
+</head>
+<body>
+  <header class="hdr" id="hdr"></header>
+  <section class="hero">
+    <div class="huge" aria-hidden="true"><div>Fresh<em>/</em>Fast<em>/</em>Customizable<em>/</em>Fresh<em>/</em>Fast<em>/</em>Customizable<em>/</em></div></div>
+    <div class="wrap lineup" id="lineup">
+      <canvas id="c" aria-label="Line drawings of Frosti, Bean Box and ZnapCase side by side"></canvas>
+    </div>
+    <div class="wrap intro">
+      <h1>Innovation you can <span>experience.</span></h1>
+      <div><p>Three robotic machines, engineered to bring popular experiences to any location: ice cream, coffee and custom phone cases, made automatically, fresh and fast. Pick one to see how it is built.</p>
+        <div class="acts"><a class="btn" href="#products">Explore products ↓</a><a class="btn ghost" href="#tech">Our technology</a></div></div>
+    </div>
+  </section>
+
+  <section class="sheet wrap" id="products">
+    <span class="tag">[ PRODUCTS ]</span>
+    <h2>Three machines.<br>One platform.</h2>
+    <div class="rows" id="rows"></div>
+  </section>
+
+  <section class="tech wrap" id="tech">
+    <span class="tag">[ TECHNOLOGY ]</span>
+    <h2>Intelligent retail,<br>by design.</h2>
+    <div class="tb">
+      <div><small>[A] AI-POWERED</small><b>Smart &amp; simple</b><p>Self-calibrating recipes and predictive maintenance keep quality consistent.</p></div>
+      <div><small>[B] CONNECTED</small><b>Remote by default</b><p>Live telemetry, analytics and over-the-air updates for every machine.</p></div>
+      <div><small>[C] EFFICIENT</small><b>Low running cost</b><p>A 1 m² footprint, a standard outlet and optimised energy use.</p></div>
+      <div><small>[D] RELIABLE</small><b>Built for traffic</b><p>Commercial-grade parts rated for high-traffic venues, 24/7.</p></div>
+    </div>
+    <div class="places"><span class="chip">Malls &amp; retail</span><span class="chip">Hotels &amp; resorts</span><span class="chip">Campuses</span><span class="chip">Airports &amp; transit</span><span class="chip">Events</span></div>
+  </section>
+
+  <footer class="foot" id="contact"></footer>
+  <div id="foot" hidden></div>
+
+  <script type="importmap">{ "imports": { "three": "../vendor/three.module.min.js" } }</script>
+  <script type="module">
+    import * as THREE from "three";
+    import { createMachine, fitRenderer } from "../shared/machines3d.js";
+    import { PRODUCTS, ORDER } from "../shared/products.js";
+    import { mountShell } from "./shell.js";
+    mountShell(null);
+    await document.fonts.ready;
+
+    const box = document.getElementById("lineup");
+    const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById("c"), antialias: true, alpha: true });
+    renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+    const scene = new THREE.Scene();
+    const grid = new THREE.GridHelper(8, 32, 0xb8c2d2, 0xd3dae6); scene.add(grid);
+    const ms = ORDER.map((k, i) => {
+      const m = createMachine(k, { mode: "line", fill: 0xeef1f6, ink: 0x0b1220 });
+      m.group.position.x = (i - 1) * 1.45;
+      m.highlight("stage", PRODUCTS[k].accentHex); m.highlight(null);
+      scene.add(m.group); return m;
+    });
+    const camera = new THREE.PerspectiveCamera(24, 1, 0.1, 60);
+    const callouts = ORDER.map((k, i) => {
+      const el = document.createElement("div"); el.className = "callout"; el.style.setProperty("--k", PRODUCTS[k].accent);
+      el.innerHTML = `<a href="product.html?p=${k}">[0${i + 1}] ${PRODUCTS[k].name} →</a><i></i>`; box.appendChild(el); return el;
+    });
+    function resize() { fitRenderer(renderer, camera, box); }
+    resize(); addEventListener("resize", resize);
+    const v = new THREE.Vector3(), clock = new THREE.Clock();
+    let hover = -1;
+    callouts.forEach((c, i) => { c.onmouseenter = () => (hover = i); c.onmouseleave = () => (hover = -1); });
+    renderer.setAnimationLoop(() => {
+      const dt = clock.getDelta(), t = clock.elapsedTime;
+      const narrow = box.clientWidth < 700;
+      const a = Math.sin(t * 0.18) * 0.32;
+      const d = narrow ? 11.5 : 8.6;
+      camera.position.set(Math.sin(a) * d, 2.3, Math.cos(a) * d); camera.lookAt(0, 0.9, 0);
+      ms.forEach((m, i) => {
+        m.setProgress(((t + i * 3) % 9) / 9); m.update(dt, t);
+        m.highlight(hover === i ? "arm" : null, PRODUCTS[ORDER[i]].accentHex);
+        m.group.position.y = hover === i ? Math.min(0.12, m.group.position.y + dt * 0.6) : Math.max(0, m.group.position.y - dt * 0.6);
+      });
+      renderer.render(scene, camera);
+      ms.forEach((m, i) => {
+        v.set(0, 2.02, 0).applyMatrix4(m.group.matrixWorld).project(camera);
+        callouts[i].style.left = (v.x * 0.5 + 0.5) * box.clientWidth + "px";
+        callouts[i].style.top = (-v.y * 0.5 + 0.5) * box.clientHeight - 56 + "px";
+      });
+    });
+
+    // product rows with still line drawings
+    const off = new THREE.WebGLRenderer({ antialias: true, alpha: true }); off.setSize(400, 300, false);
+    const solo = new THREE.Scene(); const cam = new THREE.PerspectiveCamera(22, 4 / 3, 0.1, 50);
+    cam.position.set(-3.2, 1.9, 5.2); cam.lookAt(0, 0.95, 0);
+    document.getElementById("rows").innerHTML = ORDER.map((k, i) => {
+      const p = PRODUCTS[k];
+      const m = createMachine(k, { mode: "line", fill: 0xeef1f6, ink: 0x0b1220 }); m.setExplode(0.55); m.setProgress(0.4); m.update(0, 1); m.highlight("arm", p.accentHex);
+      solo.add(m.group); off.render(solo, cam); const img = off.domElement.toDataURL(); solo.remove(m.group);
+      return `<a class="row" href="product.html?p=${k}" style="--k:${p.accent}"><span class="n">[0${i + 1}]</span><div><h3>${p.name}</h3><small>${p.kind}</small></div><p>${p.lead}</p><img src="${img}" alt="${p.name} exploded line drawing"><span class="go">→</span></a>`;
+    }).join("");
+  </script>
+</body>
+</html>

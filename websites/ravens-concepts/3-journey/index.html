@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ravens Tech — Walk the Showroom</title>
+  <meta name="description" content="Walk through the Ravens Tech 3D showroom: Frosti ice cream, Bean Box coffee and ZnapCase phone cases, made by robots." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .hero h1 { font-size: clamp(3.2rem, 6.4vw, 6.2rem); line-height: .9; margin: 18px 0 26px; }
+    .hero h1 span { display: block; background: linear-gradient(120deg, #48cfff, #8a5fff 55%, #ff5ec4); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .hero .copy { max-width: 560px; } .hero .copy p { max-width: 450px; }
+    .scroll-cue { position: fixed; z-index: 5; left: 50%; bottom: 22px; transform: translateX(-50%); font: 600 .74rem Inter; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); transition: opacity .3s; }
+  </style>
+</head>
+<body>
+  <canvas id="c" aria-label="3D showroom: scroll to walk past Frosti, Bean Box and ZnapCase"></canvas>
+  <header class="hdr" id="hdr"></header>
+  <nav class="prog" id="prog" aria-label="Chapters"><a href="#ch0">Welcome</a><a href="#ch1" style="--k:#48cfff">Frosti</a><a href="#ch2" style="--k:#ffb15c">Bean Box</a><a href="#ch3" style="--k:#a77bff">ZnapCase</a><a href="#ch4">Anywhere</a></nav>
+  <span class="scroll-cue" id="cue">Scroll to walk the showroom ↓</span>
+
+  <main>
+    <section class="ch hero" id="ch0" data-ch>
+      <div class="copy"><span class="k">Ravens Tech · Automated Retail</span>
+        <h1>Innovation<span>you can experience.</span></h1>
+        <p>Next-generation robotic machines that make ice cream, coffee and custom phone cases, made automatically, fresh and fast, for any location. Walk the showroom to meet them.</p>
+        <div class="acts"><a class="btn btn-p" href="#ch1">Start the tour ↓</a><a class="btn btn-s" href="#contact">Host a machine</a></div></div>
+    </section>
+    <section class="ch right" id="ch1" data-ch style="--k:#48cfff"></section>
+    <section class="ch" id="ch2" data-ch style="--k:#ffb15c"></section>
+    <section class="ch right" id="ch3" data-ch style="--k:#a77bff"></section>
+    <section class="ch" id="ch4" data-ch>
+      <div class="copy"><span class="k">04 · Anywhere</span><h2>1 m². Open 24/7.</h2>
+        <p>Each machine needs about 1 m² and a standard outlet. They are remotely monitored, restocked on schedule and built for malls, hotels, campuses, airports and events.</p>
+        <div class="acts"><a class="btn btn-p" href="#contact">Host a machine →</a></div></div>
+    </section>
+  </main>
+
+  <div class="solid">
+    <div class="kin" aria-hidden="true"><div>Fresh <em>·</em> Fast <em>·</em> Customizable <em>·</em> Fresh <em>·</em> Fast <em>·</em> Customizable <em>·</em> </div></div>
+    <section class="contact" id="contact"></section>
+  </div>
+
+  <script type="importmap">{ "imports": { "three": "../vendor/three.module.min.js" } }</script>
+  <script type="module">
+    import { createWorld, mountShell } from "./world.js";
+    import { createMachine, interiorLight, INTERIOR_LIGHT } from "../shared/machines3d.js";
+    import { PRODUCTS, ORDER } from "../shared/products.js";
+    mountShell(null);
+    ORDER.forEach((k, i) => {
+      const p = PRODUCTS[k];
+      document.getElementById(`ch${i + 1}`).innerHTML = `<div class="copy"><span class="k">0${i + 1} · ${p.kind}</span><h2>${p.name}</h2>
+        <p><b style="color:#fff">${p.headline.join(" ")}</b> ${p.lead}</p>
+        <div class="acts"><a class="btn btn-p" href="product.html?p=${k}">Enter ${p.name} →</a></div></div>`;
+    });
+    await document.fonts.ready;
+    const { THREE, renderer, scene, camera, rig } = createWorld(document.getElementById("c"));
+    // machines along a gentle arc, each on a glowing pad
+    const SPOTS = [[-3.2, 0, -0.6, 0.35], [0, 0, -1.4, 0], [3.2, 0, -0.6, -0.35]];
+    const ms = ORDER.map((k, i) => {
+      const m = createMachine(k); interiorLight(m, INTERIOR_LIGHT[k]);
+      const [x, y, z, ry] = SPOTS[i]; m.group.position.set(x, y, z); m.group.rotation.y = ry; scene.add(m.group);
+      const pad = new THREE.Mesh(new THREE.RingGeometry(0.85, 0.9, 96), new THREE.MeshBasicMaterial({ color: PRODUCTS[k].accentHex, toneMapped: false, side: THREE.DoubleSide }));
+      pad.rotation.x = -Math.PI / 2; pad.position.set(x, 0.006, z); scene.add(pad);
+      const glow = new THREE.PointLight(PRODUCTS[k].accentHex, 2.5, 3, 2); glow.position.set(x, 0.3, z + 0.9); scene.add(glow);
+      m.pad = pad;
+      return m;
+    });
+    const fwd = (i, d, h, side) => { const [x, , z, ry] = SPOTS[i]; return { p: [x + Math.sin(ry) * d + side, h, z + Math.cos(ry) * d], t: [x - side * 0.55, 1.05, z] }; };
+    const KEYS = [
+      { p: [-2.8, 2.9, 15.4], t: [-3.25, 1.1, -0.8] },
+      fwd(0, 3.6, 1.5, -0.9), // Frosti on the left of the screen (text right)
+      fwd(1, 3.6, 1.5, 0.9),  // Bean Box on the right (text left)
+      fwd(2, 3.6, 1.5, -0.9),
+      { p: [-3.6, 5.6, 13.5], t: [-3.0, 0.5, -1] },
+    ];
+    const KM = [
+      { p: [0, 3.2, 12.5], t: [0, 0.4, -0.8] }, fwd(0, 4.8, 1.6, 0), fwd(1, 4.8, 1.6, 0), fwd(2, 4.8, 1.6, 0), { p: [0, 7, 14], t: [0, -0.5, -1] },
+    ].map((k) => (k.t[1] === 1.05 ? { p: k.p, t: [k.t[0], 0.65, k.t[2]] } : k));
+    const sections = [...document.querySelectorAll("[data-ch]")];
+    const tick = rig(sections, KEYS, KM);
+    const links = [...document.querySelectorAll("#prog a")], cue = document.getElementById("cue");
+    const clock = new THREE.Clock();
+    renderer.setAnimationLoop(() => {
+      const dt = clock.getDelta(), t = clock.elapsedTime;
+      const { i } = tick(dt, t);
+      ms.forEach((m, j) => { m.setProgress(((t + j * 3) % 9) / 9); m.update(dt, t); m.pad.scale.setScalar(i === j + 1 ? 1.08 + Math.sin(t * 3) * 0.03 : 1); });
+      links.forEach((l, j) => l.classList.toggle("on", j === i));
+      cue.style.opacity = scrollY > 80 ? 0 : 1;
+      renderer.render(scene, camera);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ravens Tech — Product</title>
+  <meta name="description" content="Explore a Ravens Tech robotic machine in 3D: how it works, features, specifications and where it fits." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .phero { min-height: 100svh; padding-top: 78px; display: grid; grid-template-columns: 0.95fr 1.05fr; align-items: center; gap: 20px; background: radial-gradient(ellipse 50% 55% at 72% 55%, rgba(var(--accent-rgb), .2), transparent 70%), radial-gradient(ellipse 35% 35% at 90% 15%, rgba(var(--accent2-rgb), .12), transparent 70%), var(--bg); }
+    .phero .copy { padding-left: var(--gut); max-width: 640px; }
+    .crumb { font-size: .85rem; color: var(--muted); margin-bottom: 24px; } .crumb a:hover { color: var(--accent); }
+    .pname { display: flex; align-items: center; gap: 16px; font: 700 clamp(3.4rem, 7vw, 6.2rem)/.9 var(--head); letter-spacing: -.04em; }
+    .pname svg { width: .7em; height: .7em; color: var(--accent); filter: drop-shadow(0 0 14px rgba(var(--accent-rgb), .8)); }
+    .kind { font: 500 1.3rem var(--head); margin: 12px 0 26px; color: var(--accent); }
+    .phero h1 { font-size: clamp(1.8rem, 3vw, 2.6rem); margin-bottom: 16px; }
+    .phero .lead { font-size: 1.1rem; color: rgba(245,248,255,.78); }
+    .pills { display: flex; flex-wrap: wrap; gap: 8px; margin: 22px 0 28px; }
+    .pills span { padding: 6px 14px; border-radius: 999px; border: 1.5px solid rgba(var(--accent-rgb), .6); font: 600 .75rem var(--body); text-transform: uppercase; letter-spacing: .06em; }
+    .acts { display: flex; gap: 12px; flex-wrap: wrap; }
+    .viewer { position: relative; height: min(88svh, 820px); }
+    .viewer canvas { position: absolute; inset: 0; width: 100%; height: 100%; cursor: grab; }
+    .variants { position: absolute; left: 50%; bottom: 22px; transform: translateX(-50%); display: flex; gap: 8px; padding: 8px; border-radius: 999px; }
+    .variants button { border: 0; background: transparent; color: var(--muted); padding: 9px 16px; border-radius: 999px; font: 600 .85rem var(--body); cursor: pointer; transition: all .2s; white-space: nowrap; }
+    .variants button.on { background: var(--accent); color: #0b0b13; box-shadow: 0 0 20px rgba(var(--accent-rgb), .6); }
+    .hint { position: absolute; right: var(--gut); top: 18px; font-size: .8rem; color: var(--muted); }
+    .status { position: absolute; left: 6%; top: 18%; padding: 14px 18px; min-width: 210px; }
+    .status b { font: 600 1rem var(--head); display: block; }
+    .status small { color: var(--muted); }
+    .status .bar { height: 4px; border-radius: 4px; background: rgba(255,255,255,.12); margin-top: 10px; overflow: hidden; } .status .bar i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--accent), var(--accent-2)); }
+
+    .sec { padding: 110px 0; }
+    .sec-h { max-width: 720px; margin-bottom: 52px; }
+    .sec-h h2 { font-size: clamp(2.2rem, 4.4vw, 3.6rem); margin-top: 16px; }
+    .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; counter-reset: s; }
+    .step { padding: 30px 26px; position: relative; }
+    .step::before { counter-increment: s; content: "0" counter(s); font: 700 3rem var(--head); color: transparent; -webkit-text-stroke: 1.2px rgba(var(--accent-rgb), .7); display: block; margin-bottom: 18px; }
+    .step h3 { font-size: 1.35rem; margin-bottom: 10px; }
+    .feat { display: grid; grid-template-columns: 1.1fr 1fr; gap: 56px; align-items: center; margin-bottom: 90px; }
+    .feat:nth-child(even) .shot { order: 2; }
+    .shot { border-radius: 22px; overflow: hidden; border: 1px solid rgba(var(--accent-rgb), .35); background: #0d0d14; aspect-ratio: 4/3; box-shadow: 0 30px 80px -40px rgba(var(--accent-rgb), .7); }
+    .shot img { width: 100%; height: 100%; object-fit: cover; }
+    .feat .n { font: 600 1rem var(--head); color: var(--accent); }
+    .feat h3 { font-size: clamp(2rem, 3.6vw, 3rem); margin: 14px 0 16px; }
+    .feat p { font-size: 1.1rem; max-width: 460px; }
+    .specs { display: grid; grid-template-columns: 1fr 1fr; column-gap: 56px; padding: 26px 34px; }
+    .specs div { display: flex; justify-content: space-between; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--line); }
+    .specs span { color: var(--muted); } .specs b { font-weight: 500; text-align: right; }
+    .venues { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+    .venues span { padding: 12px 20px; border-radius: 14px; border: 1px solid var(--line); background: rgba(22,35,60,.45); font: 600 1rem var(--head); }
+    .more { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+    .more a { display: grid; grid-template-columns: 1fr 160px; align-items: center; padding: 26px 30px; border-radius: 22px; border: 1px solid rgba(var(--c), .4); background: radial-gradient(circle at 85% 50%, rgba(var(--c), .35), transparent 60%), linear-gradient(160deg, rgba(22,35,60,.9), rgba(11,11,19,.9)); transition: transform .3s; }
+    .more a:hover { transform: translateY(-4px); }
+    .more h3 { font-size: 2rem; } .more small { color: var(--muted); display: block; margin: 6px 0 14px; } .more em { font-style: normal; font-weight: 600; color: rgb(var(--c)); }
+    .more img { width: 160px; height: 200px; object-fit: contain; }
+    @media (max-width: 1100px) {
+      .phero { grid-template-columns: 1fr; padding-top: 110px; }
+      .phero .copy { padding: 0 var(--gut); }
+      .viewer { height: 70svh; }
+      .steps { grid-template-columns: 1fr 1fr; }
+      .feat, .specs, .more { grid-template-columns: 1fr; } .feat:nth-child(even) .shot { order: 0; }
+      .status { display: none; }
+    }
+    @media (max-width: 600px) { .steps { grid-template-columns: 1fr; } .variants button { padding: 8px 11px; font-size: .78rem; } .more a { grid-template-columns: 1fr 100px; } .more img { width: 100px; height: 130px; } }
+  </style>
+</head>
+<body>
+  <header class="hdr" id="hdr"></header>
+
+  <section class="phero">
+    <div class="copy" id="copy"></div>
+    <div class="viewer" id="viewer">
+      <canvas id="c" aria-label="Interactive 3D model of the machine. Drag to rotate."></canvas>
+      <div class="status glass" id="status"><b id="stTitle">Making…</b><small id="stSub"></small><div class="bar"><i id="stBar"></i></div></div>
+      <span class="hint">↻ Drag to rotate</span>
+      <div class="variants glass" id="variants" role="group" aria-label="Choose a variant"></div>
+    </div>
+  </section>
+
+  <section class="sec" id="how"><div class="wrap"><div class="sec-h reveal"><span class="eyebrow">How it works</span><h2 id="howH"></h2></div><div class="steps" id="steps"></div></div></section>
+  <section class="sec" style="padding-top:20px"><div class="wrap" id="features"></div></section>
+  <section class="sec" style="padding-top:0"><div class="wrap"><div class="sec-h reveal"><span class="eyebrow">Specifications</span><h2>Built for high-traffic spaces</h2></div><div class="specs glass reveal" id="specs"></div>
+    <div class="venues reveal" id="venues"></div></div></section>
+  <section class="sec" style="padding-top:0"><div class="wrap"><div class="sec-h reveal"><span class="eyebrow">Explore more</span><h2>The Ravens Tech family</h2></div><div class="more" id="more"></div></div></section>
+
+  <section class="contact" id="contact"></section>
+  <footer class="foot" id="foot"></footer>
+
+  <script type="importmap">{ "imports": { "three": "../vendor/three.module.min.js" } }</script>
+  <script type="module">
+    import * as THREE from "three";
+    import { OrbitControls } from "../vendor/OrbitControls.js";
+    import { RoomEnvironment } from "../vendor/RoomEnvironment.js";
+    import { createMachine, makeRenderer, fitRenderer, studioLights, interiorLight, INTERIOR_LIGHT } from "../shared/machines3d.js";
+    import { PRODUCTS, ORDER, currentProduct } from "../shared/products.js";
+    import { mountShell, snapshots } from "./shell.js";
+
+    const P = currentProduct();
+    const rgb = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16)).join(",");
+    const root = document.documentElement.style;
+    root.setProperty("--accent", P.accent); root.setProperty("--accent-2", P.accent2);
+    root.setProperty("--accent-rgb", rgb(P.accent)); root.setProperty("--accent2-rgb", rgb(P.accent2));
+    document.title = `${P.name} — ${P.kind} | Ravens Tech`;
+    const ICON = {
+      frosti: '<path d="M7 11h10l-5 11z"/><path d="M6.5 11a5.5 5.5 0 1 1 11 0"/>',
+      beanbox: '<path d="M4 9h13v5a6 6 0 0 1-6 6h-1a6 6 0 0 1-6-6V9z"/><path d="M17 11h1.5a2.5 2.5 0 0 1 0 5H17M8 2c0 1.5 1 1.5 1 3M12 2c0 1.5 1 1.5 1 3"/>',
+      znapcase: '<rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/>',
+    };
+    const icon = (k) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${ICON[k]}</svg>`;
+
+    document.getElementById("copy").innerHTML = `
+      <div class="crumb"><a href="index.html">Home</a> / <a href="index.html#products">Products</a> / ${P.name}</div>
+      <div class="pname">${icon(P.key)}${P.name}</div>
+      <div class="kind">${P.kind}</div>
+      <h1>${P.headline[0]} <span class="grad">${P.headline[1]}</span></h1>
+      <p class="lead">${P.lead}</p>
+      <div class="pills">${P.pills.map((x) => `<span>${x}</span>`).join("")}</div>
+      <div class="acts"><a class="btn btn-p" href="#contact">Host a ${P.name} →</a><a class="btn btn-s" href="#how"><span class="play">▶</span>See how it works</a></div>`;
+    document.getElementById("howH").innerHTML = `From tap to <span class="grad">done</span> in four steps`;
+    document.getElementById("steps").innerHTML = P.steps.map(([h, t]) => `<div class="step glass reveal"><h3>${h}</h3><p>${t}</p></div>`).join("");
+    document.getElementById("specs").innerHTML = P.specs.map(([k, v]) => `<div><span>${k}</span><b>${v}</b></div>`).join("");
+    document.getElementById("venues").innerHTML = P.venues.map((v) => `<span>${v}</span>`).join("");
+    mountShell(P.key);
+    await document.fonts.ready;
+
+    // 3D viewer
+    const viewer = document.getElementById("viewer");
+    const renderer = makeRenderer(document.getElementById("c"));
+    const scene = new THREE.Scene();
+    scene.environment = new THREE.PMREMGenerator(renderer).fromScene(new RoomEnvironment(), 0.04).texture;
+    scene.environmentIntensity = 0.35;
+    studioLights(scene, { tint: P.accentHex });
+    const m = createMachine(P.key); interiorLight(m, INTERIOR_LIGHT[P.key]); scene.add(m.group);
+    const ped = new THREE.Mesh(new THREE.CylinderGeometry(1.0, 1.08, 0.1, 96), new THREE.MeshStandardMaterial({ color: 0x0f1626, metalness: 0.7, roughness: 0.35 }));
+    ped.position.y = -0.05; ped.receiveShadow = true; scene.add(ped);
+    const ring = new THREE.Mesh(new THREE.TorusGeometry(1.04, 0.012, 10, 128), new THREE.MeshBasicMaterial({ color: P.accentHex, toneMapped: false }));
+    ring.rotation.x = Math.PI / 2; ring.position.y = 0.0; scene.add(ring);
+    const floor = new THREE.Mesh(new THREE.CircleGeometry(6, 64), new THREE.ShadowMaterial({ opacity: 0.5 })); floor.rotation.x = -Math.PI / 2; floor.position.y = 0.001; floor.receiveShadow = true; scene.add(floor);
+    const camera = new THREE.PerspectiveCamera(28, 1, 0.1, 60);
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true; controls.enablePan = false; controls.enableZoom = false; controls.autoRotate = true; controls.autoRotateSpeed = 0.5;
+    controls.minPolarAngle = 1.1; controls.maxPolarAngle = 1.55;
+    function frame() { fitRenderer(renderer, camera, viewer); const narrow = viewer.clientWidth < 600; controls.target.set(0, 0.95, 0); camera.position.set(-2.6, 1.9, narrow ? 7.2 : 6.2); controls.update(); }
+    frame(); addEventListener("resize", frame);
+
+    let vi = 1;
+    const vbox = document.getElementById("variants");
+    vbox.innerHTML = P.variants.map((v, i) => `<button data-i="${i}" class="${i === vi ? "on" : ""}">${v.label}</button>`).join("");
+    const clock = new THREE.Clock();
+    let t0 = 0;
+    function setV(i) { vi = i; m.setVariant(P.variants[i].key); [...vbox.children].forEach((b, j) => b.classList.toggle("on", j === i)); t0 = clock.elapsedTime; }
+    vbox.onclick = (e) => { const b = e.target.closest("button"); if (b) setV(+b.dataset.i); };
+    setV(1);
+    const stBar = document.getElementById("stBar"), stTitle = document.getElementById("stTitle"), stSub = document.getElementById("stSub");
+    const VERB = { frosti: ["Scooping your cone…", "Enjoy your cone ✓"], beanbox: ["Brewing your coffee…", "Ready, enjoy ✓"], znapcase: ["Printing your case…", "Case ready ✓"] };
+    const CYCLE = 9;
+    renderer.setAnimationLoop(() => {
+      const dt = clock.getDelta(), t = clock.elapsedTime;
+      const p = ((t - t0) % CYCLE) / CYCLE;
+      m.setProgress(p); m.update(dt, t);
+      const done = p > 0.72;
+      stBar.style.width = Math.min(100, (p / 0.72) * 100) + "%";
+      stTitle.textContent = VERB[P.key][done ? 1 : 0];
+      stSub.textContent = P.variants[vi].label;
+      controls.update();
+      renderer.render(scene, camera);
+    });
+
+    // feature stills rendered from the model
+    const SHOTS = {
+      source: { pos: [-0.12, 1.42, 1.05], target: [-0.3, 1.25, -0.2], fov: 32, p: 0.04 },
+      make: { pos: [0.22, 1.12, 0.92], target: [-0.04, 1.02, 0.04], fov: 34, p: 0.42 },
+      screen: { pos: [0.62, 1.28, 1.15], target: [0.335, 1.18, 0.39], fov: 32, p: 0.0 },
+      wide: { pos: [-2.4, 1.8, 4.2], target: [0, 0.95, 0], fov: 28, p: 0.9 },
+    };
+    const off = makeRenderer(document.createElement("canvas"), { alpha: false });
+    off.setClearColor(0x0d0d14);
+    ring.visible = ped.visible = false;
+    const imgs = snapshots(THREE, off, scene, SHOTS, { before: (s) => { m.setProgress(s.p); m.update(0, 1.3); } });
+    ring.visible = ped.visible = true;
+    document.getElementById("features").innerHTML = P.features.map(([h, t, shot], i) =>
+      `<div class="feat reveal in"><div class="shot"><img src="${imgs[shot]}" alt="${h}: ${P.name} close-up"></div><div><span class="n">[0${i + 1}]</span><h3>${h}</h3><p>${t}</p></div></div>`).join("");
+
+    // other products
+    const solo = new THREE.Scene(); solo.environment = scene.environment; solo.environmentIntensity = 0.35; studioLights(solo, { tint: 0xffffff });
+    const offA = makeRenderer(document.createElement("canvas"), { alpha: true });
+    document.getElementById("more").innerHTML = ORDER.filter((k) => k !== P.key).map((k) => {
+      const q = PRODUCTS[k];
+      const mm = createMachine(k); interiorLight(mm, INTERIOR_LIGHT[k]); mm.setProgress(0.5); mm.update(0, 2); solo.add(mm.group);
+      const img = snapshots(THREE, offA, solo, { x: { pos: [-2.2, 1.6, 4.6], target: [0, 0.98, 0], fov: 28 } }, { w: 320, h: 400 }).x;
+      solo.remove(mm.group);
+      return `<a href="product.html?p=${k}" style="--c:${rgb(q.accent)}"><div><h3>${q.name}</h3><small>${q.kind}</small><em>Explore ${q.name} →</em></div><img src="${img}" alt="${q.name}"></a>`;
+    }).join("");
+  </script>
+</body>
+</html>

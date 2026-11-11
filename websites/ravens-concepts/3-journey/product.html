@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ravens Tech — Product journey</title>
+  <meta name="description" content="Follow one order through a Ravens Tech robotic machine, chapter by chapter, in 3D." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .hero h1 { font-size: clamp(4rem, 11vw, 10rem); line-height: .84; margin: 16px 0 22px; }
+    .hero h1 span { display: block; color: var(--k); font-size: .42em; letter-spacing: -.02em; line-height: 1.1; margin-top: 10px; }
+    .meter { margin-top: 26px; width: min(360px, 100%); }
+    .meter div { height: 6px; border-radius: 6px; background: rgba(245,248,255,.14); overflow: hidden; }
+    .meter i { display: block; height: 100%; width: 0; background: var(--k); border-radius: 6px; box-shadow: 0 0 14px var(--k); }
+    .meter span { display: flex; justify-content: space-between; margin-top: 10px; font: 500 .82rem Inter; color: var(--muted); }
+    .vtags { display: flex; gap: 8px; margin-top: 24px; flex-wrap: wrap; }
+    .vtags b { border: 1.5px solid rgba(245,248,255,.4); border-radius: 999px; padding: 7px 15px; font: 600 .8rem Inter; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); transition: all .3s; }
+    .vtags b.on { background: var(--k); border-color: var(--k); color: #070812; }
+    .specs { display: grid; grid-template-columns: 1fr 1fr; gap: 0 28px; margin-top: 22px; }
+    .specs div { display: flex; justify-content: space-between; gap: 10px; padding: 9px 0; border-bottom: 1px solid rgba(245,248,255,.14); font-size: .92rem; }
+    .specs span { color: var(--muted); }
+    .next { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 26px; }
+  </style>
+</head>
+<body>
+  <canvas id="c" aria-label="3D machine that animates as you scroll"></canvas>
+  <header class="hdr" id="hdr"></header>
+  <nav class="prog" id="prog" aria-label="Chapters"></nav>
+  <main id="main"></main>
+  <div class="solid">
+    <div class="kin" aria-hidden="true"><div id="kin"></div></div>
+    <section class="contact" id="contact"></section>
+  </div>
+
+  <script type="importmap">{ "imports": { "three": "../vendor/three.module.min.js" } }</script>
+  <script type="module">
+    import { createWorld, mountShell } from "./world.js";
+    import { createMachine, interiorLight, INTERIOR_LIGHT } from "../shared/machines3d.js";
+    import { PRODUCTS, ORDER, currentProduct } from "../shared/products.js";
+    const P = currentProduct();
+    document.documentElement.style.setProperty("--k", P.accent);
+    document.documentElement.style.setProperty("--accent", P.accent);
+    document.title = `${P.name} — ${P.kind} | Ravens Tech`;
+    const others = ORDER.filter((k) => k !== P.key);
+    const CH = [
+      { id: "Intro", cls: "hero", html: `<span class="k">${P.kind}</span><h1>${P.name}<span>${P.headline.join(" ")}</span></h1><p>${P.lead}</p><div class="acts"><a class="btn btn-p" href="#ch1">Follow one order ↓</a><a class="btn btn-s" href="#contact">Host a ${P.name}</a></div>` },
+      { id: P.steps[0][0], cls: "right", html: `<span class="k">01 · ${P.steps[0][0]}</span><h2>${P.steps[0][0]}.</h2><p>${P.steps[0][1]} ${P.steps[1][1]}</p>` },
+      { id: "Source", cls: "", html: `<span class="k">02 · ${P.features[0][0]}</span><h2>${P.features[0][0]}.</h2><p>${P.features[0][1]}</p>` },
+      { id: P.steps[2][0], cls: "tall right", html: `<span class="k">03 · ${P.steps[2][0]}</span><h2>${P.features[1][0]}.</h2><p>${P.steps[2][1]} Keep scrolling to watch it happen.</p><div class="meter"><div><i id="meter"></i></div><span><b id="meterTxt">0%</b><span>${P.specs[2][1]}</span></span></div>` },
+      { id: "Customize", cls: "tall", html: `<span class="k">04 · Make it yours</span><h2>${P.features[2][0]}.</h2><p>${P.features[2][1]}</p><div class="vtags" id="vtags">${P.variants.map((v) => `<b>${v.label}</b>`).join("")}</div>` },
+      { id: "Anywhere", cls: "right", html: `<span class="k">05 · Anywhere</span><h2>${P.features[3][0]}.</h2><p>${P.features[3][1]}</p><div class="specs">${P.specs.slice(0, 6).map(([k, v]) => `<div><span>${k}</span><b>${v}</b></div>`).join("")}</div><div class="next">${others.map((k) => `<a class="btn btn-s" href="product.html?p=${k}" style="border-color:${PRODUCTS[k].accent}">Next: ${PRODUCTS[k].name} →</a>`).join("")}</div>` },
+    ];
+    document.getElementById("main").innerHTML = CH.map((c, i) => `<section class="ch ${c.cls}" id="ch${i}" data-ch><div class="copy">${c.html}</div></section>`).join("");
+    document.getElementById("prog").innerHTML = CH.map((c, i) => `<a href="#ch${i}">${c.id}</a>`).join("");
+    document.getElementById("kin").innerHTML = `${P.name} <em>·</em> Fresh <em>·</em> Fast <em>·</em> Customizable <em>·</em> `.repeat(2);
+    mountShell(P.key);
+    await document.fonts.ready;
+
+    const { THREE, renderer, scene, camera, rig } = createWorld(document.getElementById("c"));
+    const m = createMachine(P.key); interiorLight(m, INTERIOR_LIGHT[P.key]); scene.add(m.group);
+    const pad = new THREE.Mesh(new THREE.RingGeometry(0.95, 1.0, 96), new THREE.MeshBasicMaterial({ color: P.accentHex, toneMapped: false, side: THREE.DoubleSide }));
+    pad.rotation.x = -Math.PI / 2; pad.position.y = 0.006; scene.add(pad);
+    const glow = new THREE.PointLight(P.accentHex, 3, 4, 2); glow.position.set(0, 0.3, 1.2); scene.add(glow);
+    // particles that stream into the source module during chapter 2 (beans / sprinkles / ink droplets)
+    const COL = { beanbox: [0x5a3218, 0x7a4622], frosti: [0xff5b8a, 0x48cfff, 0xffd34b, 0x7bdc6b], znapcase: [0x00b7eb, 0xff2d9a, 0xffe600] }[P.key];
+    const N = 70, geo = P.key === "beanbox" ? new THREE.SphereGeometry(0.018, 10, 8).scale(1, 0.62, 0.72) : P.key === "frosti" ? new THREE.CapsuleGeometry(0.006, 0.02, 4, 8) : new THREE.SphereGeometry(0.012, 10, 8);
+    const parts = new THREE.InstancedMesh(geo, new THREE.MeshStandardMaterial({ roughness: 0.5 }), N);
+    const col = new THREE.Color(); for (let k = 0; k < N; k++) parts.setColorAt(k, col.setHex(COL[k % COL.length]));
+    scene.add(parts);
+    const seeds = Array.from({ length: N }, (_, k) => ({ a: (k / N) * Math.PI * 6, r: 0.9 + Math.random() * 0.7, y: 0.9 + Math.random() * 1.6, s: 0.6 + Math.random() * 0.8 }));
+    const SRC = new THREE.Vector3(-0.3, 1.42, -0.2); const dummy = new THREE.Object3D();
+    const KEYS = [
+      { p: [-3.4, 1.7, 6.2], t: [-0.75, 1.0, 0] },
+      { p: [1.25, 1.4, 1.6], t: [0.55, 1.22, 0.3] },
+      { p: [-0.05, 1.62, 1.55], t: [-0.78, 1.3, -0.2] },
+      { p: [0.5, 1.22, 1.3], t: [0.36, 1.02, 0.05] },
+      { p: [0.35, 1.2, 1.45], t: [-0.32, 1.02, 0.05] },
+      { p: [2.2, 2.4, 7.0], t: [1.35, 0.9, 0] },
+    ];
+    const KM = [
+      { p: [-2.2, 2.0, 7.6], t: [0, 0.6, 0] }, { p: [1.1, 1.3, 2.0], t: [0.33, 1.0, 0.3] }, { p: [-0.35, 1.55, 1.6], t: [-0.25, 1.05, -0.15] },
+      { p: [-0.25, 1.15, 1.35], t: [-0.02, 0.82, 0.05] }, { p: [0.3, 1.1, 1.3], t: [0.02, 0.82, 0.05] }, { p: [2.6, 2.6, 8.6], t: [0, 0.4, 0] },
+    ];
+    const tick = rig([...document.querySelectorAll("[data-ch]")], KEYS, KM);
+    const links = [...document.querySelectorAll("#prog a")];
+    const clock = new THREE.Clock();
+    let curV = -1;
+    renderer.setAnimationLoop(() => {
+      const dt = clock.getDelta(), t = clock.elapsedTime;
+      const { i, local } = tick(dt, t);
+      let p;
+      if (i === 3) p = 0.08 + Math.min(1, local / 0.78) * 0.66; else if (i === 4) p = 0.82; else p = (t % 10) / 10;
+      m.setProgress(p);
+      if (i === 3) { const s = Math.min(1, (p - 0.08) / 0.66); const mt = document.getElementById("meter"); mt.style.width = s * 100 + "%"; document.getElementById("meterTxt").textContent = Math.round(s * 100) + "%"; }
+      const want = i === 4 ? (local < 0.26 ? 0 : local < 0.52 ? 1 : 2) : 1;
+      if (want !== curV) { curV = want; m.setVariant(P.variants[want].key); document.querySelectorAll("#vtags b").forEach((b, j) => b.classList.toggle("on", j === want)); }
+      m.update(dt, t);
+      const g = i === 2 ? Math.min(1, local / 0.7) : 0;
+      parts.visible = g > 0.001;
+      if (parts.visible) {
+        for (let k = 0; k < N; k++) {
+          const sd = seeds[k], ph = (t * 0.18 * sd.s + k / N) % 1, pull = Math.max(ph, g), ang = sd.a + t * 0.9 * sd.s + pull * 4, r = sd.r * (1 - pull);
+          dummy.position.set(SRC.x + Math.cos(ang) * r, SRC.y + 0.1 + (sd.y - SRC.y) * (1 - pull) * 0.6, SRC.z + Math.sin(ang) * r);
+          dummy.rotation.set(t * sd.s * 3 + k, t * 2 + k, 0); dummy.scale.setScalar(pull > 0.97 ? 0 : 1); dummy.updateMatrix(); parts.setMatrixAt(k, dummy.matrix);
+        }
+        parts.instanceMatrix.needsUpdate = true;
+      }
+      pad.scale.setScalar(i === 5 ? 1.15 + Math.sin(t * 2) * 0.04 : 1);
+      links.forEach((l, j) => l.classList.toggle("on", j === i));
+      renderer.render(scene, camera);
+    });
+  </script>
+</body>
+</html>

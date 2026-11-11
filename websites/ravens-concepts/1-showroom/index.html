@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ravens Tech — Innovation You Can Experience</title>
+  <meta name="description" content="Ravens Tech builds robotic self-service machines: Frosti ice cream, Bean Box coffee and ZnapCase phone cases. Explore them in 3D." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .hero { height: 100svh; min-height: 760px; overflow: hidden; background: radial-gradient(ellipse 55% 50% at 66% 55%, rgba(72,207,255,.16), transparent 70%), radial-gradient(ellipse 40% 40% at 80% 20%, rgba(138,95,255,.14), transparent 70%), var(--bg); }
+    .hero canvas { position: absolute; inset: 0; width: 100%; height: 100%; cursor: grab; }
+    .hero-copy { position: absolute; z-index: 2; left: var(--gut); top: 17%; max-width: 560px; pointer-events: none; }
+    .hero-copy > * { pointer-events: auto; }
+    .hero h1 { font-size: clamp(3rem, 5.6vw, 5.4rem); line-height: .98; margin: 22px 0 22px; }
+    .hero-copy p { font-size: 1.12rem; max-width: 470px; color: rgba(245,248,255,.8); }
+    .hero .acts { display: flex; gap: 12px; margin-top: 30px; flex-wrap: wrap; }
+    .feats { position: absolute; z-index: 2; right: var(--gut); top: 22%; display: grid; gap: 0; width: 260px; }
+    .feats > div { display: grid; grid-template-columns: 50px 1fr; gap: 12px; padding: 18px 0; border-bottom: 1px solid var(--line); }
+    .feats > div:last-child { border: 0; }
+    .feats svg { width: 40px; height: 40px; color: var(--accent); filter: drop-shadow(0 0 8px rgba(72,207,255,.6)); }
+    .feats b { font: 600 1rem var(--head); display: block; }
+    .feats span { font-size: .82rem; color: var(--muted); line-height: 1.4; }
+    .stagebar { position: absolute; z-index: 2; left: 50%; bottom: 30px; transform: translateX(-50%); display: flex; align-items: center; gap: 18px; }
+    .stagebar button.arr { width: 40px; height: 40px; border-radius: 50%; border: 1.5px solid rgba(245,248,255,.6); background: transparent; color: var(--text); cursor: pointer; }
+    .stagebar button.arr:hover { border-color: var(--accent); color: var(--accent); }
+    .dots { display: flex; gap: 8px; } .dots i { width: 8px; height: 8px; border-radius: 50%; background: rgba(245,248,255,.35); transition: all .3s; } .dots i.on { background: var(--accent); box-shadow: 0 0 10px var(--accent); width: 22px; border-radius: 6px; }
+    .now { position: absolute; z-index: 2; left: 50%; bottom: 86px; transform: translateX(-30%); display: flex; align-items: center; gap: 16px; padding: 12px 14px 12px 20px; }
+    .now b { font: 600 1.15rem var(--head); display: block; }
+    .now small { color: var(--muted); }
+    .now .btn { padding: 9px 16px; font-size: .85rem; }
+
+    .cards { padding: 30px 0 90px; }
+    .cards .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+    .pcard { position: relative; overflow: hidden; min-height: 330px; padding: 28px; display: flex; flex-direction: column; border-radius: 26px; border: 1px solid rgba(var(--c), .45); background: radial-gradient(circle at 80% 30%, rgba(var(--c), .35), transparent 55%), linear-gradient(160deg, rgba(22,35,60,.9), rgba(11,11,19,.9)); transition: transform .3s, box-shadow .3s; }
+    .pcard:hover { transform: translateY(-6px); box-shadow: 0 30px 70px -30px rgba(var(--c), .8); }
+    .pcard img { position: absolute; right: -50px; bottom: -10px; width: 56%; filter: drop-shadow(0 20px 30px rgba(0,0,0,.6)); -webkit-mask-image: linear-gradient(to left, #000 70%, transparent); mask-image: linear-gradient(to left, #000 70%, transparent); }
+    .pcard h3 { position: relative; z-index: 1; font-size: 2.1rem; display: flex; align-items: center; gap: 10px; }
+    .pcard h3 i { width: 12px; height: 12px; border-radius: 50%; background: rgb(var(--c)); box-shadow: 0 0 14px rgb(var(--c)); }
+    .pcard .k { margin: 8px 0 12px; font-weight: 500; color: var(--text); position: relative; z-index: 1; max-width: 62%; line-height: 1.35; }
+    .pcard p { max-width: 55%; font-size: .92rem; position: relative; z-index: 1; }
+    .pcard .btn { margin-top: auto; align-self: flex-start; position: relative; z-index: 1; }
+
+    .tech { padding: 50px 0; border-block: 1px solid var(--line); background: rgba(22,35,60,.25); }
+    .tech .wrap { display: grid; grid-template-columns: 1.2fr repeat(4, 1fr); gap: 24px; align-items: center; }
+    .tech h2 { font-size: 2rem; }
+    .tech .t { display: grid; grid-template-columns: 46px 1fr; gap: 12px; align-items: start; }
+    .tech svg { width: 40px; height: 40px; color: var(--accent); filter: drop-shadow(0 0 8px rgba(72,207,255,.5)); }
+    .tech b { font: 600 1rem var(--head); display: block; } .tech span { font-size: .84rem; color: var(--muted); }
+
+    .loc { padding: 90px 0 30px; }
+    .loc .grid { display: grid; grid-template-columns: 1fr repeat(5, 1fr); gap: 14px; align-items: stretch; }
+    .loc h2 { font-size: 2rem; align-self: center; }
+    .tile { aspect-ratio: 3/4; border-radius: 18px; overflow: hidden; position: relative; border: 1px solid var(--line); display: flex; align-items: flex-end; padding: 16px; font-weight: 600; font-size: .92rem; }
+    .tile::before { content: ""; position: absolute; inset: 0; background: var(--bg-art); }
+    .tile::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(11,11,19,.95), transparent 60%); }
+    .tile span { position: relative; z-index: 1; }
+    .tile svg { position: absolute; z-index: 1; top: 18px; right: 16px; width: 60px; height: 60px; color: rgba(255,255,255,.22); }
+    @media (max-width: 1100px) {
+      .feats, .now { display: none; }
+      .hero-copy { top: 13%; right: var(--gut); }
+      .cards .grid { grid-template-columns: 1fr; }
+      .tech .wrap { grid-template-columns: 1fr 1fr; }
+      .loc .grid { grid-template-columns: repeat(2, 1fr); } .loc h2 { grid-column: 1 / -1; }
+    }
+    @media (max-width: 600px) { .hero h1 { font-size: 2.7rem; } .hero-copy p { font-size: 1rem; } .pcard p { max-width: 60%; } .tech .wrap { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <header class="hdr" id="hdr"></header>
+
+  <section class="hero" id="top">
+    <canvas id="c" aria-label="3D showroom with the Frosti, Bean Box and ZnapCase machines on a rotating stage"></canvas>
+    <div class="hero-copy">
+      <span class="eyebrow">Automated Retail Solutions</span>
+      <h1>Innovation<br>You Can<br><span class="grad">Experience.</span></h1>
+      <p>Next-generation robotic dispensers and customization machines that bring popular experiences to life, anytime, anywhere.</p>
+      <div class="acts"><a class="btn btn-p" href="#products">Explore Our Products →</a><a class="btn btn-s" href="#"><span class="play">▶</span>Watch Video</a></div>
+    </div>
+    <div class="feats">
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 21h8M8 21v-4l3-7 6-3"/><circle cx="11" cy="10" r="1.6"/><circle cx="17" cy="7" r="1.6"/><path d="M18.5 8.5 21 11M19 5l2-2"/></svg><div><b>Robotic Automation</b><span>Consistent quality, 24/7 operation</span></div></div>
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m12 3 9 5-9 5-9-5z"/><path d="m3 13 9 5 9-5M3 17.5l9 5 9-5"/></svg><div><b>Customizable</b><span>Flavors, drinks and designs</span></div></div>
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 20v-5M10 20v-9M15 20v-7M20 20V5"/></svg><div><b>Scalable</b><span>For malls, hotels, campuses and more</span></div></div>
+    </div>
+    <div class="now glass" id="now"></div>
+    <div class="stagebar"><button class="arr" id="prev" aria-label="Previous product">‹</button><div class="dots" id="dots"><i></i><i></i><i></i></div><button class="arr" id="next" aria-label="Next product">›</button></div>
+  </section>
+
+  <section class="cards" id="products"><div class="wrap grid" id="cards"></div></section>
+
+  <section class="tech" id="technology">
+    <div class="wrap">
+      <div><span class="eyebrow" style="font-size:.66rem">Our Technology</span><h2 style="margin-top:8px">Intelligent Retail Experiences</h2></div>
+      <div class="t"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/><text x="8.6" y="14.6" font-size="6" fill="currentColor" stroke="none" font-family="Arial" font-weight="700">AI</text></svg><div><b>AI-Powered</b><span>Smart, reliable and easy to operate.</span></div></div>
+      <div class="t"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M7 18a4.5 4.5 0 0 1-.6-9A6 6 0 0 1 18 8a4.5 4.5 0 0 1-.5 10z"/></svg><div><b>Connected</b><span>Remote monitoring, analytics and updates.</span></div></div>
+      <div class="t"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg><div><b>Efficient</b><span>Optimized performance and low operating cost.</span></div></div>
+      <div class="t"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"/><path d="m9 12 2 2 4-4"/></svg><div><b>Reliable</b><span>Built for high-traffic commercial spaces.</span></div></div>
+    </div>
+  </section>
+
+  <section class="loc" id="locations">
+    <div class="wrap grid">
+      <h2>Ideal For<br>Multiple Locations</h2>
+      <div class="tile reveal" style="--bg-art: radial-gradient(circle at 70% 30%, rgba(72,207,255,.4), transparent 50%), linear-gradient(160deg,#3a2c6b,#14203a)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M3 21h18M4 21V9l8-5 8 5v12M9 21v-6h6v6"/></svg><span>Malls &amp; Retail Centers</span></div>
+      <div class="tile reveal" style="--bg-art: radial-gradient(circle at 70% 30%, rgba(255,177,92,.4), transparent 50%), linear-gradient(160deg,#5a3520,#1a1420)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M3 20V6M3 16h18v4M21 16v-4a3 3 0 0 0-3-3h-7v7"/></svg><span>Hotels &amp; Resorts</span></div>
+      <div class="tile reveal" style="--bg-art: radial-gradient(circle at 70% 30%, rgba(72,207,255,.35), transparent 50%), linear-gradient(160deg,#1d4a6b,#0f1a2c)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c3 2.5 9 2.5 12 0v-5"/></svg><span>Campuses &amp; Universities</span></div>
+      <div class="tile reveal" style="--bg-art: radial-gradient(circle at 70% 30%, rgba(138,95,255,.4), transparent 50%), linear-gradient(160deg,#20406b,#0b1220)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M2 16l20-8-4 10-6-3-4 5v-6z"/></svg><span>Airports &amp; Transit Hubs</span></div>
+      <div class="tile reveal" style="--bg-art: radial-gradient(circle at 70% 30%, rgba(255,94,196,.4), transparent 50%), linear-gradient(160deg,#6b2050,#1a0f22)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="8" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M2 20a6 6 0 0 1 12 0M14 20a4.5 4.5 0 0 1 8 0"/></svg><span>Events &amp; Public Spaces</span></div>
+    </div>
+  </section>
+
+  <section class="contact" id="contact"></section>
+  <footer class="foot" id="foot"></footer>
+
+  <script type="importmap">{ "imports": { "three": "../vendor/three.module.min.js" } }</script>
+  <script type="module">
+    import * as THREE from "three";
+    import { OrbitControls } from "../vendor/OrbitControls.js";
+    import { RoomEnvironment } from "../vendor/RoomEnvironment.js";
+    import { createMachine, makeRenderer, fitRenderer, studioLights, interiorLight, INTERIOR_LIGHT } from "../shared/machines3d.js";
+    import { PRODUCTS, ORDER } from "../shared/products.js";
+    import { mountShell, snapshots } from "./shell.js";
+
+    mountShell(null);
+    await document.fonts.ready;
+
+    const hero = document.querySelector(".hero");
+    const canvas = document.getElementById("c");
+    const renderer = makeRenderer(canvas);
+    const scene = new THREE.Scene();
+    scene.environment = new THREE.PMREMGenerator(renderer).fromScene(new RoomEnvironment(), 0.04).texture;
+    scene.environmentIntensity = 0.35;
+    studioLights(scene, { tint: 0x48cfff });
+
+    // rotating stage with three machines
+    const stage = new THREE.Group(); scene.add(stage);
+    const R = 1.25;
+    const plat = new THREE.Mesh(new THREE.CylinderGeometry(2.25, 2.35, 0.14, 96), new THREE.MeshStandardMaterial({ color: 0x0f1626, metalness: 0.7, roughness: 0.35 }));
+    plat.position.y = 0.07; plat.receiveShadow = true; scene.add(plat);
+    const edge = new THREE.Mesh(new THREE.TorusGeometry(2.3, 0.018, 12, 160), new THREE.MeshBasicMaterial({ color: 0x48cfff, toneMapped: false }));
+    edge.rotation.x = Math.PI / 2; edge.position.y = 0.14; scene.add(edge);
+    const halo = new THREE.Mesh(new THREE.TorusGeometry(1.9, 0.016, 12, 160), new THREE.MeshBasicMaterial({ color: 0x9fe3ff, toneMapped: false }));
+    halo.rotation.x = Math.PI / 2; halo.position.y = 3.15; scene.add(halo);
+    const haloGlow = new THREE.Mesh(new THREE.TorusGeometry(1.9, 0.08, 12, 160), new THREE.MeshBasicMaterial({ color: 0x48cfff, transparent: true, opacity: 0.12, depthWrite: false }));
+    haloGlow.rotation.x = Math.PI / 2; haloGlow.position.y = 3.15; scene.add(haloGlow);
+    const floor = new THREE.Mesh(new THREE.CircleGeometry(8, 64), new THREE.ShadowMaterial({ opacity: 0.5 })); floor.rotation.x = -Math.PI / 2; floor.position.y = 0.141; floor.receiveShadow = true; scene.add(floor);
+
+    const machines = ORDER.map((k, i) => {
+      const m = createMachine(k);
+      const a = (i / 3) * Math.PI * 2;
+      m.group.position.set(Math.sin(a) * R, 0.14, Math.cos(a) * R);
+      m.group.rotation.y = a;
+      interiorLight(m, INTERIOR_LIGHT[k]);
+      stage.add(m.group);
+      return m;
+    });
+
+    const camera = new THREE.PerspectiveCamera(30, 1, 0.1, 80);
+    const controls = new OrbitControls(camera, canvas);
+    controls.enableDamping = true; controls.enablePan = false; controls.enableZoom = false;
+    controls.minPolarAngle = 1.15; controls.maxPolarAngle = 1.48; controls.minAzimuthAngle = -0.35; controls.maxAzimuthAngle = 0.35;
+    function frame() {
+      fitRenderer(renderer, camera, hero);
+      const wide = hero.clientWidth > 1100;
+      const shiftX = wide ? -1.15 : 0; // push the stage right of the headline on desktop
+      controls.target.set(shiftX, wide ? 1.35 : 4.3, 0);
+      camera.position.set(shiftX, wide ? 2.6 : 5.0, wide ? 10.2 : 21);
+      halo.visible = haloGlow.visible = wide;
+      controls.update();
+    }
+    frame(); addEventListener("resize", frame);
+
+    // carousel
+    let idx = 1, userAt = 0;
+    const dots = [...document.querySelectorAll("#dots i")];
+    const now = document.getElementById("now");
+    function select(i, user) {
+      idx = (i + 3) % 3; if (user) userAt = performance.now();
+      dots.forEach((d, j) => d.classList.toggle("on", j === idx));
+      const p = PRODUCTS[ORDER[idx]];
+      now.style.setProperty("--accent", p.accent);
+      now.innerHTML = `<div><b>${p.name}</b><small>${p.kind}</small></div><a class="btn btn-p" style="background:${p.accent}" href="product.html?p=${p.key}">Explore ${p.name} →</a>`;
+      edge.material.color.set(p.accent);
+    }
+    select(1);
+    document.getElementById("prev").onclick = () => select(idx - 1, true);
+    document.getElementById("next").onclick = () => select(idx + 1, true);
+    dots.forEach((d, j) => (d.onclick = () => select(j, true)));
+    // click a machine to open its page
+    const ray = new THREE.Raycaster(), ptr = new THREE.Vector2(); let down;
+    canvas.addEventListener("pointerdown", (e) => (down = [e.clientX, e.clientY]));
+    canvas.addEventListener("pointerup", (e) => {
+      if (!down || Math.hypot(e.clientX - down[0], e.clientY - down[1]) > 6) return;
+      const r = canvas.getBoundingClientRect();
+      ptr.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
+      ray.setFromCamera(ptr, camera);
+      const hit = ray.intersectObjects(machines.map((m) => m.group), true)[0];
+      if (!hit) return;
+      const m = machines.find((mm) => { let o = hit.object; while (o) { if (o === mm.group) return true; o = o.parent; } return false; });
+      if (m) location.href = `product.html?p=${m.type}`;
+    });
+
+    const clock = new THREE.Clock();
+    let rot = 0;
+    renderer.setAnimationLoop(() => {
+      const dt = clock.getDelta(), t = clock.elapsedTime;
+      if (performance.now() - userAt > 9000 && Math.floor(t / 7) !== Math.floor((t - dt) / 7)) select(idx + 1);
+      const goal = -(idx / 3) * Math.PI * 2;
+      let d = goal - rot; d = Math.atan2(Math.sin(d), Math.cos(d));
+      rot += d * (1 - Math.exp(-dt * 3));
+      stage.rotation.y = rot;
+      halo.position.y = haloGlow.position.y = 3.15 + Math.sin(t * 1.2) * 0.05;
+      machines.forEach((m, i) => { m.setProgress(((t + i * 3) % 9) / 9); m.update(dt, t); });
+      controls.update();
+      renderer.render(scene, camera);
+    });
+
+    // product cards with rendered stills of each machine
+    const offR = makeRenderer(document.createElement("canvas"), { alpha: true });
+    const solo = new THREE.Scene(); solo.environment = scene.environment; solo.environmentIntensity = 0.35; studioLights(solo, { tint: 0xffffff });
+    const imgs = {};
+    for (const k of ORDER) {
+      const m = createMachine(k); interiorLight(m, INTERIOR_LIGHT[k]); m.setProgress(0.5); m.update(0, 2);
+      solo.add(m.group);
+      Object.assign(imgs, Object.fromEntries(Object.entries(snapshots(THREE, offR, solo, { [k]: { pos: [-2.2, 1.6, 4.6], target: [0, 0.98, 0], fov: 28 } }, { w: 600, h: 760 }))));
+      solo.remove(m.group);
+    }
+    const rgb = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16)).join(",");
+    document.getElementById("cards").innerHTML = ORDER.map((k) => {
+      const p = PRODUCTS[k];
+      return `<a class="pcard reveal in" href="product.html?p=${k}" style="--c:${rgb(p.accent)};--accent:${p.accent}"><img src="${imgs[k]}" alt="${p.name} machine"><h3><i></i>${p.name}</h3><span class="k">${p.kind}</span><p>${p.lead}</p><span class="btn btn-w">Explore ${p.name} →</span></a>`;
+    }).join("");
+  </script>
+</body>
+</html>

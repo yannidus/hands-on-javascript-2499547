@@ -1,0 +1,89 @@
+/* Concept 1 · Showroom — "Midnight Tech" design system from the Ravens Tech board */
+:root {
+  --bg: #0b0b13; --surface: #16233c; --text: #f5f8ff; --muted: #9fb0cc; --line: rgba(160,190,255,.14);
+  --accent: #48cfff; --accent-2: #8a5fff; --accent-rgb: 72, 207, 255;
+  --grad: linear-gradient(120deg, var(--accent), var(--accent-2));
+  --head: "Space Grotesk", system-ui, sans-serif; --body: Inter, system-ui, sans-serif;
+  --gut: clamp(16px, 4vw, 80px);
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { overflow-x: clip; scroll-behavior: smooth; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 400 16px/1.6 var(--body); -webkit-font-smoothing: antialiased; overflow-x: clip; }
+a { color: inherit; text-decoration: none; }
+img, canvas, svg { display: block; max-width: 100%; }
+h1, h2, h3, h4 { font-family: var(--head); margin: 0; letter-spacing: -.02em; line-height: 1.05; }
+p { color: var(--muted); margin: 0; }
+.grad { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.eyebrow { display: inline-flex; align-items: center; gap: 14px; font: 600 .78rem var(--body); letter-spacing: .3em; text-transform: uppercase; color: var(--text); }
+.eyebrow::after { content: ""; width: 44px; height: 1.5px; background: var(--accent); }
+.wrap { width: min(100% - 2 * var(--gut), 1320px); margin-inline: auto; }
+section { position: relative; }
+
+/* buttons */
+.btn { display: inline-flex; align-items: center; gap: 10px; padding: 13px 22px; border-radius: 12px; font: 600 .95rem var(--body); border: 1.5px solid transparent; cursor: pointer; transition: transform .2s, box-shadow .2s, border-color .2s, background .2s; white-space: nowrap; }
+.btn:hover { transform: translateY(-2px); }
+.btn-p { background: var(--accent); color: #051018; box-shadow: 0 0 0 rgba(var(--accent-rgb), 0); }
+.btn-p:hover { box-shadow: 0 10px 40px -8px rgba(var(--accent-rgb), .8); }
+.btn-s { border-color: rgba(245,248,255,.4); color: var(--text); background: rgba(255,255,255,.02); }
+.btn-s:hover { border-color: var(--accent); }
+.btn-w { background: #f5f8ff; color: #0b0b13; border-radius: 999px; }
+.play { width: 24px; height: 24px; border-radius: 50%; background: var(--text); color: var(--bg); display: grid; place-items: center; font-size: 9px; }
+
+/* header */
+.hdr { position: fixed; inset: 0 0 auto; z-index: 60; transition: background .3s, border-color .3s; border-bottom: 1px solid transparent; }
+.hdr.solid { background: rgba(11,11,19,.82); backdrop-filter: blur(14px); border-color: var(--line); }
+.nav { height: 78px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.brand { display: flex; align-items: center; gap: 12px; font: 700 1.3rem var(--head); letter-spacing: .02em; }
+.brand svg { width: 44px; height: 34px; }
+.links { display: flex; gap: 30px; list-style: none; margin: 0; padding: 0; font-size: .93rem; }
+.links a:hover, .links a.on { color: var(--accent); }
+.dd { position: relative; }
+.dd > a::after { content: " ▾"; font-size: .7em; }
+.dd ul { position: absolute; top: 140%; left: -18px; list-style: none; margin: 0; padding: 10px; border-radius: 14px; background: rgba(16,24,44,.95); border: 1px solid var(--line); min-width: 250px; opacity: 0; pointer-events: none; transform: translateY(6px); transition: all .2s; backdrop-filter: blur(10px); }
+.dd:hover ul, .dd:focus-within ul { opacity: 1; pointer-events: auto; transform: none; }
+.dd li a { display: flex; gap: 12px; align-items: center; padding: 10px 12px; border-radius: 10px; }
+.dd li a:hover { background: rgba(255,255,255,.05); color: var(--text); }
+.dd li i { width: 10px; height: 10px; border-radius: 50%; box-shadow: 0 0 12px currentColor; }
+.dd li small { display: block; color: var(--muted); font-size: .76rem; }
+.cta { display: flex; gap: 10px; }
+.cta .btn { padding: 10px 18px; font-size: .88rem; }
+.burger { display: none; background: none; border: 1px solid var(--line); border-radius: 10px; width: 44px; height: 44px; color: var(--text); font-size: 1.2rem; }
+
+/* glass card */
+.glass { background: linear-gradient(160deg, rgba(22,35,60,.75), rgba(13,20,36,.6)); border: 1px solid var(--line); border-radius: 22px; backdrop-filter: blur(12px); }
+
+/* footer */
+.foot { border-top: 1px solid var(--line); padding: 36px 0; margin-top: 40px; }
+.foot .wrap { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+.foot nav { display: flex; gap: 28px; font-size: .9rem; color: var(--muted); }
+.soc { display: flex; gap: 10px; }
+.soc a { width: 38px; height: 38px; border-radius: 50%; border: 1.5px solid rgba(245,248,255,.5); display: grid; place-items: center; font: 700 .72rem var(--body); }
+.soc a:hover { border-color: var(--accent); color: var(--accent); }
+
+/* contact */
+.contact { padding: 110px 0 60px; }
+.contact .grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 56px; align-items: start; }
+.contact h2 { font-size: clamp(2.4rem, 5vw, 4rem); margin: 16px 0 18px; }
+form.lead { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; padding: 30px; }
+form.lead .full { grid-column: 1 / -1; }
+form.lead label { display: grid; gap: 6px; font-size: .85rem; color: var(--muted); }
+form.lead input, form.lead select, form.lead textarea { background: rgba(11,11,19,.6); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; color: var(--text); font: inherit; outline: none; }
+form.lead input:focus, form.lead select:focus, form.lead textarea:focus { border-color: var(--accent); }
+form.lead select option { background: var(--bg); }
+.note { grid-column: 1 / -1; min-height: 1.4em; color: #3ee69a; font-size: .9rem; }
+
+.reveal { opacity: 0; transform: translateY(26px); transition: opacity .8s, transform .8s; }
+.reveal.in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } .reveal { opacity: 1; transform: none; } }
+
+@media (max-width: 1100px) {
+  .links, .cta .btn-s { display: none; }
+  .burger { display: grid; place-items: center; }
+  .hdr.open .links { display: flex; flex-direction: column; position: absolute; top: 78px; left: 0; right: 0; padding: 20px var(--gut) 28px; background: rgba(11,11,19,.97); border-bottom: 1px solid var(--line); gap: 18px; }
+  .hdr.open .dd ul { position: static; opacity: 1; pointer-events: auto; transform: none; margin-top: 8px; }
+  .contact .grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .cta .btn-p { display: none; }
+  form.lead { grid-template-columns: 1fr; padding: 20px; }
+}

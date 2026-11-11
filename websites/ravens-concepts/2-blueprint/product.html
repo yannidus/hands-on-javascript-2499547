@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ravens Tech — Product blueprint</title>
+  <meta name="description" content="A Ravens Tech robotic machine, explained system by system in an interactive exploded 3D drawing." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .phero { padding-top: 110px; display: grid; grid-template-columns: 1fr 1.1fr; gap: 40px; align-items: center; min-height: 100svh; }
+    .phero .copy { padding-left: var(--gut); }
+    .num { font: 500 1rem "JetBrains Mono"; color: var(--k); }
+    .pname { font: 700 clamp(4rem, 10vw, 9rem)/.85 var(--head); letter-spacing: -.055em; margin: 14px 0 8px; }
+    .kind { font: 500 1.2rem var(--head); color: var(--k); margin-bottom: 26px; }
+    .phero h1 { font-size: clamp(1.7rem, 2.8vw, 2.4rem); margin-bottom: 14px; letter-spacing: -.02em; line-height: 1.1; }
+    .phero .lead { font-size: 1.1rem; max-width: 520px; }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 22px 0 26px; }
+    .acts { display: flex; gap: 12px; flex-wrap: wrap; }
+    .draw { position: relative; height: min(84svh, 780px); }
+    .draw canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .dim { position: absolute; font: 500 .76rem "JetBrains Mono"; color: var(--muted); transform: translate(-50%, -50%); white-space: nowrap; }
+    .variants { position: absolute; left: 50%; bottom: 12px; transform: translateX(-50%); display: flex; border: 1.5px solid var(--ink); background: var(--paper); }
+    .variants button { border: 0; border-right: 1.5px solid var(--ink); background: transparent; padding: 9px 14px; font: 500 .78rem "JetBrains Mono"; cursor: pointer; color: var(--ink); white-space: nowrap; }
+    .variants button:last-child { border-right: 0; }
+    .variants button.on { background: var(--k); }
+
+    .explode { position: relative; height: 950vh; background: var(--paper-2); }
+    .sticky { position: sticky; top: 0; height: 100svh; display: grid; grid-template-columns: minmax(320px, .9fr) 1.4fr; overflow: hidden; }
+    .sticky canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .panel { position: relative; z-index: 2; align-self: center; padding: 0 var(--gut); max-width: 560px; }
+    .panel-in { transition: opacity .3s, transform .3s; }
+    .panel-in.out { opacity: 0; transform: translateY(12px); }
+    .panel h2 { font-size: clamp(2.4rem, 4.4vw, 4.2rem); margin: 16px 0 20px; }
+    .panel p { font-size: 1.1rem; margin-bottom: 22px; }
+    .label3d { position: absolute; z-index: 3; transform: translate(-50%, -100%); pointer-events: none; text-align: center; transition: opacity .3s; }
+    .label3d b { display: inline-block; background: var(--k); color: #0b0b13; font: 500 .78rem "JetBrains Mono"; padding: 5px 10px; white-space: nowrap; }
+    .label3d i { display: block; width: 1.5px; height: 44px; background: var(--k); margin: 0 auto; }
+    .rail { position: absolute; z-index: 2; right: 26px; top: 50%; transform: translateY(-50%); display: grid; gap: 10px; }
+    .rail i { width: 8px; height: 8px; border-radius: 50%; border: 1.5px solid var(--ink); transition: all .3s; }
+    .rail i.on { background: var(--k); border-color: var(--k); transform: scale(1.4); }
+    .how { padding: 120px 0; }
+    .how h2, .specs h2, .other h2 { font-size: clamp(2.6rem, 6vw, 5rem); margin: 10px 0 40px; }
+    .flow { display: grid; grid-template-columns: repeat(4, 1fr); border: 1.5px solid var(--ink); background: rgba(255,255,255,.45); }
+    .flow > div { padding: 26px 22px; border-right: 1.5px solid var(--ink); position: relative; }
+    .flow > div:last-child { border-right: 0; }
+    .flow > div::after { content: "→"; position: absolute; right: -13px; top: 26px; background: var(--paper); font: 700 1rem var(--head); width: 24px; text-align: center; z-index: 1; }
+    .flow > div:last-child::after { display: none; }
+    .flow small { font: 500 .76rem "JetBrains Mono"; color: var(--k); }
+    .flow b { display: block; font: 600 1.5rem var(--head); margin: 10px 0 8px; letter-spacing: -.02em; }
+    .specs { padding: 0 0 120px; }
+    .tb { display: grid; grid-template-columns: repeat(4, 1fr); border: 1.5px solid var(--ink); background: rgba(255,255,255,.45); }
+    .tb > div { padding: 16px 18px; border-right: 1.5px solid var(--ink); border-bottom: 1.5px solid var(--ink); }
+    .tb > div:nth-child(4n) { border-right: 0; }
+    .tb > div:nth-last-child(-n+4) { border-bottom: 0; }
+    .tb small { display: block; font: 500 .7rem "JetBrains Mono"; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 6px; }
+    .tb b { font: 500 1.1rem var(--head); }
+    .tb .big { grid-column: span 2; } .tb .big b { font-size: 1.9rem; letter-spacing: -.03em; }
+    .other { padding: 0 0 120px; }
+    .others { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-top: 1.5px solid var(--ink); }
+    .others a { display: flex; justify-content: space-between; align-items: center; padding: 30px 0; border-bottom: 1.5px solid var(--ink); }
+    .others a:first-child { border-right: 1.5px solid var(--ink); padding-right: 30px; }
+    .others a:last-child { padding-left: 30px; }
+    .others h3 { font-size: 2.6rem; } .others small { font: 500 .78rem "JetBrains Mono"; color: var(--k); }
+    @media (max-width: 960px) {
+      .phero { grid-template-columns: 1fr; } .phero .copy { padding: 0 var(--gut); } .draw { height: 64vh; }
+      .sticky { grid-template-columns: 1fr; } .panel { align-self: end; padding: 70px 20px 30px; background: linear-gradient(transparent, var(--paper-2) 30%); }
+      .panel h2 { font-size: 2.2rem; } .rail { display: none; }
+      .flow, .tb { grid-template-columns: 1fr 1fr; } .flow > div:nth-child(2) { border-right: 0; } .flow > div:nth-child(-n+2) { border-bottom: 1.5px solid var(--ink); } .flow > div::after { display: none; }
+      .tb > div:nth-child(4n) { border-right: 1.5px solid var(--ink); } .tb > div:nth-child(2n) { border-right: 0; }
+      .others { grid-template-columns: 1fr; } .others a:first-child { border-right: 0; padding-right: 0; } .others a:last-child { padding-left: 0; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hdr" id="hdr"></header>
+  <section class="phero">
+    <div class="copy" id="copy"></div>
+    <div class="draw" id="draw">
+      <canvas id="c1" aria-label="Rotating line drawing of the machine"></canvas>
+      <span class="dim" id="dimH">H 1950</span><span class="dim" id="dimW">W 1000</span>
+      <div class="variants" id="variants"></div>
+    </div>
+  </section>
+  <section class="explode" id="explode">
+    <div class="sticky" id="sticky">
+      <canvas id="c2" aria-label="Exploded line drawing of the machine's systems"></canvas>
+      <div class="panel"><div class="panel-in" id="panel"></div></div>
+      <div class="label3d" id="label"><b id="labelT"></b><i></i></div>
+      <div class="rail" id="rail"></div>
+    </div>
+  </section>
+  <section class="how wrap"><span class="tag">[ HOW IT WORKS ]</span><h2 id="howH"></h2><div class="flow" id="flow"></div></section>
+  <section class="specs wrap"><span class="tag">[ SPECIFICATION SHEET ]</span><h2>Title block</h2><div class="tb" id="tb"></div></section>
+  <section class="other wrap"><span class="tag">[ ALSO IN THE FAMILY ]</span><h2>Other machines</h2><div class="others" id="others"></div></section>
+  <footer class="foot" id="contact"></footer>
+
+  <script type="importmap">{ "imports": { "three": "../vendor/three.module.min.js" } }</script>
+  <script type="module">
+    import * as THREE from "three";
+    import { createMachine, fitRenderer } from "../shared/machines3d.js";
+    import { PRODUCTS, ORDER, currentProduct } from "../shared/products.js";
+    import { mountShell } from "./shell.js";
+    const P = currentProduct();
+    const idx = ORDER.indexOf(P.key) + 1;
+    document.body.style.setProperty("--k", P.accent);
+    document.title = `${P.name} — Blueprint | Ravens Tech`;
+    document.getElementById("copy").innerHTML = `<span class="num">[0${idx}] PRODUCT · ${P.kind.toUpperCase()}</span>
+      <div class="pname">${P.name}</div><div class="kind">${P.kind}</div>
+      <h1>${P.headline.join(" ")}</h1><p class="lead">${P.lead}</p>
+      <div class="chips">${P.pills.map((x) => `<span class="chip">${x}</span>`).join("")}</div>
+      <div class="acts"><a class="btn" href="#explode">Take it apart ↓</a><a class="btn ghost" href="#contact">Host a ${P.name}</a></div>`;
+    document.getElementById("howH").textContent = "Four steps. One machine.";
+    document.getElementById("flow").innerHTML = P.steps.map(([h, t], i) => `<div><small>STEP 0${i + 1}</small><b>${h}</b><p>${t}</p></div>`).join("");
+    const sp = P.specs;
+    document.getElementById("tb").innerHTML = `<div class="big"><small>Model</small><b>${P.name} · RT-0${idx}</b></div><div><small>Type</small><b>${P.kind}</b></div><div><small>Scale</small><b>1 : 20</b></div>` + sp.map(([k, v]) => `<div><small>${k}</small><b>${v}</b></div>`).join("");
+    document.getElementById("others").innerHTML = ORDER.filter((k) => k !== P.key).map((k) => `<a href="product.html?p=${k}" style="--k:${PRODUCTS[k].accent}"><div><small>[0${ORDER.indexOf(k) + 1}] ${PRODUCTS[k].kind}</small><h3>${PRODUCTS[k].name}</h3></div><span class="chip">View →</span></a>`).join("");
+    mountShell(P.key);
+    await document.fonts.ready;
+
+    const mk = (canvas) => { const r = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true }); r.setPixelRatio(Math.min(devicePixelRatio, 2)); return r; };
+    const lineScene = (fill) => { const s = new THREE.Scene(); s.add(new THREE.GridHelper(5, 20, 0xb8c2d2, 0xd3dae6)); const m = createMachine(P.key, { mode: "line", fill, ink: 0x0b1220 }); s.add(m.group); return { s, m }; };
+
+    // hero drawing
+    const draw = document.getElementById("draw");
+    const r1 = mk(document.getElementById("c1")); const h = lineScene(0xeef1f6); const cam1 = new THREE.PerspectiveCamera(24, 1, 0.1, 50);
+    const dimMat = new THREE.LineBasicMaterial({ color: P.accentHex });
+    const seg = (a, b) => h.m.group.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(...a), new THREE.Vector3(...b)]), dimMat));
+    seg([0.62, 0, 0.4], [0.62, 1.97, 0.4]); seg([0.57, 0, 0.4], [0.67, 0, 0.4]); seg([0.57, 1.97, 0.4], [0.67, 1.97, 0.4]);
+    seg([-0.51, -0.01, 0.62], [0.51, -0.01, 0.62]); seg([-0.51, -0.01, 0.57], [-0.51, -0.01, 0.67]); seg([0.51, -0.01, 0.57], [0.51, -0.01, 0.67]);
+    const vb = document.getElementById("variants");
+    let vi = 1;
+    vb.innerHTML = P.variants.map((v, i) => `<button data-i="${i}" class="${i === vi ? "on" : ""}">${v.label}</button>`).join("");
+    vb.onclick = (e) => { const b = e.target.closest("button"); if (!b) return; vi = +b.dataset.i; [...vb.children].forEach((x, j) => x.classList.toggle("on", j === vi)); h.m.setVariant(P.variants[vi].key); };
+
+    // exploded
+    const sticky = document.getElementById("sticky"), explode = document.getElementById("explode");
+    const r2 = mk(document.getElementById("c2")); const e = lineScene(0xe3e8f0); const cam2 = new THREE.PerspectiveCamera(26, 1, 0.1, 50);
+    const STEPS = ["intro", "arm", "source", "stage", "module", "dispenser", "screen", "header"];
+    const DESC = {
+      arm: "Collaborative 6-axis arm with ±0.1 mm repeatability. It works behind glass, so making the product is part of the show.",
+      source: P.key === "beanbox" ? "2 kg of whole beans, sealed against light and air, ground fresh for every cup." : P.key === "frosti" ? "Eight 2.5 L flavour tubs under a chilled dome, rotated by the arm on demand." : "CMYK + white UV ink cartridges with automatic level sensing.",
+      stage: P.key === "beanbox" ? "9 bar extraction at 92 °C; dose and pressure logged on every shot." : P.key === "frosti" ? "A cone holder that steadies each scoop as the arm stacks up to three." : "A precision print bed: the case is held flat while the head sweeps.",
+      module: P.key === "beanbox" ? "Two milks at 3 °C, steamed to silky microfoam with auto-rinse cycles." : P.key === "frosti" ? "Commercial compressor holding −18 °C, monitored 24/7." : "UV-LED curing unit seals the print with a scratch-resistant coat.",
+      dispenser: P.key === "znapcase" ? "A magazine of blank cases for 60+ models, with low-stock alerts." : "A gravity-fed stack that drops one at a time onto the stage.",
+      screen: "A bright 15.6\" touchscreen with card, NFC, QR and app payments.",
+      header: "An illuminated sign and light strips, visible across the venue, auto-dimming after hours.",
+    };
+    const CHIPS = { arm: ["6 axes", "±0.1 mm"], source: ["Fresh", "Sealed"], stage: ["Precision"], module: ["Monitored"], dispenser: ["Auto-feed"], screen: ['15.6"', "NFC", "QR"], header: ["LED", "Auto-dim"] };
+    const panel = document.getElementById("panel"), rail = document.getElementById("rail"), label = document.getElementById("label"), labelT = document.getElementById("labelT");
+    rail.innerHTML = STEPS.map(() => "<i></i>").join("");
+    let shown = -1;
+    function show(i) {
+      if (i === shown) return; shown = i;
+      const k = STEPS[i];
+      const title = i ? P.parts[k] : `One ${P.name}. Seven systems.`;
+      const text = i ? DESC[k] : `Every ${P.name} is a complete shop engineered into a 1 m² cabinet. Keep scrolling and it comes apart, system by system.`;
+      const chips = i ? CHIPS[k] : [`RT-0${idx}`, "1000 × 800 × 1950 mm"];
+      panel.classList.add("out");
+      setTimeout(() => { panel.innerHTML = `<span class="num">[0${i}]</span><h2>${title}</h2><p>${text}</p><div class="chips">${chips.map((c) => `<span class="chip">${c}</span>`).join("")}</div>`; panel.classList.remove("out"); }, 160);
+      [...rail.children].forEach((d, j) => d.classList.toggle("on", j === i));
+      e.m.highlight(i ? k : null, P.accentHex);
+      labelT.textContent = i ? `[0${i}] ${P.parts[k]}` : ""; label.style.opacity = i ? 1 : 0;
+    }
+    function resize() { fitRenderer(r1, cam1, draw); fitRenderer(r2, cam2, sticky); }
+    resize(); addEventListener("resize", resize);
+    show(0);
+    const v = new THREE.Vector3(), clock = new THREE.Clock();
+    const place = (el, p, cam, box, m) => { v.set(...p).applyMatrix4(m.group.matrixWorld).project(cam); el.style.left = (v.x * 0.5 + 0.5) * box.clientWidth + "px"; el.style.top = (-v.y * 0.5 + 0.5) * box.clientHeight + "px"; };
+    r1.setAnimationLoop(() => {
+      const dt = clock.getDelta(), t = clock.elapsedTime;
+      const narrow = innerWidth < 700;
+      const a = -0.45 + Math.sin(t * 0.25) * 0.55, d = narrow ? 8.4 : 6.6;
+      cam1.position.set(Math.sin(a) * d, 1.9, Math.cos(a) * d); cam1.lookAt(0, 1.0, 0);
+      h.m.setProgress((t % 9) / 9); h.m.update(dt, t); r1.render(h.s, cam1);
+      place(document.getElementById("dimH"), [0.75, 0.98, 0.4], cam1, draw, h.m);
+      place(document.getElementById("dimW"), [0, -0.1, 0.72], cam1, draw, h.m);
+
+      const rr = explode.getBoundingClientRect();
+      const p = Math.min(1, Math.max(0, -rr.top / (rr.height - innerHeight)));
+      const i = Math.min(STEPS.length - 1, Math.floor(p * STEPS.length));
+      show(i);
+      e.m.setExplode(Math.min(1, Math.max(0, (p - 0.04) / 0.08)));
+      e.m.setProgress(0.45); e.m.update(dt, t);
+      const ang = -0.6 + p * 1.6, dd = narrow ? 9.2 : 7.6, lx = narrow ? 0 : -0.55;
+      cam2.position.set(Math.sin(ang) * dd + lx, 2.6, Math.cos(ang) * dd); cam2.lookAt(lx, narrow ? 1.35 : 1.0, 0);
+      e.s.updateMatrixWorld(); r2.render(e.s, cam2);
+      if (i > 0) {
+        const b3 = new THREE.Box3().setFromObject(e.m.parts[STEPS[i]]); const c = b3.getCenter(new THREE.Vector3()); c.y = b3.max.y; c.project(cam2);
+        label.style.left = (c.x * 0.5 + 0.5) * sticky.clientWidth + "px";
+        label.style.top = Math.max(150, (-c.y * 0.5 + 0.5) * sticky.clientHeight - 6) + "px";
+      }
+    });
+  </script>
+</body>
+</html>
