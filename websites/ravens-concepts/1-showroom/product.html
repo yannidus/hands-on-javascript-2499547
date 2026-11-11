@@ -169,11 +169,12 @@
     });
 
     // feature stills rendered from the model
+    const A = m.anchors, add = (a, d) => a.map((v, i) => v + d[i]);
     const SHOTS = {
-      source: { pos: [-0.12, 1.42, 1.05], target: [-0.3, 1.25, -0.2], fov: 32, p: 0.04 },
-      make: { pos: [0.22, 1.12, 0.92], target: [-0.04, 1.02, 0.04], fov: 34, p: 0.42 },
-      screen: { pos: [0.62, 1.28, 1.15], target: [0.335, 1.18, 0.39], fov: 32, p: 0.0 },
-      wide: { pos: [-2.4, 1.8, 4.2], target: [0, 0.95, 0], fov: 28, p: 0.9 },
+      source: { pos: add(A.source, P.key === "beanbox" ? [0.18, 0.42, 0.95] : [0.2, 0.15, 1.25]), target: add(A.source, [0.05, 0.08, 0]), fov: 34, p: 0.04 },
+      make: { pos: add(A.stage, [0.2, 0.22, 0.82]), target: add(A.stage, [-0.06, 0.12, -0.06]), fov: 34, p: 0.42 },
+      screen: { pos: add(A.screen, [0.3, 0.1, 0.78]), target: A.screen, fov: 32, p: 0.0 },
+      wide: { pos: [-2.6, 1.9, 4.6], target: [0, 1.0, 0], fov: 28, p: 0.9 },
     };
     const off = makeRenderer(document.createElement("canvas"), { alpha: false });
     off.setClearColor(0x0d0d14);

@@ -127,8 +127,13 @@
     const r1 = mk(document.getElementById("c1")); const h = lineScene(0xeef1f6); const cam1 = new THREE.PerspectiveCamera(24, 1, 0.1, 50);
     const dimMat = new THREE.LineBasicMaterial({ color: P.accentHex });
     const seg = (a, b) => h.m.group.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(...a), new THREE.Vector3(...b)]), dimMat));
-    seg([0.62, 0, 0.4], [0.62, 1.97, 0.4]); seg([0.57, 0, 0.4], [0.67, 0, 0.4]); seg([0.57, 1.97, 0.4], [0.67, 1.97, 0.4]);
-    seg([-0.51, -0.01, 0.62], [0.51, -0.01, 0.62]); seg([-0.51, -0.01, 0.57], [-0.51, -0.01, 0.67]); seg([0.51, -0.01, 0.57], [0.51, -0.01, 0.67]);
+    const bb3 = new THREE.Box3().setFromObject(h.m.group), sz = bb3.getSize(new THREE.Vector3());
+    const X = bb3.max.x + 0.1, Z = bb3.max.z, Y = bb3.max.y, HW = sz.x / 2;
+    seg([X, 0, Z], [X, Y, Z]); seg([X - 0.05, 0, Z], [X + 0.05, 0, Z]); seg([X - 0.05, Y, Z], [X + 0.05, Y, Z]);
+    seg([-HW, -0.01, Z + 0.2], [HW, -0.01, Z + 0.2]); seg([-HW, -0.01, Z + 0.15], [-HW, -0.01, Z + 0.25]); seg([HW, -0.01, Z + 0.15], [HW, -0.01, Z + 0.25]);
+    document.getElementById("dimH").textContent = "H " + Math.round(Y * 1000);
+    document.getElementById("dimW").textContent = "W " + Math.round(sz.x * 1000);
+    const DIM = { h: [X + 0.13, Y / 2, Z], w: [0, -0.1, Z + 0.3] };
     const vb = document.getElementById("variants");
     let vi = 1;
     vb.innerHTML = P.variants.map((v, i) => `<button data-i="${i}" class="${i === vi ? "on" : ""}">${v.label}</button>`).join("");
@@ -142,10 +147,10 @@
       arm: "Collaborative 6-axis arm with ±0.1 mm repeatability. It works behind glass, so making the product is part of the show.",
       source: P.key === "beanbox" ? "2 kg of whole beans, sealed against light and air, ground fresh for every cup." : P.key === "frosti" ? "Eight 2.5 L flavour tubs under a chilled dome, rotated by the arm on demand." : "CMYK + white UV ink cartridges with automatic level sensing.",
       stage: P.key === "beanbox" ? "9 bar extraction at 92 °C; dose and pressure logged on every shot." : P.key === "frosti" ? "A cone holder that steadies each scoop as the arm stacks up to three." : "A precision print bed: the case is held flat while the head sweeps.",
-      module: P.key === "beanbox" ? "Two milks at 3 °C, steamed to silky microfoam with auto-rinse cycles." : P.key === "frosti" ? "Commercial compressor holding −18 °C, monitored 24/7." : "UV-LED curing unit seals the print with a scratch-resistant coat.",
+      module: P.key === "beanbox" ? "A dual-group espresso unit with magenta status lighting, fed by two milks held at 3 °C in a fridge under the counter." : P.key === "frosti" ? "Commercial compressor holding −18 °C, monitored 24/7." : "UV-LED curing unit seals the print with a scratch-resistant coat.",
       dispenser: P.key === "znapcase" ? "A magazine of blank cases for 60+ models, with low-stock alerts." : "A gravity-fed stack that drops one at a time onto the stage.",
       screen: "A bright 15.6\" touchscreen with card, NFC, QR and app payments.",
-      header: "An illuminated sign and light strips, visible across the venue, auto-dimming after hours.",
+      header: P.key === "beanbox" ? "A rounded canopy with warm downlights over the counter, so the brewing is on show day and night." : "An illuminated sign and light strips, visible across the venue, auto-dimming after hours.",
     };
     const CHIPS = { arm: ["6 axes", "±0.1 mm"], source: ["Fresh", "Sealed"], stage: ["Precision"], module: ["Monitored"], dispenser: ["Auto-feed"], screen: ['15.6"', "NFC", "QR"], header: ["LED", "Auto-dim"] };
     const panel = document.getElementById("panel"), rail = document.getElementById("rail"), label = document.getElementById("label"), labelT = document.getElementById("labelT");
@@ -174,8 +179,8 @@
       const a = -0.45 + Math.sin(t * 0.25) * 0.55, d = narrow ? 8.4 : 6.6;
       cam1.position.set(Math.sin(a) * d, 1.9, Math.cos(a) * d); cam1.lookAt(0, 1.0, 0);
       h.m.setProgress((t % 9) / 9); h.m.update(dt, t); r1.render(h.s, cam1);
-      place(document.getElementById("dimH"), [0.75, 0.98, 0.4], cam1, draw, h.m);
-      place(document.getElementById("dimW"), [0, -0.1, 0.72], cam1, draw, h.m);
+      place(document.getElementById("dimH"), DIM.h, cam1, draw, h.m);
+      place(document.getElementById("dimW"), DIM.w, cam1, draw, h.m);
 
       const rr = explode.getBoundingClientRect();
       const p = Math.min(1, Math.max(0, -rr.top / (rr.height - innerHeight)));

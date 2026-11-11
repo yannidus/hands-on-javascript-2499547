@@ -36,7 +36,7 @@ export const PRODUCTS = {
     accent: "#ffb15c", accent2: "#ff6b3d", accentHex: 0xffb15c,
     headline: ["Barista-quality coffee.", "Made automatically."],
     lead: "Fresh, fast and customizable drinks for any location. Bean Box grinds, brews and serves café-grade coffee in about 60 seconds, 24/7.",
-    pills: ["Robotic barista", "60 sec", "30+ drinks", "24/7"],
+    pills: ["Robotic barista", "60 sec", "30+ drinks", "On casters"],
     variants: [
       { key: "espresso", label: "Espresso" },
       { key: "latte", label: "Latte" },
@@ -52,10 +52,10 @@ export const PRODUCTS = {
       ["Fresh, every cup", "Whole beans are ground on demand for every drink. Milk is chilled at 3 °C.", "source"],
       ["Fast, without the rush", "A latte in about 60 seconds, and up to 300 cups a day with no queue.", "make"],
       ["Customizable", "Size, milk, strength, syrup, hot or iced. Save your favourite in the app.", "screen"],
-      ["Any location", "Just 1 m² and a standard outlet. We install, stock and monitor it.", "wide"],
+      ["Any location, indoors or out", "A compact 1.4 × 0.9 m kiosk on lockable casters with wraparound glass. Roll it into a mall, lobby or shopfront.", "wide"],
     ],
-    specs: [["Footprint", "1.0 × 0.8 m"], ["Height", "1.95 m"], ["Brew time", "~60 seconds"], ["Capacity", "300 cups / day"], ["Menu", "30+ hot & iced drinks"], ["Milk", "2 × refrigerated, 3 °C"], ["Payments", "Card · Mobile · QR"], ["Connectivity", "4G / Wi-Fi telemetry"]],
-    parts: { source: "Bean hopper & grinder", arm: "6-axis robotic barista", stage: "Brew stage & cup", module: "Refrigerated milk module", dispenser: "Cup dispenser", screen: "Touchscreen & payment", header: "Illuminated header", shell: "Cabinet & glass" },
+    specs: [["Footprint", "1.4 × 0.9 m"], ["Height", "2.1 m"], ["Brew time", "~60 seconds"], ["Capacity", "300 cups / day"], ["Menu", "30+ hot & iced drinks"], ["Milk", "2 × refrigerated, 3 °C"], ["Payments", "Card · Mobile · QR"], ["Connectivity", "4G / Wi-Fi telemetry"]],
+    parts: { source: "Bean hopper & grinder", arm: "6-axis robotic barista", stage: "Brew stage & cup", module: "Espresso unit & milk fridge", dispenser: "Cup dispenser", screen: "Payment tower & pickup window", header: "Canopy with downlights", shell: "Kiosk body & wraparound glass" },
     venues: ["Malls", "Offices", "Hotels", "Campuses", "Airports"],
   },
   znapcase: {

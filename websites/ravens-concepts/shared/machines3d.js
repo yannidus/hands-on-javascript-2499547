@@ -91,6 +91,30 @@ function panelTexture(kind) {
     }
   });
 }
+function kioskScreenTexture() {
+  return canvasTex(400, 280, (g, w, h) => {
+    const grd = g.createLinearGradient(0, 0, 0, h); grd.addColorStop(0, "#1b2233"); grd.addColorStop(1, "#0c1019");
+    g.fillStyle = grd; g.fillRect(0, 0, w, h);
+    g.fillStyle = "#ffb15c"; g.font = "700 22px Inter, Arial"; g.fillText("Choose your coffee", 20, 34);
+    const cols = ["#c98a4b", "#f3e6d0", "#8d5a33", "#ffb15c", "#48cfff", "#b57a48", "#3ee69a", "#e8743a"];
+    for (let i = 0; i < 8; i++) {
+      const x = 20 + (i % 4) * 92, y = 52 + Math.floor(i / 4) * 104;
+      g.fillStyle = "rgba(255,255,255,.07)"; g.beginPath(); g.roundRect(x, y, 82, 94, 10); g.fill();
+      g.strokeStyle = "#e9edf5"; g.lineWidth = 3; g.beginPath(); g.arc(x + 41, y + 40, 22, 0, Math.PI * 2); g.stroke();
+      g.fillStyle = cols[i]; g.beginPath(); g.arc(x + 41, y + 40, 15, 0, Math.PI * 2); g.fill();
+      g.fillStyle = "#9fb0cc"; g.fillRect(x + 18, y + 74, 46, 5);
+    }
+  });
+}
+function cupIconTexture() {
+  return canvasTex(128, 96, (g, w, h) => {
+    g.fillStyle = "#050608"; g.fillRect(0, 0, w, h);
+    g.strokeStyle = "#f5f8ff"; g.lineWidth = 5; g.lineJoin = "round";
+    g.beginPath(); g.moveTo(38, 34); g.lineTo(84, 34); g.lineTo(80, 64); g.quadraticCurveTo(61, 74, 42, 64); g.closePath(); g.stroke();
+    g.beginPath(); g.arc(88, 46, 8, -Math.PI / 2, Math.PI / 2); g.stroke();
+    g.beginPath(); g.moveTo(32, 78); g.lineTo(92, 78); g.stroke();
+  });
+}
 function beanTexture() {
   return canvasTex(256, 256, (g, w, h) => {
     g.fillStyle = "#2a160a"; g.fillRect(0, 0, w, h);
@@ -164,8 +188,14 @@ export function createMachine(type = "beanbox", { mode = "real", fill = 0xe8e4dd
     stream: new THREE.MeshStandardMaterial({ color: 0x6b3a18, roughness: 0.2 }),
   };
 
-  /* ----- shell ----- */
+  // Bean Box uses its own kiosk body (inspired by a street-side robotic coffee kiosk);
+  // Frosti and ZnapCase keep the tall cabinet.
+  const KIOSK = type === "beanbox";
+  let L = { armBase: [-0.22, 0.84, -0.02], stage: [0.02, 0.84, 0.1], rest: [-0.3, 1.12, -0.12], light: [-0.1, 1.48, 0.12],
+    anchors: { screen: [0.335, 1.2, 0.39], source: [-0.3, 1.28, -0.2], stage: [0.02, 0.9, 0.1] } };
+  if (KIOSK) L = buildKiosk(parts, M, box, th, line);
   const S = parts.shell;
+  if (!KIOSK) {
   S.add(at(box(0.07, 1.55, 0.76, M.body, 0.02), -0.465, 0.83, 0));
   S.add(at(box(0.33, 1.55, 0.76, M.body, 0.02), 0.335, 0.83, 0));
   S.add(at(box(0.62, 0.74, 0.76, M.body), -0.12, 0.43, 0));
@@ -181,20 +211,17 @@ export function createMachine(type = "beanbox", { mode = "real", fill = 0xe8e4dd
   S.add(at(box(0.2, 0.16, 0.01, M.frame), 0.335, 0.62, 0.382));
 
   /* ----- header ----- */
+  }
+  if (!KIOSK) {
   const H = parts.header;
   H.add(at(box(1.02, 0.36, 0.8, type === "frosti" ? M.body : M.frame, 0.03), 0, 1.79, 0));
   H.add(at(new THREE.Mesh(new THREE.PlaneGeometry(0.9, 0.225), M.sign), 0, 1.79, 0.402));
   H.add(at(box(1.0, 0.008, 0.008, M.accent), 0, 1.6, 0.398));
 
-  /* ----- source module (hopper / flavour tubs / ink) ----- */
+  }
+  /* ----- source module (flavour tubs / ink; Bean Box's grinder is built in buildKiosk) ----- */
   const SRC = parts.source;
-  if (type === "beanbox") {
-    SRC.add(at(new THREE.Mesh(new THREE.CylinderGeometry(0.075, 0.05, 0.2, 32, 1, true), M.clear), -0.33, 1.38, -0.2));
-    SRC.add(at(new THREE.Mesh(new THREE.CylinderGeometry(0.068, 0.05, 0.15, 32), new THREE.MeshStandardMaterial({ map: beanTexture(), roughness: 0.55 })), -0.33, 1.35, -0.2));
-    SRC.add(at(new THREE.Mesh(new THREE.CylinderGeometry(0.078, 0.078, 0.012, 32), M.steel), -0.33, 1.485, -0.2));
-    SRC.add(at(box(0.13, 0.17, 0.13, M.steel, 0.015), -0.33, 1.19, -0.2));
-    SRC.add(at(new THREE.Mesh(new THREE.CylinderGeometry(0.02, 0.02, 0.06, 16), M.frame), -0.33, 1.08, -0.2));
-  } else if (type === "frosti") {
+  if (type === "frosti") {
     SRC.add(at(box(0.26, 0.02, 0.16, M.steel, 0.005), -0.29, 1.3, -0.22));
     const cols = [0xfff4dc, 0xffc7df, 0x6b3f22, 0xc6e3a1];
     cols.forEach((c, i) => {
@@ -203,7 +230,7 @@ export function createMachine(type = "beanbox", { mode = "real", fill = 0xe8e4dd
       SRC.add(at(new THREE.Mesh(new THREE.CylinderGeometry(0.031, 0.031, 0.012, 24), new THREE.MeshStandardMaterial({ color: c, roughness: 0.6 })), x + 0.05, 1.38, z));
     });
     SRC.add(at(new THREE.Mesh(new THREE.SphereGeometry(0.16, 32, 16, 0, Math.PI * 2, 0, Math.PI / 2), M.clear), -0.29, 1.31, -0.22));
-  } else {
+  } else if (type === "znapcase") {
     const inks = [0x00b7eb, 0xff2d9a, 0xffe600, 0x111111, 0xf5f5f5];
     SRC.add(at(box(0.3, 0.2, 0.1, M.frame, 0.01), -0.29, 1.3, -0.25));
     inks.forEach((c, i) => SRC.add(at(box(0.045, 0.14, 0.05, new THREE.MeshStandardMaterial({ color: c, roughness: 0.35, metalness: 0.1 }), 0.006), -0.39 + i * 0.05, 1.3, -0.19)));
@@ -211,20 +238,24 @@ export function createMachine(type = "beanbox", { mode = "real", fill = 0xe8e4dd
 
   /* ----- robotic arm ----- */
   const A = parts.arm;
-  const armBase = new THREE.Group(); armBase.position.set(-0.22, 0.84, -0.02); A.add(armBase);
-  armBase.add(at(new THREE.Mesh(new THREE.CylinderGeometry(0.07, 0.08, 0.05, 32), M.joint), 0, 0.025, 0));
+  const armBase = new THREE.Group(); armBase.position.set(...L.armBase); A.add(armBase);
+  // Bean Box: cream base, white joint caps, soft blue-grey links (collaborative-robot look)
+  const linkM = KIOSK ? new THREE.MeshStandardMaterial({ color: 0x9fb0cb, metalness: 0.15, roughness: 0.35 }) : M.white;
+  const jointM = KIOSK ? M.white : M.joint;
+  const baseM = KIOSK ? new THREE.MeshStandardMaterial({ color: 0xf1ead2, roughness: 0.4 }) : M.white;
+  armBase.add(at(new THREE.Mesh(new THREE.CylinderGeometry(0.07, 0.08, 0.05, 32), KIOSK ? baseM : M.joint), 0, 0.025, 0));
   const yaw = new THREE.Group(); yaw.position.y = 0.05; armBase.add(yaw);
-  yaw.add(at(new THREE.Mesh(new THREE.CylinderGeometry(0.055, 0.06, 0.12, 32), M.white), 0, 0.06, 0));
+  yaw.add(at(new THREE.Mesh(new THREE.CylinderGeometry(0.055, 0.06, 0.12, 32), baseM), 0, 0.06, 0));
   const shoulder = new THREE.Group(); shoulder.position.y = 0.14; yaw.add(shoulder);
-  shoulder.add(new THREE.Mesh(new THREE.SphereGeometry(0.052, 24, 16), M.joint));
+  shoulder.add(new THREE.Mesh(new THREE.SphereGeometry(0.052, 24, 16), jointM));
   const L1 = 0.27, L2 = 0.23;
   const upper = new THREE.Group(); shoulder.add(upper);
-  const uM = new THREE.Mesh(new THREE.CapsuleGeometry(0.038, L1, 8, 20), M.white); uM.rotation.z = -Math.PI / 2; uM.position.x = L1 / 2; upper.add(uM);
+  const uM = new THREE.Mesh(new THREE.CapsuleGeometry(0.038, L1, 8, 20), linkM); uM.rotation.z = -Math.PI / 2; uM.position.x = L1 / 2; upper.add(uM);
   const elbow = new THREE.Group(); elbow.position.x = L1; upper.add(elbow);
-  elbow.add(new THREE.Mesh(new THREE.SphereGeometry(0.044, 24, 16), M.joint));
-  const fM = new THREE.Mesh(new THREE.CapsuleGeometry(0.032, L2, 8, 20), M.white); fM.rotation.z = -Math.PI / 2; fM.position.x = L2 / 2; elbow.add(fM);
+  elbow.add(new THREE.Mesh(new THREE.SphereGeometry(0.044, 24, 16), jointM));
+  const fM = new THREE.Mesh(new THREE.CapsuleGeometry(0.032, L2, 8, 20), linkM); fM.rotation.z = -Math.PI / 2; fM.position.x = L2 / 2; elbow.add(fM);
   const wrist = new THREE.Group(); wrist.position.x = L2; elbow.add(wrist);
-  wrist.add(new THREE.Mesh(new THREE.SphereGeometry(0.034, 20, 14), M.joint));
+  wrist.add(new THREE.Mesh(new THREE.SphereGeometry(0.034, 20, 14), jointM));
   wrist.add(at(box(0.09, 0.05, 0.05, type === "znapcase" ? M.frame : M.white, 0.012), 0.05, 0, 0));
   const noz = new THREE.Mesh(new THREE.CylinderGeometry(0.012, 0.016, 0.03, 16), M.steel); noz.rotation.z = Math.PI / 2; noz.position.x = 0.105; wrist.add(noz);
   if (type === "znapcase") { const bar = box(0.012, 0.012, 0.08, M.accent); bar.position.set(0.112, 0, 0); wrist.add(bar); }
@@ -232,7 +263,7 @@ export function createMachine(type = "beanbox", { mode = "real", fill = 0xe8e4dd
 
   /* ----- stage & product ----- */
   const B = parts.stage;
-  const STAGE = new THREE.Vector3(0.02, 0.84, 0.1);
+  const STAGE = new THREE.Vector3(...L.stage);
   B.add(at(new THREE.Mesh(new THREE.CylinderGeometry(0.08, 0.08, 0.012, 32), M.steel), STAGE.x, STAGE.y + 0.006, STAGE.z));
   const product = new THREE.Group(); product.position.copy(STAGE).add(new THREE.Vector3(0, 0.012, 0)); B.add(product);
   const stream = new THREE.Mesh(new THREE.CylinderGeometry(0.006, 0.008, 1, 12), M.stream); stream.userData.noEdges = true; B.add(stream);
@@ -310,6 +341,7 @@ export function createMachine(type = "beanbox", { mode = "real", fill = 0xe8e4dd
 
   /* ----- hidden modules ----- */
   const MD = parts.module;
+  if (!KIOSK) {
   if (type === "znapcase") {
     MD.add(at(box(0.36, 0.3, 0.42, M.frame, 0.02), -0.2, 0.36, -0.05));
     MD.add(at(box(0.3, 0.02, 0.36, M.accent), -0.2, 0.52, -0.05));
@@ -334,6 +366,7 @@ export function createMachine(type = "beanbox", { mode = "real", fill = 0xe8e4dd
   SC.add(at(box(0.16, 0.09, 0.015, M.frame, 0.01), 0.335, 1.03, 0.388));
   SC.add(at(new THREE.Mesh(new THREE.TorusGeometry(0.022, 0.004, 8, 32), M.accent), 0.335, 1.03, 0.398));
   for (let i = 0; i < 3; i++) { const b = at(new THREE.Mesh(new THREE.CylinderGeometry(0.012, 0.012, 0.01, 16), M.accent), 0.28 + i * 0.055, 0.92, 0.39); b.rotation.x = Math.PI / 2; SC.add(b); }
+  }
 
   group.traverse((o) => { if (o.isMesh) { o.castShadow = !line; o.receiveShadow = !line; } });
 
@@ -363,7 +396,7 @@ export function createMachine(type = "beanbox", { mode = "real", fill = 0xe8e4dd
 
   /* ----- animation ----- */
   let prog = 0;
-  const REST = new THREE.Vector3(-0.3, 1.12, -0.12);
+  const REST = new THREE.Vector3(...L.rest);
   const ease = (t) => t * t * (3 - 2 * t);
   const cl = (t) => Math.min(1, Math.max(0, t));
   const fillLevel = () => cl((prog - 0.18) / 0.5);
@@ -421,10 +454,124 @@ export function createMachine(type = "beanbox", { mode = "real", fill = 0xe8e4dd
   group.updateMatrixWorld(true);
   update(0, 0);
   return {
-    type, group, parts, materials: M, stage: STAGE,
+    type, group, parts, materials: M, stage: STAGE, anchors: L.anchors, lightPos: L.light,
     setProgress: (p) => { prog = cl(p); },
     setVariant: (k) => variant(k),
     setExplode, highlight, update,
+  };
+}
+
+/* ---------- Bean Box kiosk body ----------
+ * Rounded charcoal base on casters, wood counter, wraparound glass with rounded corners,
+ * a canopy roof with downlights, espresso unit (magenta accents) and grinder on the counter,
+ * and a payment tower with touchscreen and pickup window at the front-left.
+ */
+function buildKiosk(parts, M, box, th, line) {
+  const W = 1.4, D = 0.9, CY = 0.99, R = 0.16, GH = 0.94; // width, depth, counter top, glass corner radius, glass height
+  const K = {
+    body: new THREE.MeshStandardMaterial({ color: 0x272a30, metalness: 0.55, roughness: 0.42 }),
+    dark: new THREE.MeshStandardMaterial({ color: 0x17181c, metalness: 0.4, roughness: 0.5 }),
+    back: new THREE.MeshStandardMaterial({ color: 0x1d1a18, roughness: 0.7, emissive: 0x24140a, emissiveIntensity: 0.6 }),
+    led: new THREE.MeshStandardMaterial({ color: 0x000000, emissive: 0xfff1dc, emissiveIntensity: 1.6, toneMapped: false }),
+    down: new THREE.MeshStandardMaterial({ color: 0x000000, emissive: 0xffe2b0, emissiveIntensity: 2.2, toneMapped: false }),
+    magenta: new THREE.MeshStandardMaterial({ color: 0x000000, emissive: 0xd14cff, emissiveIntensity: 1.5, toneMapped: false }),
+    glass: new THREE.MeshPhysicalMaterial({ color: 0xdfe8f5, transparent: true, opacity: 0.2, roughness: 0.02, metalness: 0.1, clearcoat: 1, side: THREE.DoubleSide, depthWrite: false }),
+    rubber: new THREE.MeshStandardMaterial({ color: 0x0d0d0f, roughness: 0.9 }),
+    screen: new THREE.MeshStandardMaterial({ color: 0x000000, emissiveMap: kioskScreenTexture(), emissive: 0xffffff, emissiveIntensity: 1.1 }),
+    icon: new THREE.MeshStandardMaterial({ color: 0x000000, emissiveMap: cupIconTexture(), emissive: 0xffffff, emissiveIntensity: 1.2 }),
+    beans: new THREE.MeshStandardMaterial({ map: beanTexture(), roughness: 0.55 }),
+  };
+  const add = (g, m, x, y, z) => { m.position.set(x, y, z); g.add(m); return m; };
+  const noEdge = (m) => { m.userData.noEdges = true; return m; };
+
+  /* shell: base, casters, counter, glass, back panel, light strips */
+  const S = parts.shell;
+  const baseH = CY - 0.035 - 0.12;
+  add(S, box(W, baseH, D, K.body, 0.1), 0, 0.12 + baseH / 2, 0);
+  add(S, box(W - 0.08, 0.02, D - 0.08, K.dark), 0, 0.125, 0);
+  for (const sx of [-1, 1]) for (const sz of [-1, 1]) {
+    const x = sx * (W / 2 - 0.13), z = sz * (D / 2 - 0.12);
+    add(S, box(0.07, 0.05, 0.05, M.steel), x, 0.1, z);
+    const wheel = add(S, new THREE.Mesh(new THREE.CylinderGeometry(0.042, 0.042, 0.03, 20), K.rubber), x, 0.045, z);
+    wheel.rotation.z = Math.PI / 2;
+  }
+  add(S, box(W - 0.02, 0.035, D - 0.02, M.panel, 0.01), 0, CY - 0.0175, 0); // wood counter
+  for (const sx of [-1, 1]) add(S, box(0.012, baseH - 0.08, 0.012, K.led), sx * (W / 2 - 0.1), 0.12 + baseH / 2, D / 2 + 0.002);
+  const gy = CY + GH / 2, gx = W / 2 - 0.02, gz = D / 2 - 0.02;
+  add(S, noEdge(new THREE.Mesh(new THREE.PlaneGeometry(W - 0.04 - 2 * R, GH), K.glass)), 0, gy, gz);
+  for (const sx of [-1, 1]) {
+    const side = add(S, noEdge(new THREE.Mesh(new THREE.PlaneGeometry(D - 0.04 - 2 * R, GH), K.glass)), sx * gx, gy, 0);
+    side.rotation.y = Math.PI / 2;
+  }
+  // rounded glass corners (quarter cylinders): theta 0 = +Z, PI/2 = +X
+  [[1, 1, 0], [-1, 1, 1.5 * Math.PI], [1, -1, 0.5 * Math.PI], [-1, -1, Math.PI]].forEach(([sx, sz, t0]) => {
+    add(S, noEdge(new THREE.Mesh(new THREE.CylinderGeometry(R, R, GH, 20, 1, true, t0, Math.PI / 2), K.glass)), sx * (gx - R), gy, sz * (gz - R));
+  });
+  add(S, box(W - 0.06 - 2 * R, GH, 0.03, K.back), 0, gy, -gz + 0.01); // back wall
+  for (const sx of [-1, 1]) { // corner mullions
+    add(S, box(0.02, GH, 0.02, K.dark), sx * (gx - R), gy, gz);
+    add(S, box(0.02, GH, 0.02, K.dark), sx * gx, gy, gz - R);
+  }
+
+  /* header: canopy roof with downlights and a slim sign */
+  const H = parts.header;
+  const roofY = CY + GH + 0.08;
+  add(H, box(W + 0.04, 0.16, D + 0.04, K.body, 0.08), 0, roofY, 0);
+  add(H, box(W + 0.02, 0.01, D + 0.02, K.dark), 0, roofY - 0.08, 0);
+  [[-0.42, 0.18], [0, 0.22], [0.42, 0.18], [-0.42, -0.14], [0.42, -0.14], [0, -0.1]].forEach(([x, z]) => {
+    const d = add(H, noEdge(new THREE.Mesh(new THREE.CircleGeometry(0.03, 20), K.down)), x, roofY - 0.086, z);
+    d.rotation.x = Math.PI / 2;
+  });
+  add(H, new THREE.Mesh(new THREE.PlaneGeometry(0.48, 0.12), M.sign), 0, roofY, D / 2 + 0.022);
+
+  /* source: bean grinder with hopper (back-left) */
+  const SRC = parts.source;
+  add(SRC, box(0.22, 0.4, 0.24, K.dark, 0.03), -0.4, CY + 0.2, -0.22);
+  add(SRC, noEdge(new THREE.Mesh(new THREE.PlaneGeometry(0.09, 0.07), K.icon)), -0.4, CY + 0.25, -0.099);
+  add(SRC, new THREE.Mesh(new THREE.CylinderGeometry(0.075, 0.05, 0.2, 32, 1, true), M.clear), -0.4, CY + 0.5, -0.22);
+  add(SRC, new THREE.Mesh(new THREE.CylinderGeometry(0.068, 0.05, 0.15, 32), K.beans), -0.4, CY + 0.47, -0.22);
+  add(SRC, new THREE.Mesh(new THREE.CylinderGeometry(0.078, 0.078, 0.012, 32), K.dark), -0.4, CY + 0.605, -0.22);
+  add(SRC, new THREE.Mesh(new THREE.CylinderGeometry(0.015, 0.015, 0.05, 16), M.steel), -0.4, CY + 0.06, -0.09);
+
+  /* module: espresso unit with magenta accents (back-right) + milk fridge under the counter */
+  const MD = parts.module;
+  add(MD, box(0.38, 0.44, 0.3, K.dark, 0.03), 0.32, CY + 0.22, -0.22);
+  for (const sx of [-1, 1]) add(MD, box(0.01, 0.32, 0.22, K.magenta), 0.32 + sx * 0.192, CY + 0.2, -0.22);
+  add(MD, box(0.3, 0.012, 0.01, K.magenta), 0.32, CY + 0.38, -0.069);
+  for (const dx of [-0.08, 0.08]) {
+    add(MD, new THREE.Mesh(new THREE.CylinderGeometry(0.035, 0.03, 0.05, 20), M.steel), 0.32 + dx, CY + 0.2, -0.05);
+    add(MD, new THREE.Mesh(new THREE.CylinderGeometry(0.008, 0.008, 0.04, 10), M.steel), 0.32 + dx, CY + 0.16, -0.05);
+  }
+  add(MD, box(0.3, 0.02, 0.12, M.steel), 0.32, CY + 0.01, -0.05);
+  add(MD, box(0.4, 0.5, 0.5, M.fridge, 0.02), 0.25, 0.5, -0.1); // milk fridge, hidden inside the base
+  [0.17, 0.33].forEach((x) => add(MD, new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.05, 0.24, 24), M.white), x, 0.5, 0.06));
+
+  /* dispenser: cup tube on the right */
+  const DP = parts.dispenser;
+  add(DP, new THREE.Mesh(new THREE.CylinderGeometry(0.055, 0.055, 0.46, 24, 1, true), M.clear), 0.6, CY + 0.25, -0.27);
+  for (let i = 0; i < 9; i++) add(DP, new THREE.Mesh(new THREE.CylinderGeometry(0.048, 0.036, 0.085, 24, 1, true), M.white), 0.6, CY + 0.06 + i * 0.045, -0.27);
+  add(DP, box(0.12, 0.04, 0.12, K.dark, 0.01), 0.6, CY + 0.02, -0.27);
+
+  /* screen: payment tower with pickup window + angled touchscreen head (front-left) */
+  const SC = parts.screen;
+  const tx = -0.42, tz = 0.47, th2 = CY - 0.12;
+  add(SC, box(0.34, th2, 0.3, K.dark, 0.03), tx, 0.12 + th2 / 2, tz);
+  for (const sx of [-1, 1]) add(SC, box(0.01, th2 - 0.06, 0.01, K.led), tx + sx * 0.172, 0.12 + th2 / 2, tz + 0.152);
+  add(SC, box(0.22, 0.18, 0.012, M.steel), tx, 0.62, tz + 0.152);
+  add(SC, noEdge(new THREE.Mesh(new THREE.PlaneGeometry(0.18, 0.14), K.icon)), tx, 0.62, tz + 0.16);
+  add(SC, box(0.3, 0.12, 0.24, K.dark, 0.02), tx, CY + 0.06, tz);
+  const head = new THREE.Group(); head.position.set(tx, CY + 0.25, tz + 0.03); head.rotation.x = -0.28; SC.add(head);
+  add(head, box(0.34, 0.26, 0.1, K.dark, 0.02), 0, 0, 0);
+  add(head, new THREE.Mesh(new THREE.PlaneGeometry(0.28, 0.17), K.screen), 0, 0.025, 0.051);
+  add(head, box(0.05, 0.035, 0.012, K.body), 0, -0.095, 0.052);
+  add(head, noEdge(new THREE.Mesh(new THREE.PlaneGeometry(0.03, 0.015), K.led)), 0, -0.095, 0.059);
+
+  return {
+    armBase: [-0.04, CY, -0.08],
+    stage: [0.2, CY - 0.012, 0.16],
+    rest: [0.3, CY + 0.38, -0.06], // wrist parks at the espresso group heads
+    light: [0, CY + 0.78, 0.15],
+    anchors: { screen: [tx, CY + 0.27, tz + 0.06], source: [-0.4, CY + 0.3, -0.22], stage: [0.2, CY + 0.06, 0.16] },
   };
 }
 
@@ -454,7 +601,7 @@ export function studioLights(scene, { tint = 0xffb15c, intensity = 1 } = {}) {
 /** a warm/cool light inside each machine's window, added per machine */
 export function interiorLight(machine, color) {
   const l = new THREE.PointLight(color ?? 0xffa64d, 3.2, 1.6, 1.4);
-  l.position.set(-0.1, 1.48, 0.12);
+  l.position.set(...(machine.lightPos || [-0.1, 1.48, 0.12]));
   machine.group.add(l);
   return l;
 }

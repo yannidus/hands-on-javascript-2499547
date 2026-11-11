@@ -21,7 +21,7 @@ cd websites && python3 -m http.server 8080
 
 ## Files
 
-- `shared/machines3d.js`: procedural models of all three machines (`createMachine(type)`). It provides each machine's making animation (pour, scoop, print), variants, an exploded view and line-art mode.
+- `shared/machines3d.js`: procedural models of all three machines (`createMachine(type)`). Bean Box is a street-kiosk design: charcoal base on casters, wood counter, wraparound rounded glass, canopy with downlights, payment tower with pickup window, cobot arm, espresso unit and grinder. Each model exposes `anchors` (screen, source, stage) that the pages use to aim their cameras. It provides each machine's making animation (pour, scoop, print), variants, an exploded view and line-art mode.
 - `shared/products.js`: all product copy (headlines, steps, features, specs, parts, venues). Edit text here.
 - `vendor/`: three.js r170 (MIT).
 
