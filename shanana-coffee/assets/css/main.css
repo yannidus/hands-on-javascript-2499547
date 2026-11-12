@@ -751,3 +751,12 @@ p { margin: 0 0 1.1em; }
   .viewer__label { font-size: .6rem; }
 }
 .field label.checkbox { font-size: .9rem; font-weight: 400; letter-spacing: 0; text-transform: none; color: var(--charcoal); line-height: 1.55; }
+
+/* Real photo turntable (frames mode) */
+.viewer__frames { height: 100%; width: auto; max-width: 100%; aspect-ratio: 4 / 5; position: relative; }
+.viewer__frames img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; pointer-events: none; -webkit-user-drag: none; }
+.viewer__frames img.is-over { opacity: 0; }
+.view-thumb--photo { padding: 3px; }
+.view-thumb--photo img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; }
+
+[hidden] { display: none !important; }

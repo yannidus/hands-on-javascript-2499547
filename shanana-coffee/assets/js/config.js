@@ -48,10 +48,11 @@ window.SHANANA_CONFIG = {
              typical). When present, the viewer switches to photo mode.
   ------------------------------------------------------------------------ */
   media: {
-    frontImage: "assets/img/products/bag-front-placeholder.svg",
-    isPlaceholder: true,
-    frames: []
-    // frames: Array.from({ length: 36 }, (_, i) => `assets/img/products/360/bag-${String(i + 1).padStart(2, "0")}.webp`)
+    frontImage: "assets/img/products/bag-front.webp",
+    isPlaceholder: false,
+    // Real turntable photography: 8 frames, 45° apart (source GIF was 414 px, so
+    // replace with higher-resolution originals when available, ideally 24–36 frames).
+    frames: Array.from({ length: 8 }, (_, i) => `assets/img/products/360/bag-${String(i + 1).padStart(2, "0")}.webp`)
   },
 
   /* ---- Impact reporting -------------------------------------------------

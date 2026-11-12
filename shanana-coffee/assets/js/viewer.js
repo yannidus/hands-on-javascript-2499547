@@ -18,8 +18,8 @@
 
   var VIEWS = [
     { id: "front", label: "Front", angle: 0 },
-    { id: "three-quarter", label: "Three-quarter", angle: -32 },
-    { id: "profile", label: "Profile", angle: -90 },
+    { id: "three-quarter", label: "Three-quarter", angle: 45 },
+    { id: "profile", label: "Side", angle: 90 },
     { id: "rear", label: "Rear", angle: 180 }
   ];
   var LIGHT = -25; // degrees — key light from front-left
@@ -55,8 +55,9 @@
     var front = esc(MEDIA.frontImage || "assets/img/products/bag-front-placeholder.svg");
     if (this.mode === "frames") {
       this.stage.innerHTML =
-        '<div class="viewer__frames"><img alt="" decoding="async" src="' + esc(this.frames[0]) + '"></div>';
-      this.frameImg = this.stage.querySelector("img");
+        '<div class="viewer__frames"><img class="is-base" alt="Shanana Coffee bag" decoding="async" src="' + esc(this.frames[0]) + '"><img class="is-over" alt="" aria-hidden="true" decoding="async" src="' + esc(this.frames[1 % this.frames.length]) + '"></div>';
+      this.frameBase = this.stage.querySelector(".is-base");
+      this.frameOver = this.stage.querySelector(".is-over");
       // warm the cache so rotation is smooth
       this.frames.forEach(function (src) { var i = new Image(); i.decoding = "async"; i.src = src; });
     } else {
@@ -85,7 +86,15 @@
 
     // Thumbnails
     var thumbs = this.root.querySelector(".view-thumbs");
-    if (thumbs) {
+    var framesRef = this.frames;
+    if (thumbs && this.mode === "frames") {
+      thumbs.innerHTML = VIEWS.map(function (v) {
+        var src = framesRef[Math.round(norm(v.angle) / 360 * framesRef.length) % framesRef.length];
+        return '<button type="button" class="view-thumb view-thumb--photo" data-view="' + v.id + '" aria-pressed="false" aria-label="' + v.label + ' view">' +
+          '<img src="' + esc(src) + '" alt="" loading="lazy" decoding="async"></button>';
+      }).join("");
+      this.thumbs = Array.prototype.slice.call(thumbs.querySelectorAll(".view-thumb"));
+    } else if (thumbs) {
       thumbs.innerHTML = VIEWS.map(function (v) {
         var cls = "view-thumb__bag" + (v.id === "profile" ? " view-thumb__bag--narrow" : "") + (v.id === "rear" ? " view-thumb__bag--back" : "");
         var tilt = v.id === "three-quarter" ? ' style="transform:rotateY(-32deg)"' : "";
@@ -211,6 +220,11 @@
       this.angle += AUTO_SPEED * dt / 1000;
       changed = true;
     }
+    if (!changed && this.mode === "frames" && !this.playing && !this.interacting && !this.tween && Math.abs(this.velocity) <= 0.02) {
+      // idle: settle on the nearest real photograph instead of resting on a blend of two
+      var step = 360 / this.frames.length, target = Math.round(this.angle / step) * step;
+      if (Math.abs(target - this.angle) > 0.4) this.tween = { from: this.angle, to: target, start: t, dur: 280 };
+    }
     if (changed) this.render();
     requestAnimationFrame(this.loop);
   };
@@ -222,8 +236,13 @@
     this.stage.setAttribute("aria-valuetext", Math.round(n) + " degrees — " + this.closestView(n).label + " view");
 
     if (this.mode === "frames") {
-      var idx = Math.round(n / 360 * this.frames.length) % this.frames.length;
-      if (idx !== this.frameIdx) { this.frameIdx = idx; this.frameImg.src = this.frames[idx]; }
+      var N = this.frames.length, pos = n / 360 * N, i0 = Math.floor(pos) % N, fr = pos - Math.floor(pos);
+      var i1 = (i0 + 1) % N;
+      if (i0 !== this.i0) { this.i0 = i0; this.frameBase.src = this.frames[i0]; }
+      if (i1 !== this.i1) { this.i1 = i1; this.frameOver.src = this.frames[i1]; }
+      // hold each frame, then blend quickly across the middle of the step (avoids ghosting)
+      var t = Math.min(1, Math.max(0, (fr - 0.3) / 0.4));
+      this.frameOver.style.opacity = (t * t * (3 - 2 * t)).toFixed(3);
     } else {
       this.bag.style.setProperty("--ry", a.toFixed(2) + "deg");
       for (var k in this.faces) {
