@@ -236,13 +236,10 @@
     this.stage.setAttribute("aria-valuetext", Math.round(n) + " degrees — " + this.closestView(n).label + " view");
 
     if (this.mode === "frames") {
-      var N = this.frames.length, pos = n / 360 * N, i0 = Math.floor(pos) % N, fr = pos - Math.floor(pos);
-      var i1 = (i0 + 1) % N;
-      if (i0 !== this.i0) { this.i0 = i0; this.frameBase.src = this.frames[i0]; }
-      if (i1 !== this.i1) { this.i1 = i1; this.frameOver.src = this.frames[i1]; }
-      // hold each frame, then blend quickly across the middle of the step (avoids ghosting)
-      var t = Math.min(1, Math.max(0, (fr - 0.3) / 0.4));
-      this.frameOver.style.opacity = (t * t * (3 - 2 * t)).toFixed(3);
+      // show the nearest real photograph (blending two transparent angles reads as a double exposure)
+      var N = this.frames.length, idx = Math.round(n / 360 * N) % N;
+      if (idx !== this.i0) { this.i0 = idx; this.frameBase.src = this.frames[idx]; }
+      this.frameOver.style.opacity = 0;
     } else {
       this.bag.style.setProperty("--ry", a.toFixed(2) + "deg");
       for (var k in this.faces) {
@@ -329,8 +326,9 @@
     document.querySelectorAll("[data-size-options]").forEach(function (wrap, wi) {
       wrap.innerHTML = Product.list.map(function (p) {
         var id = "size-" + wi + "-" + p.id;
+        var thumb = wrap.getAttribute("data-thumb");
         return '<input type="radio" name="size-' + wi + '" id="' + id + '" value="' + p.id + '" data-size-radio>' +
-          '<label for="' + id + '">' + esc(p.label) + "</label>";
+          '<label for="' + id + '">' + (thumb ? '<img src="' + esc(thumb) + '" alt="" width="28" height="35" loading="lazy" decoding="async">' : "") + "<span>" + esc(p.label) + "</span></label>";
       }).join("");
       wrap.addEventListener("change", function (e) { if (e.target.matches("[data-size-radio]")) Product.set(e.target.value); });
     });
@@ -373,7 +371,33 @@
     document.querySelectorAll("[data-size-prev]").forEach(function (b) { b.addEventListener("click", function () { Product.step(-1); }); });
     document.querySelectorAll("[data-size-next]").forEach(function (b) { b.addEventListener("click", function () { Product.step(1); }); });
     if (Product.list.length) Product.set(initialSize(), { silent: true });
-    document.querySelectorAll("[data-viewer]").forEach(function (el) { new Viewer(el); });
+    document.querySelectorAll("[data-viewer]:not([data-lazy])").forEach(function (el) { new Viewer(el); });
+    initDialog();
+  }
+
+  /* ---- "View in 3D" dialog: the viewer is built only when someone asks for it ---- */
+  function initDialog() {
+    var dlg = document.getElementById("viewer3d");
+    var openers = document.querySelectorAll("[data-open-3d]");
+    if (!dlg || !openers.length) return;
+    if (typeof dlg.showModal !== "function") { openers.forEach(function (b) { b.hidden = true; }); return; }
+    var viewer = null;
+    openers.forEach(function (b) {
+      b.addEventListener("click", function () {
+        dlg.showModal();
+        document.documentElement.classList.add("dlg-open");
+        if (!viewer) viewer = new Viewer(dlg.querySelector("[data-viewer]"));
+        else { viewer.setPlaying(!reduceMotion, false); }
+        var stage = dlg.querySelector(".viewer__stage"); if (stage) stage.focus({ preventScroll: true });
+      });
+    });
+    function close() { if (dlg.open) dlg.close(); }
+    dlg.querySelectorAll("[data-close-3d]").forEach(function (b) { b.addEventListener("click", close); });
+    dlg.addEventListener("click", function (e) { if (e.target === dlg) close(); }); // backdrop click
+    dlg.addEventListener("close", function () {
+      document.documentElement.classList.remove("dlg-open");
+      if (viewer) viewer.setPlaying(false, false);
+    });
   }
 
   window.ShananaProduct = Product;

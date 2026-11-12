@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Manrope:wght@400;500;600&display=swap">
   <link rel="stylesheet" href="assets/css/main.css">
-  <link rel="preload" as="image" href="assets/img/products/360/bag-01.webp">
+  <link rel="preload" as="image" href="assets/img/products/360/bag-01.webp" type="image/webp">
   <script src="assets/js/boot.js"></script>
   <script src="assets/js/config.js" defer></script>
   <script src="assets/js/catalog.js" defer></script>
@@ -34,7 +34,7 @@
   }
   </script>
 </head>
-<body>
+<body class="page-home">
 <!-- HEADER:START -->
 <a class="skip-link" href="#main">Skip to content</a>
 <header class="site-header">
@@ -63,74 +63,81 @@
 <main id="main">
 
   <!-- ============ SHOWROOM HERO ============ -->
-  <section class="container showroom" aria-labelledby="hero-title">
-    <div class="showroom__head reveal">
-      <div class="brand-lockup">
-        <p class="eyebrow mb-0">Shanana Coffee</p><span class="brand-lockup__rule" aria-hidden="true"></span>
-        <p class="eyebrow eyebrow--muted mb-0">Rwanda</p>
-      </div>
-      <h1 class="display display-xl caps showroom__title" id="hero-title">
-        <span class="reveal-line"><span>Every sip</span></span>
-        <span class="reveal-line"><span>tells a</span></span>
-        <span class="reveal-line"><span><em>story.</em></span></span>
-      </h1>
-    </div>
-
-    <div class="showroom__body reveal" data-delay="1">
-      <p class="lead">Born in the mountains of Rwanda. Crafted with care. Shared with the world. High-altitude 100% Arabica from Nyaruguru — produced and packaged at origin.</p>
-      <div class="btn-row mt-2">
-        <a class="btn" href="coffee.html"><span>Explore Our Coffee</span><svg class="arrow" viewBox="0 0 18 10" aria-hidden="true"><path d="M0 5h16M12 1l4 4-4 4" fill="none" stroke="currentColor"/></svg></a>
-        <a class="btn btn--ghost" href="wholesale.html#inquiry"><span>Become a Wholesale Partner</span></a>
-      </div>
-    </div>
-
-    <div class="showroom__stage">
-      <div class="viewer" data-viewer data-autoplay="true">
-        <span class="viewer__label pill pill--pending" data-viewer-label hidden>Illustrative render<span class="hide-sm"> · product photography pending</span></span>
-        <div class="viewer__stage" tabindex="0" role="slider" aria-label="Shanana Coffee bag, 360 degree view. Drag or use arrow keys to rotate." aria-valuemin="0" aria-valuemax="359" aria-valuenow="0">
-          <img src="assets/img/products/360/bag-01.webp" alt="Shanana Coffee black and gold coffee bag" width="300" height="420">
+  <section class="hero" aria-labelledby="hero-title">
+    <svg class="hero__mountains" viewBox="0 0 1440 700" preserveAspectRatio="xMidYMax slice" aria-hidden="true" focusable="false">
+      <path d="M0 470 L120 410 L230 450 L360 340 L470 420 L600 300 L720 400 L860 280 L990 390 L1120 320 L1250 410 L1360 350 L1440 400 V700 H0Z" fill="#171e18"/>
+      <path d="M0 560 L140 500 L280 545 L420 450 L560 530 L700 430 L850 520 L1000 440 L1150 520 L1300 460 L1440 520 V700 H0Z" fill="#121712"/>
+    </svg>
+    <div class="container showroom">
+      <div class="showroom__head reveal">
+        <div class="brand-lockup">
+          <p class="eyebrow mb-0">Shanana Coffee</p><span class="brand-lockup__rule" aria-hidden="true"></span>
+          <p class="eyebrow eyebrow--muted mb-0">Rwanda</p>
         </div>
-        <div class="viewer__bar">
-          <span class="viewer__hint" aria-hidden="true"><svg viewBox="0 0 28 10"><path d="M4 1L1 5l3 4M24 1l3 4-3 4M1 5h26" fill="none" stroke="currentColor"/></svg>Drag to rotate</span>
-          <button type="button" class="viewer__toggle" data-viewer-toggle>Auto-rotate</button>
+        <h1 class="display display-xl caps showroom__title" id="hero-title">
+          <span class="reveal-line"><span>Every sip</span></span>
+          <span class="reveal-line"><span>tells a</span></span>
+          <span class="reveal-line"><span><em>story.</em></span></span>
+        </h1>
+      </div>
+
+      <div class="showroom__body reveal" data-delay="1">
+        <p class="lead">Born in the mountains of Rwanda. Crafted with care. Shared with the world. High-altitude 100% Arabica from Nyaruguru, produced and packaged at origin.</p>
+        <div class="btn-row mt-2">
+          <a class="btn btn--brand" href="coffee.html"><span>Explore Our Coffee</span><svg class="arrow" viewBox="0 0 18 10" aria-hidden="true"><path d="M0 5h16M12 1l4 4-4 4" fill="none" stroke="currentColor"/></svg></a>
+          <a class="btn btn--ghost" href="wholesale.html#inquiry"><span>Become a Wholesale Partner</span></a>
         </div>
-        <div class="view-thumbs" role="group" aria-label="Choose a product view"></div>
+      </div>
+
+      <div class="showroom__stage">
+        <div class="bagstage">
+          <svg class="orbit__ring" viewBox="0 0 600 600" aria-hidden="true" focusable="false">
+            <circle cx="300" cy="300" r="270" fill="none" stroke="currentColor" stroke-opacity=".28"/>
+            <circle cx="300" cy="300" r="258" fill="none" stroke="currentColor" stroke-opacity=".12" stroke-dasharray="2 7"/>
+            <path d="M 109 109 A 270 270 0 0 1 491 109" fill="none" stroke="currentColor" stroke-width="1.6" stroke-opacity=".85"/>
+          </svg>
+          <img class="bagstage__img" src="assets/img/products/360/bag-01.webp" alt="Shanana Coffee bag: matte black with a gold sun emblem and illustrated figures" width="664" height="830" fetchpriority="high">
+          <div class="orbit__nodes" role="group" aria-label="Tasting notes">
+            <button type="button" class="orbit__node" data-orbit="top" data-title="Top notes" data-notes="Citrus · Green apple · Bright acidity" aria-pressed="false" style="left:18.2%;top:18.2%"><span class="orbit__dot" aria-hidden="true"></span><span class="orbit__label">Top notes</span></button>
+            <button type="button" class="orbit__node" data-orbit="heart" data-title="Heart" data-notes="Honey · Floral sweetness" aria-pressed="false" style="left:81.8%;top:18.2%"><span class="orbit__dot" aria-hidden="true"></span><span class="orbit__label">Heart</span></button>
+            <button type="button" class="orbit__node" data-orbit="base" data-title="Base" data-notes="Subtle nuttiness · Balanced · Lingering" aria-pressed="false" style="left:18.2%;top:81.8%"><span class="orbit__dot" aria-hidden="true"></span><span class="orbit__label">Base</span></button>
+          </div>
+        </div>
+        <p class="orbit__caption" aria-live="polite"><strong data-orbit-title>Top notes</strong><span data-orbit-notes>Citrus · Green apple · Bright acidity</span></p>
+        <button type="button" class="btn btn--ghost btn3d" data-open-3d aria-haspopup="dialog" aria-controls="viewer3d">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12a8 8 0 1 1-2.6-5.9"/><path d="M20 4v4.5h-4.5"/></svg>
+          <span>View in 3D</span>
+        </button>
+      </div>
+
+      <div class="showroom__specs reveal" data-delay="2">
+        <h2 class="specs__title">Origin</h2>
+        <dl class="spec-list spec-list--timeline">
+          <div><dt>Country</dt><dd>Rwanda</dd></div>
+          <div><dt>Region</dt><dd>Nyaruguru</dd></div>
+          <div><dt>Variety</dt><dd>100% Arabica</dd></div>
+          <div><dt>Altitude</dt><dd>1,800–1,900 meters</dd></div>
+          <div><dt>Tasting notes</dt><dd>Citrus, green apple, honey, floral sweetness, subtle nuttiness</dd></div>
+        </dl>
+      </div>
+
+      <div class="showroom__controls">
+        <fieldset class="size-select">
+          <legend>Select size</legend>
+          <div class="size-select__options" data-size-options data-thumb="assets/img/products/360/bag-01.webp"></div>
+        </fieldset>
+        <div class="size-readout" aria-live="polite">
+          <span class="size-readout__title" data-product-field="fullName">12 oz Retail Bag</span>
+          <span class="size-readout__meta"><span data-product-field="netWeight">12 oz · 340 g</span> · for <span data-product-field="buyers">Specialty retailers, Café retail shelves</span></span>
+        </div>
+        <div class="step-nav">
+          <button type="button" class="icon-btn" data-size-prev aria-label="Previous size"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 2L4 8l6 6" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></button>
+          <button type="button" class="icon-btn" data-size-next aria-label="Next size"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M6 2l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></button>
+        </div>
+        <a class="btn btn--brand" href="wholesale.html#inquiry" data-size-link="wholesale.html"><span>Wholesale Inquiry</span><svg class="arrow" viewBox="0 0 18 10" aria-hidden="true"><path d="M0 5h16M12 1l4 4-4 4" fill="none" stroke="currentColor"/></svg></a>
       </div>
     </div>
-
-    <div class="showroom__specs reveal" data-delay="2">
-      <dl class="spec-list">
-        <div><dt>Country</dt><dd>Rwanda</dd></div>
-        <div><dt>Region</dt><dd>Nyaruguru</dd></div>
-        <div><dt>Variety</dt><dd>100% Arabica</dd></div>
-        <div><dt>Altitude</dt><dd>1,800–1,900 meters</dd></div>
-        <div><dt>Tasting notes</dt><dd>Citrus, green apple, honey, floral sweetness, subtle nuttiness</dd></div>
-      </dl>
-    </div>
-
-    <div class="showroom__controls">
-      <fieldset class="size-select">
-        <legend>Select size</legend>
-        <div class="size-select__options" data-size-options></div>
-      </fieldset>
-      <div class="size-readout" aria-live="polite">
-        <span class="size-readout__title" data-product-field="fullName">12 oz Retail Bag</span>
-        <span class="size-readout__meta"><span data-product-field="netWeight">12 oz · 340 g</span> — for <span data-product-field="buyers">Specialty retailers, Café retail shelves</span></span>
-      </div>
-      <div class="step-nav">
-        <button type="button" class="icon-btn" data-size-prev aria-label="Previous size"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 2L4 8l6 6" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></button>
-        <button type="button" class="icon-btn" data-size-next aria-label="Next size"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M6 2l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></button>
-      </div>
-      <a class="btn" href="wholesale.html#inquiry" data-size-link="wholesale.html"><span>Wholesale Inquiry</span><svg class="arrow" viewBox="0 0 18 10" aria-hidden="true"><path d="M0 5h16M12 1l4 4-4 4" fill="none" stroke="currentColor"/></svg></a>
-    </div>
-  </section>
-
-  <!-- ============ STATEMENT ============ -->
-  <section class="section section--ink statement" aria-label="Brand statement">
-    <div class="container">
-      <p class="eyebrow reveal">The Shanana belief</p>
-      <blockquote class="reveal" data-delay="1">Every bean carries a place. Every harvest represents human effort. <em>Every cup creates a connection.</em></blockquote>
-    </div>
+    <svg class="hero__ridge" viewBox="0 0 1440 110" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="M0 110V70 L90 52 L170 74 L270 30 L360 66 L470 14 L560 58 L660 36 L760 76 L880 22 L980 62 L1090 40 L1190 72 L1290 34 L1370 58 L1440 44 V110Z" fill="#fff"/></svg>
   </section>
 
   <!-- ============ ORIGIN ============ -->
@@ -163,6 +170,14 @@
         </svg>
         <figcaption class="small body-muted mt-1">Schematic illustration — not to scale.</figcaption>
       </figure>
+    </div>
+  </section>
+
+  <!-- ============ STATEMENT ============ -->
+  <section class="section section--ink section--ridge statement" aria-label="Brand statement">
+    <div class="container">
+      <p class="eyebrow reveal">The Shanana belief</p>
+      <blockquote class="reveal" data-delay="1">Every bean carries a place. Every harvest represents human effort. <em>Every cup creates a connection.</em></blockquote>
     </div>
   </section>
 
@@ -273,7 +288,7 @@
   </section>
 
   <!-- ============ IMPACT TEASER ============ -->
-  <section class="section section--ink" aria-labelledby="impact-title">
+  <section class="section section--ink section--ridge" style="--ridge-bg: var(--ivory)" aria-labelledby="impact-title">
     <div class="container">
       <div class="section-head section-head--split reveal">
         <div>
@@ -306,6 +321,24 @@
     </div>
   </section>
 </main>
+
+
+<dialog class="dlg3d" id="viewer3d" aria-labelledby="dlg3d-title">
+  <div class="dlg3d__inner">
+    <div class="dlg3d__head">
+      <p class="eyebrow mb-0" id="dlg3d-title">360° view</p>
+      <button type="button" class="icon-btn dlg3d__close" data-close-3d aria-label="Close 3D view"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    </div>
+    <div class="viewer viewer--dark" data-viewer data-lazy data-autoplay="true" data-start-angle="0">
+      <div class="viewer__stage" tabindex="0" role="slider" aria-label="Shanana Coffee bag, 360 degree view. Drag or use arrow keys to rotate." aria-valuemin="0" aria-valuemax="359" aria-valuenow="0"></div>
+      <div class="viewer__bar">
+        <span class="viewer__hint" aria-hidden="true"><svg viewBox="0 0 28 10"><path d="M4 1L1 5l3 4M24 1l3 4-3 4M1 5h26" fill="none" stroke="currentColor"/></svg>Drag to rotate</span>
+        <button type="button" class="viewer__toggle" data-viewer-toggle>Pause rotation</button>
+      </div>
+      <div class="view-thumbs" role="group" aria-label="Choose a product view"></div>
+    </div>
+  </div>
+</dialog>
 
 <!-- FOOTER:START -->
 <footer class="site-footer">

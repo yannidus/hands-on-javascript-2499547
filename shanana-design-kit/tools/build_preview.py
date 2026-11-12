@@ -26,13 +26,15 @@ cfg = re.sub(r"frontImage: \"[^\"]+\"", f'frontImage: "{frames[0]}"', cfg)
 cfg = re.sub(r"frames: Array\.from\([^\n]+\)\n", "frames: " + "[" + ",".join(f'"{f}"' for f in frames) + "]\n", cfg)
 assert "Array.from" not in cfg.split("media:")[1].split("impactMetrics")[0]
 
-body = re.search(r"<body>(.*)</body>", rd("index.html"), re.S).group(1)
+body = re.search(r"<body[^>]*>(.*)</body>", rd("index.html"), re.S).group(1)
 body = re.sub(r"<!--.*?-->", "", body, flags=re.S)
 body = re.sub(r"<script[^>]*></script>", "", body)
-body = body.replace('src="assets/img/products/360/bag-01.webp"', f'src="{frames[0]}"')
+body = body.replace("assets/img/products/360/bag-01.webp", frames[0])
+body = body.replace(' fetchpriority="high"', "")
 assert "assets/img" not in body, "unresolved asset path"
 
 notice = """
+document.body.classList.add("page-home");
 (function () {
   var toast = document.createElement("div"); toast.className = "preview-toast"; toast.setAttribute("role", "status"); document.body.appendChild(toast);
   var t;

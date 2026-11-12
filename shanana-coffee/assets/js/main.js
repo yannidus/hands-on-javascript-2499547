@@ -122,10 +122,24 @@
     }).join("");
   }
 
+  /* ---- Hero orbit: tasting notes around the bag ---- */
+  function initOrbit() {
+    var nodes = $all("[data-orbit]");
+    if (!nodes.length) return;
+    var title = document.querySelector("[data-orbit-title]"), notes = document.querySelector("[data-orbit-notes]");
+    function pick(n) {
+      nodes.forEach(function (x) { x.setAttribute("aria-pressed", String(x === n)); });
+      title.textContent = n.getAttribute("data-title");
+      notes.textContent = n.getAttribute("data-notes");
+    }
+    nodes.forEach(function (n) { n.addEventListener("click", function () { pick(n); }); });
+    pick(nodes[0]);
+  }
+
   function initYear() { $all("[data-year]").forEach(function (el) { el.textContent = new Date().getFullYear(); }); }
 
   function init() {
-    initNav(); initReveal(); initTasting(); initContact(); initMetrics(); initYear();
+    initNav(); initReveal(); initTasting(); initOrbit(); initContact(); initMetrics(); initYear();
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init); else init();
 })();
