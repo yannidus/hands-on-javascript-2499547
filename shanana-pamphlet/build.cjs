@@ -95,7 +95,7 @@ p { margin: 0 0 .7em; }
 .steps li::before { content: counter(s); font-family: "Cormorant Garamond", serif; font-style: italic; color: var(--brand); font-size: 13pt; line-height: 1; }
 .small { font-size: 7.8pt; color: rgba(255,255,255,.62); line-height: 1.5; }
 .contact { border: 1px solid rgba(244,185,40,.55); padding: .2in .22in; align-self: start; } .contact h3 { font-size: 17pt; color: #fff; margin-bottom: .08in; }
-.contact dl { margin: 0; display: grid; grid-template-columns: .85in 1fr; row-gap: .06in; font-size: 9pt; } .contact dt { font-size: 6.8pt; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--brand); padding-top: 3px; } .contact dd { margin: 0; color: #fff; word-break: break-word; }
+.contact dl { margin: 0; display: grid; grid-template-columns: 1.0in 1fr; row-gap: .06in; font-size: 9pt; } .contact dt { font-size: 6.8pt; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--brand); padding-top: 3px; } .contact dd { margin: 0; color: #fff; word-break: break-word; } .contact .sub { font-size: 8pt; color: rgba(255,255,255,.6); }
 .p4b .foot { color: rgba(255,255,255,.5); border-top-color: rgba(255,255,255,.16); }
 </style></head><body>
 
@@ -189,6 +189,8 @@ p { margin: 0 0 .7em; }
         <h3>Let’s talk coffee</h3>
         <p class="small" style="margin:0 0 .14in">Questions, samples or wholesale pricing? Write or call, and we’ll respond directly.</p>
         <dl>
+          <dt>Founder &amp; CEO</dt><dd>Leandre Mubera<br><span class="sub">Based in Rwanda</span></dd>
+          <dt>U.S. sales</dt><dd>Facilitated in the United States</dd>
           <dt>Wholesale</dt><dd>${field(c.wholesaleEmail, "wholesale email")}</dd>
           <dt>Phone</dt><dd>${field(c.phoneUS, "phone")}</dd>
           <dt>Website</dt><dd>${field(site, "website")}</dd>
