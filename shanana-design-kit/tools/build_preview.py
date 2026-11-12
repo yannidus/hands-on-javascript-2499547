@@ -31,6 +31,8 @@ body = re.sub(r"<!--.*?-->", "", body, flags=re.S)
 body = re.sub(r"<script[^>]*></script>", "", body)
 body = body.replace("assets/img/products/360/bag-01.webp", frames[0])
 body = body.replace(' fetchpriority="high"', "")
+for name in ("hills-clouds", "drying-beds"):
+    body = body.replace(f"assets/img/nyaruguru/{name}.webp", uri(f"assets/img/nyaruguru/{name}.webp"))
 assert "assets/img" not in body, "unresolved asset path"
 
 notice = """
