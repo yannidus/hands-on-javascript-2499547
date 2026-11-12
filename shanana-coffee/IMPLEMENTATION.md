@@ -47,6 +47,13 @@ The site shows the same packaging for every size until size-specific photos exis
 ### Domain
 - Replace `https://YOUR-DOMAIN` in `sitemap.xml` and `robots.txt`. Optionally add `<link rel="canonical">` and an `og:image` (a 1200×630 product photo) to each page once the domain is known.
 
+## 2b. Saving the site on a phone (installable app)
+The site is a progressive web app: once it is hosted on **HTTPS** it can be added to a phone's home screen, opens full-screen like an app, and keeps working offline (pages, photos and the 3D view are saved after the first visit). It does not work from a file or an http:// address.
+- **iPhone (Safari):** open the site → Share → **Add to Home Screen**.
+- **Android (Chrome):** menu ⋮ → **Install app** (or Add to Home screen).
+- App icon: your bag photo on forest green (`assets/img/icons/`). Replace with the official logo when available.
+- **When you change any file, bump `VERSION` in `sw.js`** (for example `shanana-v2`) so phones fetch the new copy. If you add images or pages, add them to the `PRECACHE` list.
+
 ## 3. Connecting the inquiry form (required before launch)
 
 Until this is configured, the form shows a notice that says **"Online submission is not yet connected."** It validates entries but never claims an inquiry was sent. Choose one option in `config.js → form`:

@@ -138,8 +138,14 @@
 
   function initYear() { $all("[data-year]").forEach(function (el) { el.textContent = new Date().getFullYear(); }); }
 
+  /* ---- Installable / offline: register the service worker (needs HTTPS or localhost) ---- */
+  function initOffline() {
+    if (!("serviceWorker" in navigator)) return;
+    window.addEventListener("load", function () { navigator.serviceWorker.register("sw.js").catch(function () {}); });
+  }
+
   function init() {
-    initNav(); initReveal(); initTasting(); initOrbit(); initContact(); initMetrics(); initYear();
+    initOffline(); initNav(); initReveal(); initTasting(); initOrbit(); initContact(); initMetrics(); initYear();
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init); else init();
 })();
