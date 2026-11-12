@@ -3,7 +3,7 @@
    - images, CSS, JS: saved copy first, refreshed in the background
    - Google Fonts: saved after first load
    Bump VERSION whenever files change so phones pick up the new copy. */
-const VERSION = "shanana-v1";
+const VERSION = "shanana-v2";
 const FONTS = "shanana-fonts-v1";
 const PRECACHE = [
   "./", "index.html", "coffee.html", "collection.html", "heritage.html", "impact.html", "wholesale.html", "contact.html", "privacy.html", "404.html",

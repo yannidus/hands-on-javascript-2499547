@@ -32,7 +32,20 @@ p { margin: 0 0 .7em; }
 .cover .bottom p { margin: 0; } .cover .tag { font-family: "Cormorant Garamond", serif; font-style: italic; font-size: 15pt; max-width: 3.9in; line-height: 1.25; }
 .cover .doc { font-size: 7.5pt; font-weight: 600; letter-spacing: .24em; text-transform: uppercase; color: var(--brand); text-align: right; }
 
-/* 2 · origin */
+/* 2 · the name */
+.namepage { background: var(--ivory); }
+.nm { padding: .85in .6in 0; }
+.nm h2 { font-size: 78pt; font-weight: 300; line-height: .95; } .nm h2 em { color: var(--gold); }
+.nm .sub { font-family: "Cormorant Garamond", serif; font-size: 21pt; font-style: italic; color: #2b2926; margin: .12in 0 0; line-height: 1.2; }
+.nm .row { display: grid; grid-template-columns: 1fr 3.15in; gap: .5in; margin-top: .7in; align-items: start; }
+.nm .row p { font-size: 12pt; line-height: 1.75; color: #2b2926; }
+.nm .art { height: 3.9in; background: var(--forest) url("file:///home/user/hands-on-javascript-2499547/shanana-pamphlet/assets/logo-figure.png") center / 100% auto no-repeat; position: relative; }
+.nm .art::after { content: ""; position: absolute; inset: .1in; border: 1px solid rgba(244,185,40,.45); pointer-events: none; }
+.nm .pull { margin: .85in 0 0; padding-top: .4in; border-top: 1px solid var(--line); text-align: center; }
+.nm .pull p { font-family: "Cormorant Garamond", serif; font-weight: 300; font-size: 28pt; line-height: 1.2; max-width: 6.2in; margin: 0 auto; } .nm .pull em { color: var(--gold); }
+.nm .pull p.eyebrow { font-family: Manrope, Helvetica, Arial, sans-serif; font-size: 7.5pt; font-weight: 600; letter-spacing: .26em; text-transform: uppercase; color: var(--gold); line-height: 1.4; max-width: none; margin: 0 0 .9em; }
+
+/* 3 · origin */
 .pano { height: 4.05in; background: url("file:///home/user/hands-on-javascript-2499547/shanana-coffee/assets/img/nyaruguru/hills-clouds.webp") 50% 38% / cover; position: relative; }
 .pano span { position: absolute; left: .6in; bottom: .14in; font-size: 7pt; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: #fff; }
 .pano::after { content: ""; position: absolute; inset: auto 0 0; height: 1in; background: linear-gradient(transparent, rgba(10,12,10,.6)); }
@@ -93,6 +106,26 @@ p { margin: 0 0 .7em; }
   </div>
 </section>
 
+<section class="page namepage">
+  <div class="nm">
+    <p class="eyebrow">The name</p>
+    <h2><em>Shanana.</em></h2>
+    <p class="sub">The traditional dress of Rwandan women.</p>
+    <div class="row">
+      <div>
+        <p>Shanana is the traditional dress of women in Rwanda. It has been part of Rwandan culture for centuries, worn by generations of Rwandan women.</p>
+        <p>Taking this name roots Shanana Coffee in Rwandan heritage, and in the women who are part of it. Our coffee is grown in the mountains of Nyaruguru, produced and packaged in Rwanda, and made to carry the story of the people and the place behind every cup.</p>
+      </div>
+      <div class="art" role="img" aria-label="Detail of the Shanana logo: a woman in profile beneath a rising sun"></div>
+    </div>
+    <div class="pull">
+      <p class="eyebrow">What every cup carries</p>
+      <p>A story of heritage, perseverance, craftsmanship and <em>opportunity.</em></p>
+    </div>
+  </div>
+  <div class="foot"><span>Shanana Coffee · Wholesale overview</span><span>2 / 5</span></div>
+</section>
+
 <section class="page">
   <div class="pano"><span>Nyaruguru, Southern Province, Rwanda</span></div>
   <div class="p2">
@@ -115,7 +148,7 @@ p { margin: 0 0 .7em; }
     <div><p class="eyebrow">Heart</p><h3>Sweet at the center</h3><p>Rounded, gentle and inviting as the cup opens.</p><em>Honey · Floral sweetness</em></div>
     <div><p class="eyebrow">Base</p><h3>A lingering finish</h3><p>Smooth and balanced, with flavors that stay.</p><em>Subtly nutty</em></div>
   </div>
-  <div class="foot"><span>Shanana Coffee · Wholesale overview</span><span>2 / 4</span></div>
+  <div class="foot"><span>Shanana Coffee · Wholesale overview</span><span>3 / 5</span></div>
 </section>
 
 <section class="page">
@@ -146,7 +179,7 @@ p { margin: 0 0 .7em; }
     </dl>
     <div class="note"><b>Pricing and ordering.</b> Wholesale pricing, minimum orders and case packs are shared directly with approved buyers. Roast and grind options, origin collections and seasonal releases will be added as they are confirmed.</div>
   </div>
-  <div class="foot"><span>Shanana Coffee · Wholesale overview</span><span>3 / 4</span></div>
+  <div class="foot"><span>Shanana Coffee · Wholesale overview</span><span>4 / 5</span></div>
 </section>
 
 <section class="page">
@@ -184,7 +217,7 @@ p { margin: 0 0 .7em; }
         </dl>
       </div>
     </div>
-    <div class="foot"><span>Every sip tells a story.</span><span>4 / 4</span></div>
+    <div class="foot"><span>Every sip tells a story.</span><span>5 / 5</span></div>
   </div>
 </section>
 </body></html>
