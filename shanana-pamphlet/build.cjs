@@ -10,8 +10,10 @@ const load = (f) => { const w = {}; vm.runInNewContext(fs.readFileSync(path.join
 const CONFIG = load("config.js").SHANANA_CONFIG, CATALOG = load("catalog.js").SHANANA_CATALOG;
 const img = (p) => "file://" + path.join(SITE, "assets/img", p);
 
-const c = CONFIG.contact || {};
-const site = CONFIG.website || null;
+// Pamphlet-only contact details (shanana-pamphlet/contact.json) take priority over the website config
+const own = JSON.parse(fs.readFileSync(path.join(__dirname, "contact.json"), "utf8"));
+const c = { ...(CONFIG.contact || {}), wholesaleEmail: own.wholesaleEmail || (CONFIG.contact || {}).wholesaleEmail, phoneUS: own.phone || (CONFIG.contact || {}).phoneUS };
+const site = own.website || CONFIG.website || null;
 const field = (v, label) => v ? `<span class="v">${v}</span>` : `<span class="ph">[ add ${label} ]</span>`;
 const sizes = CATALOG.products.map((p) => `
   <li><span class="sz">${p.label}</span>
@@ -92,7 +94,7 @@ p { margin: 0 0 .7em; }
 .steps { counter-reset: s; list-style: none; padding: 0; margin: 0; } .steps li { counter-increment: s; display: grid; grid-template-columns: .3in 1fr; font-size: 9pt; padding: .06in 0; border-bottom: 1px solid rgba(255,255,255,.14); color: rgba(255,255,255,.85); }
 .steps li::before { content: counter(s); font-family: "Cormorant Garamond", serif; font-style: italic; color: var(--brand); font-size: 13pt; line-height: 1; }
 .small { font-size: 7.8pt; color: rgba(255,255,255,.62); line-height: 1.5; }
-.contact { border: 1px solid rgba(244,185,40,.55); padding: .16in .2in; } .contact h3 { font-size: 17pt; color: #fff; margin-bottom: .08in; }
+.contact { border: 1px solid rgba(244,185,40,.55); padding: .2in .22in; align-self: start; } .contact h3 { font-size: 17pt; color: #fff; margin-bottom: .08in; }
 .contact dl { margin: 0; display: grid; grid-template-columns: .85in 1fr; row-gap: .06in; font-size: 9pt; } .contact dt { font-size: 6.8pt; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--brand); padding-top: 3px; } .contact dd { margin: 0; color: #fff; word-break: break-word; }
 .p4b .foot { color: rgba(255,255,255,.5); border-top-color: rgba(255,255,255,.16); }
 </style></head><body>
@@ -185,6 +187,7 @@ p { margin: 0 0 .7em; }
       </div>
       <div class="contact">
         <h3>Let’s talk coffee</h3>
+        <p class="small" style="margin:0 0 .14in">Questions, samples or wholesale pricing? Write or call, and we’ll respond directly.</p>
         <dl>
           <dt>Wholesale</dt><dd>${field(c.wholesaleEmail, "wholesale email")}</dd>
           <dt>Phone</dt><dd>${field(c.phoneUS, "phone")}</dd>
