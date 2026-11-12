@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /partials/
+Disallow: /tools/
+
+# Replace YOUR-DOMAIN before launch (see IMPLEMENTATION.md)
+Sitemap: https://YOUR-DOMAIN/sitemap.xml

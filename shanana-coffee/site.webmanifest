@@ -1,0 +1,10 @@
+{
+  "name": "Shanana Coffee",
+  "short_name": "Shanana",
+  "description": "Premium 100% Arabica coffee from Nyaruguru, Rwanda.",
+  "start_url": "index.html",
+  "display": "browser",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "icons": [{ "src": "assets/img/favicon.svg", "sizes": "any", "type": "image/svg+xml" }]
+}
