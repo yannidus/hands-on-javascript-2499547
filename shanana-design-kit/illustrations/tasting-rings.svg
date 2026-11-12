@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1200" viewBox="0 0 400 400">
+  <!-- Tasting profile: top notes (outer), heart (middle), base (inner). Outer band shown active. -->
+  <defs>
+    <path id="p-top" d="M200 200 m-172 0 a172 172 0 1 1 344 0"/>
+    <path id="p-heart" d="M200 200 m-122 0 a122 122 0 1 1 244 0"/>
+    <path id="p-base" d="M200 200 m-74 0 a74 74 0 1 1 148 0"/>
+  </defs>
+  <rect width="400" height="400" fill="#faf7f2"/>
+  <circle cx="200" cy="200" r="172" fill="none" stroke="#efe4cf" stroke-width="44"/>
+  <circle cx="200" cy="200" r="194" fill="none" stroke="#b08d57" stroke-width="2.5"/>
+  <circle cx="200" cy="200" r="146" fill="none" stroke="#cfc6b8"/>
+  <circle cx="200" cy="200" r="98" fill="none" stroke="#cfc6b8"/>
+  <circle cx="200" cy="200" r="52" fill="#111110"/>
+  <g font-family="Manrope, Helvetica, Arial, sans-serif" font-size="9" letter-spacing="2.7" fill="#6d6860">
+    <text><textPath href="#p-top" startOffset="50%" text-anchor="middle">TOP NOTES · CITRUS · GREEN APPLE</textPath></text>
+    <text><textPath href="#p-heart" startOffset="50%" text-anchor="middle">HEART · HONEY · FLORAL</textPath></text>
+    <text><textPath href="#p-base" startOffset="50%" text-anchor="middle">BASE · NUTTY FINISH</textPath></text>
+  </g>
+  <text x="200" y="198" text-anchor="middle" font-family="Cormorant Garamond, Georgia, serif" font-size="17" font-style="italic" fill="#e9dcc4">Shanana</text>
+  <text x="200" y="216" text-anchor="middle" font-family="Manrope, Helvetica, Arial, sans-serif" font-size="7" letter-spacing="2.5" fill="#b08d57">NYARUGURU</text>
+</svg>

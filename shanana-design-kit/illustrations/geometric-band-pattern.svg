@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="120" viewBox="0 0 600 60">
+  <!-- Seamless geometric band (repeats every 32 px). Inspired by the packaging border. -->
+  <defs><pattern id="z" width="32" height="60" patternUnits="userSpaceOnUse"><path d="M0 40 L16 24 L32 40" fill="none" stroke="#b08d57" stroke-width="1.2"/><path d="M0 50h32M0 14h32" stroke="#b08d57" stroke-opacity=".4"/></pattern></defs>
+  <rect width="600" height="60" fill="#111110"/>
+  <rect width="600" height="60" fill="url(#z)"/>
+</svg>

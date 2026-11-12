@@ -36,7 +36,8 @@
     this.stage = root.querySelector(".viewer__stage");
     this.frames = Array.isArray(MEDIA.frames) ? MEDIA.frames.filter(Boolean) : [];
     this.mode = this.frames.length ? "frames" : "render";
-    this.angle = parseFloat(root.getAttribute("data-start-angle")) || -28;
+    var start = parseFloat(root.getAttribute("data-start-angle"));
+    this.angle = isNaN(start) ? -28 : start;
     this.velocity = 0;
     this.playing = root.getAttribute("data-autoplay") !== "false" && !reduceMotion;
     this.userPaused = !this.playing;

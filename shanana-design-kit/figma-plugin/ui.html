@@ -1,0 +1,33 @@
+<style>
+  body { font: 13px/1.5 Inter, system-ui, sans-serif; margin: 0; padding: 20px; color: #111; }
+  h1 { font-size: 15px; margin: 0 0 6px; }
+  p { margin: 0 0 14px; color: #555; }
+  label.pick { display: block; padding: 14px; border: 1px dashed #b08d57; border-radius: 6px; text-align: center; cursor: pointer; background: #faf7f2; }
+  input { display: none; }
+  #log { margin-top: 14px; font-size: 12px; color: #555; white-space: pre-wrap; max-height: 150px; overflow: auto; }
+  .err { color: #9b2c1f; }
+</style>
+<h1>Shanana Design Kit</h1>
+<p>Choose the <strong>shanana-design-kit</strong> folder. The importer creates pages for Preview (desktop, tablet, mobile), Product Renders, Icons and Illustrations.</p>
+<label class="pick">Choose folder…<input id="dir" type="file" webkitdirectory directory multiple></label>
+<div id="log"></div>
+<script>
+  const log = (m, cls) => { const d = document.createElement("div"); d.textContent = m; if (cls) d.className = cls; const l = document.getElementById("log"); l.appendChild(d); l.scrollTop = l.scrollHeight; };
+  const WANT = /^(previews\/.+\.(jpe?g|json)|renders\/.+\.png|icons\/.+\.svg|illustrations\/.+\.svg)$/i;
+
+  document.getElementById("dir").addEventListener("change", async (e) => {
+    const files = [...e.target.files]
+      .map((f) => ({ f, rel: f.webkitRelativePath.split("/").slice(1).join("/") }))
+      .filter((x) => WANT.test(x.rel));
+    if (!files.length) { log("No kit files found — choose the shanana-design-kit folder itself.", "err"); return; }
+    log(`Reading ${files.length} files…`);
+    parent.postMessage({ pluginMessage: { type: "start", total: files.length } }, "*");
+    for (const { f, rel } of files) {
+      const isText = /\.(svg|json)$/i.test(rel);
+      const data = isText ? await f.text() : new Uint8Array(await f.arrayBuffer());
+      parent.postMessage({ pluginMessage: { type: "file", path: rel, data } }, "*");
+    }
+    parent.postMessage({ pluginMessage: { type: "done" } }, "*");
+  });
+  onmessage = (e) => { const m = e.data.pluginMessage; if (m) log(m.text, m.error ? "err" : ""); };
+</script>

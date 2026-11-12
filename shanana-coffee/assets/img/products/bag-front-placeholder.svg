@@ -35,7 +35,7 @@
   <g transform="translate(300 300)" fill="none" stroke="url(#gold)">
     <circle r="132" stroke-width="1.5"/>
     <circle r="120" stroke-width=".8" stroke-dasharray="2 6"/>
-    <g stroke-width="2.2" stroke-linecap="round">
+    <g stroke="#c4a068" stroke-width="2.2" stroke-linecap="round">
       <path id="ray" d="M0 -150V-176"/>
       <use href="#ray" transform="rotate(15)"/><use href="#ray" transform="rotate(30)"/><use href="#ray" transform="rotate(45)"/>
       <use href="#ray" transform="rotate(60)"/><use href="#ray" transform="rotate(75)"/><use href="#ray" transform="rotate(90)"/>

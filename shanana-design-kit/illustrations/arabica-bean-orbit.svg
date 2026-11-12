@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1500" viewBox="0 0 400 500">
+  <rect width="400" height="500" fill="#161513"/>
+  <g fill="none" stroke="#b08d57" stroke-opacity=".55" stroke-width="1.2"><g transform="translate(200 240) rotate(-28)"><ellipse rx="70" ry="104"/><path d="M0-104C34-46-34 38 0 104"/></g><circle cx="200" cy="240" r="170"/><circle cx="200" cy="240" r="190" stroke-dasharray="2 8"/></g>
+</svg>

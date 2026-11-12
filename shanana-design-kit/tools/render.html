@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en" class="js">
+<head>
+<meta charset="utf-8">
+<title>Render stage</title>
+<link rel="stylesheet" href="/shanana-coffee/assets/css/main.css">
+<style>
+  html, body { background: transparent; margin: 0; }
+  .viewer { display: block; }
+  .viewer__stage { --bw: 600px; height: 1100px; cursor: default; }
+  .viewer__stage::before { display: none; }
+  .viewer__shadow { bottom: 70px; }
+  body.no-shadow .viewer__shadow { display: none; }
+  body.studio { background: #fff; }
+</style>
+<script src="/shanana-coffee/assets/js/config.js"></script>
+<script src="/shanana-coffee/assets/js/catalog.js"></script>
+<script>
+  // Render-only overrides: absolute asset path, angle and variant from the query string.
+  var q = new URLSearchParams(location.search);
+  SHANANA_CONFIG.media.frontImage = "/shanana-coffee/assets/img/products/bag-front-placeholder.svg";
+  document.addEventListener("DOMContentLoaded", function () {
+    document.querySelector("[data-viewer]").setAttribute("data-start-angle", q.get("angle") || "0");
+    document.body.className = q.get("variant") || "";
+  });
+</script>
+<script src="/shanana-coffee/assets/js/viewer.js"></script>
+</head>
+<body>
+  <div class="viewer" data-viewer data-autoplay="false"><div class="viewer__stage"></div></div>
+</body>
+</html>
