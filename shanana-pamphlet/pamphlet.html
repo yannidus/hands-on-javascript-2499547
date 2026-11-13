@@ -34,16 +34,18 @@ p { margin: 0 0 .7em; }
 
 /* 2 · the name */
 .namepage { background: var(--ivory); }
-.nm { padding: .85in .6in 0; }
+.nm { padding: .62in .6in 0; }
 .nm h2 { font-size: 78pt; font-weight: 300; line-height: .95; } .nm h2 em { color: var(--gold); }
 .nm .sub { font-family: "Cormorant Garamond", serif; font-size: 21pt; font-style: italic; color: #2b2926; margin: .12in 0 0; line-height: 1.2; }
-.nm .row { display: grid; grid-template-columns: 1fr 3.15in; gap: .5in; margin-top: .7in; align-items: start; }
+.nm .row { display: grid; grid-template-columns: 1fr 3.15in; gap: .5in; margin-top: .5in; align-items: start; }
 .nm .row p { font-size: 12pt; line-height: 1.75; color: #2b2926; }
-.nm .art { height: 3.9in; background: var(--forest) url("file:///home/user/hands-on-javascript-2499547/shanana-pamphlet/assets/logo-figure.png") center / 100% auto no-repeat; position: relative; }
+.nm .art { height: 3.7in; background: var(--forest) url("file:///home/user/hands-on-javascript-2499547/shanana-pamphlet/assets/logo-figure.png") center / 100% auto no-repeat; position: relative; }
 .nm .art::after { content: ""; position: absolute; inset: .1in; border: 1px solid rgba(244,185,40,.45); pointer-events: none; }
-.nm .pull { margin: .85in 0 0; padding-top: .4in; border-top: 1px solid var(--line); text-align: center; }
-.nm .pull p { font-family: "Cormorant Garamond", serif; font-weight: 300; font-size: 28pt; line-height: 1.2; max-width: 6.2in; margin: 0 auto; } .nm .pull em { color: var(--gold); }
-.nm .pull p.eyebrow { font-family: Manrope, Helvetica, Arial, sans-serif; font-size: 7.5pt; font-weight: 600; letter-spacing: .26em; text-transform: uppercase; color: var(--gold); line-height: 1.4; max-width: none; margin: 0 0 .9em; }
+.nm .emblem { margin-top: .6in; padding-top: .32in; border-top: 1px solid var(--line); }
+.nm .emblem h3 { font-size: 21pt; font-weight: 300; line-height: 1.15; max-width: 6.4in; }
+.nm .meanings { display: grid; grid-template-columns: repeat(3, 1fr); gap: .3in; margin-top: .22in; }
+.nm .meanings b { display: block; font-family: "Cormorant Garamond", serif; font-weight: 500; font-size: 14pt; color: var(--gold); margin-bottom: .05in; }
+.nm .meanings p { font-size: 9pt; line-height: 1.55; color: var(--muted); margin: 0; }
 
 /* 3 · origin */
 .pano { height: 4.05in; background: url("file:///home/user/hands-on-javascript-2499547/shanana-coffee/assets/img/nyaruguru/hills-clouds.webp") 50% 38% / cover; position: relative; }
@@ -118,9 +120,14 @@ p { margin: 0 0 .7em; }
       </div>
       <div class="art" role="img" aria-label="Detail of the Shanana logo: a woman in profile beneath a rising sun"></div>
     </div>
-    <div class="pull">
-      <p class="eyebrow">What every cup carries</p>
-      <p>A story of heritage, perseverance, craftsmanship and <em>opportunity.</em></p>
+    <div class="emblem">
+      <p class="eyebrow">The emblem</p>
+      <h3>A bold, elegant mark of heritage, natural richness and the warmth of coffee.</h3>
+      <div class="meanings">
+        <div><b>Gold on black</b><p>Excellence and prestige. Gold reflects the richness and value of coffee as a cherished global commodity.</p></div>
+        <div><b>The human profile</b><p>A person in traditional attire stands for heritage, authenticity and the human hands behind every bean.</p></div>
+        <div><b>The rising sun</b><p>New beginnings, energy and the start of the day. It also hints at the sunlit highlands where coffee grows.</p></div>
+      </div>
     </div>
   </div>
   <div class="foot"><span>Shanana Coffee · Wholesale overview</span><span>2 / 5</span></div>
