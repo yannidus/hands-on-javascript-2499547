@@ -28,6 +28,9 @@ The plugin was checked against a mock of Figma's plugin interface, but it has no
 ### Option C: editable page layers
 The previews are pixel-perfect screenshots, so their text and boxes are flat images. For editable layers, deploy the site and import its URL with a third-party HTML-to-Figma plugin (for example *html.to.design*).
 
+## Brand reasoning
+See [`CREATIVE-RATIONALE.md`](CREATIVE-RATIONALE.md) for what the Shanana emblem, its gold-on-black palette and its rising-sun motif mean.
+
 ## Contents
 
 ```
