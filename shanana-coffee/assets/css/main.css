@@ -890,3 +890,7 @@ html.dlg-open { overflow: hidden; }
   background: linear-gradient(to top, rgba(10, 12, 10, .72), rgba(10, 12, 10, 0)); }
 @media (max-width: 560px) { .landscape figcaption { font-size: .54rem; letter-spacing: .14em; padding: 1.6rem .6rem .5rem; } .landscape__inset { border-width: 4px; } }
 @media (prefers-reduced-motion: reduce) { .landscape figure:hover img { transform: none; } }
+
+.grid-5 { display: grid; gap: clamp(1rem, 2vw, 1.75rem); grid-template-columns: repeat(5, minmax(0, 1fr)); }
+@media (max-width: 1100px) { .grid-5 { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 640px) { .grid-5 { grid-template-columns: 1fr; } }

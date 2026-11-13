@@ -89,8 +89,8 @@ p { margin: 0 0 .7em; }
 .bagpanel { background: radial-gradient(closest-side, #fff, var(--ivory)); height: 5.05in; position: relative; border: 1px solid var(--line); }
 .bagpanel img { position: absolute; left: 50%; top: 50%; height: 4.6in; transform: translate(-50%, -50%); }
 .sizes { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
-.sizes li { display: grid; grid-template-columns: .95in 1fr; align-items: center; gap: .15in; padding: .2in 0; border-bottom: 1px solid var(--line); }
-.sizes .sz { font-family: "Cormorant Garamond", serif; font-size: 30pt; line-height: 1; }
+.sizes li { display: grid; grid-template-columns: .95in 1fr; align-items: center; gap: .15in; padding: .15in 0; border-bottom: 1px solid var(--line); }
+.sizes .sz { font-family: "Cormorant Garamond", serif; font-size: 27pt; line-height: 1; }
 .sizes .meta { display: flex; flex-direction: column; gap: 1px; } .sizes b { font-size: 10pt; } .sizes i { font-style: normal; font-size: 8.5pt; color: var(--gold); font-weight: 600; letter-spacing: .04em; } .sizes em { font-style: normal; font-size: 8.6pt; color: var(--muted); }
 .specs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 .4in; margin-top: .3in; border-top: 1px solid var(--line); }
 .specs div { display: grid; grid-template-columns: 1.15in 1fr; padding: .09in 0; border-bottom: 1px solid var(--line); font-size: 8.8pt; }
@@ -178,7 +178,7 @@ p { margin: 0 0 .7em; }
 <section class="page">
   <div class="p3">
     <p class="eyebrow">The collection</p>
-    <h2>One origin. <em>Four formats.</em></h2>
+    <h2>One origin. <em>Five formats.</em></h2>
     <div class="grid">
       <div class="bagpanel"><img src="${img("products/360/bag-02.webp")}" alt=""></div>
       <div>
@@ -192,6 +192,8 @@ p { margin: 0 0 .7em; }
       <div><dt>Character</dt><dd>Mountain-grown, with bright acidity and flavors of citrus, green apple and honey</dd></div>
       <div><dt>Altitude</dt><dd>1,800–1,900 meters</dd></div>
       <div><dt>Process</dt><dd>Washed; hand-processed</dd></div>
+      <div><dt>Produced</dt><dd>${CATALOG.batch.produced}</dd></div>
+      <div><dt>Best before</dt><dd>${CATALOG.batch.bestBefore}</dd></div>
       <div><dt>Packaging</dt><dd>Matte-black bag with the Shanana emblem and illustrated figures</dd></div>
       <div><dt>Packed in</dt><dd>Rwanda, finished and ready for sale</dd></div>
     </dl>

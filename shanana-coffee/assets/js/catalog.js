@@ -24,7 +24,20 @@ window.SHANANA_CATALOG = {
     grinds: null         // e.g. ["Whole bean", "Ground"]
   },
 
+  // Current batch. Update when a new batch is released (shown on the Collection page and in the pamphlet).
+  batch: { produced: "21 August 2026", bestBefore: "21 September 2028" },
+
   products: [
+    {
+      id: "250g",
+      label: "250 g",
+      name: "Compact Bag",
+      netWeight: "250 g · 8.8 oz",
+      buyers: ["Retail customers"],
+      applications: "Compact retail format.",
+      casePack: null,
+      moq: null
+    },
     {
       id: "12oz",
       label: "12 oz",
