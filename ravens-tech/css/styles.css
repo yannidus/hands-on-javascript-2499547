@@ -73,7 +73,7 @@ body.menu-open { overflow: hidden; }
 .nav-toggle[aria-expanded="true"] span::before { transform: translateY(7px) rotate(45deg); }
 .nav-toggle[aria-expanded="true"] span::after { transform: translateY(-7px) rotate(-45deg); }
 
-.site-nav { position: fixed; inset: calc(var(--header-h) + env(safe-area-inset-top)) 0 0 0; z-index: 49; background: rgba(5, 6, 8, .97); padding: 24px max(var(--gutter), env(safe-area-inset-left)) calc(32px + env(safe-area-inset-bottom)); display: flex; flex-direction: column; overflow-y: auto; opacity: 0; visibility: hidden; transform: translateY(-8px); transition: opacity .25s, transform .25s, visibility 0s .25s; }
+.site-nav { position: fixed; inset: calc(var(--header-h) + env(safe-area-inset-top)) 0 0 0; z-index: 49; background: #050608; padding: 24px max(var(--gutter), env(safe-area-inset-left)) calc(32px + env(safe-area-inset-bottom)); display: flex; flex-direction: column; overflow-y: auto; opacity: 0; visibility: hidden; transform: translateY(-8px); transition: opacity .25s, transform .25s, visibility 0s .25s; }
 .site-nav.open { opacity: 1; visibility: visible; transform: none; transition: opacity .25s, transform .25s; }
 .site-nav ul { list-style: none; margin: 0; padding: 0; }
 .site-nav li a { display: flex; align-items: center; min-height: 60px; font-family: var(--display); font-size: clamp(26px, 7vw, 34px); font-weight: 500; border-bottom: 1px solid var(--line); }
@@ -214,7 +214,7 @@ body.menu-open { overflow: hidden; }
 .viewer__shield .btn { pointer-events: none; }
 .viewer__shield small { font-size: 13px; color: var(--ink-2); }
 .viewer__bar { position: absolute; z-index: 3; left: 50%; transform: translateX(-50%); top: 72px; display: flex; gap: 8px; }
-@media (min-width: 761px) { .viewer__bar { top: 16px; } }
+@media (min-width: 761px) { .viewer__bar { top: auto; left: auto; transform: none; right: 16px; bottom: 16px; } }
 .viewer__bar .btn { min-height: 44px; padding: 0 18px; font-size: 14px; background: rgba(0,0,0,.72); border-color: rgba(255,255,255,.4); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
 .viewer__status { position: absolute; z-index: 2; left: 50%; top: 50%; transform: translate(-50%, -50%); padding: 12px 18px; border-radius: 12px; background: rgba(0,0,0,.75); font-size: 14px; text-align: center; max-width: calc(100% - 40px); }
 .viewer[data-state="active"] { box-shadow: 0 0 0 2px var(--c), 0 30px 120px -30px color-mix(in srgb, var(--c) 45%, transparent); }
