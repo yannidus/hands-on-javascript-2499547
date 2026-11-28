@@ -119,24 +119,61 @@ footer p{margin-top:8px}
 .em-pts h3{font-size:28px;font-weight:400;color:#f1d98a;margin-bottom:8px}
 .em-pts p{color:#b9ae98;font-size:16px}
 @media(max-width:760px){.em-grid{grid-template-columns:minmax(0,1fr)}.em-logo img{max-width:240px}}
+
+/* ---- story flow: chapters, next links, page turns, reveal ---- */
+@view-transition{navigation:auto}
+::view-transition-old(root){animation:vt-out .45s ease both}
+::view-transition-new(root){animation:vt-in .6s ease both}
+@keyframes vt-out{to{opacity:0;transform:translateY(-30px)}}
+@keyframes vt-in{from{opacity:0;transform:translateY(50px)}}
+.next{display:flex;flex-direction:column;align-items:center;gap:6px;width:max-content;max-width:100%;margin:clamp(56px,7vw,96px) auto 0;text-decoration:none;color:inherit;text-align:center}
+.next span{font-size:11px;letter-spacing:.3em;text-transform:uppercase;opacity:.65}
+.next b{font:italic 400 clamp(22px,2.4vw,28px)/1.2 "Cormorant Garamond",serif}
+.next i{display:block;position:relative;width:1px;height:52px;margin-top:6px;background:linear-gradient(currentColor,transparent);opacity:.7}
+.next i::after{content:"";position:absolute;left:-3px;top:0;width:7px;height:10px;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;background:#c9a24a;animation:drip 2.4s cubic-bezier(.5,0,.8,.6) infinite}
+@keyframes drip{0%{transform:translateY(-6px);opacity:0}15%{opacity:1}80%{transform:translateY(46px);opacity:1}100%{transform:translateY(52px);opacity:0}}
+.next:hover b{text-decoration:underline;text-underline-offset:6px;text-decoration-thickness:1px}
+.turn{position:relative;isolation:isolate;display:block;overflow:hidden;text-decoration:none;color:#faf3cf;padding-block:clamp(90px,13vw,190px);padding-left:max(6vw,16px,env(safe-area-inset-left,0px));padding-right:max(6vw,16px,env(safe-area-inset-right,0px));text-align:center}
+.turn-bg{position:absolute;inset:0;z-index:-2;background-size:cover;background-position:center;transition:transform 1.2s ease}
+.turn::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(ellipse at center,#12291dcc 0%,#12291df2 70%)}
+.turn:hover .turn-bg{transform:scale(1.05)}
+.turn .part{font:400 13px Jost,sans-serif;letter-spacing:.34em;text-transform:uppercase;color:#dcb94f}
+.turn h2{font-size:clamp(44px,6.4vw,88px);max-width:16ch;margin:18px auto 0}
+.turn p{max-width:46ch;margin:22px auto 0;color:#d6dcc2;font-size:18px}
+.turn .go{display:inline-flex;align-items:center;gap:14px;margin-top:40px;font:500 13px Jost,sans-serif;letter-spacing:.26em;text-transform:uppercase;color:#f4e0a0;border-bottom:1px solid #dcb94f88;padding-bottom:8px}
+.turn .go em{font-style:normal;transition:transform .4s}
+.turn:hover .go em{transform:translateX(8px)}
+.rail{position:fixed;right:22px;top:50%;transform:translateY(-50%);z-index:5;display:none;flex-direction:column;gap:14px;list-style:none;margin:0;padding:0}
+.rail a{display:flex;align-items:center;justify-content:flex-end;gap:12px;text-decoration:none}
+.rail b{width:9px;height:9px;border-radius:50%;border:1px solid #c9a24a;background:#0b0a0866;transition:transform .3s,background .3s;flex:none}
+.rail span{font:400 12px Jost,sans-serif;letter-spacing:.08em;color:#faf3cf;background:#12291de6;padding:4px 10px;opacity:0;transform:translateX(6px);transition:.25s;white-space:nowrap}
+.rail a:hover span,.rail a:focus-visible span{opacity:1;transform:none}
+.rail a.on b{background:#c9a24a;transform:scale(1.35)}
+@media(min-width:1100px){.rail{display:flex}}
+.rv{opacity:0;transform:translateY(26px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1;transform:none}
+.hero .kicker,.hero h1,.hero .lead,.hero .sub,.hero .cta,.hero .emblem{animation:rise 1s cubic-bezier(.2,.7,.2,1) both}
+.hero .emblem{animation-delay:.05s}.hero .kicker{animation-delay:.2s}.hero h1{animation-delay:.35s}.hero .lead,.hero .sub{animation-delay:.55s}.hero .cta{animation-delay:.7s}
+@keyframes rise{from{opacity:0;transform:translateY(24px)}}
+@media(prefers-reduced-motion:reduce){::view-transition-old(root),::view-transition-new(root){animation:none}.rv{opacity:1;transform:none;transition:none}.next i::after,.hero *{animation:none!important}.turn-bg{transition:none}}
 </style>
 </head>
 <body>
 
 <nav><div class="in">
   <a class="brand foil" href="./">Shanana</a>
-  <a class="back" href="./">Back to wholesale</a>
+  <a class="back" href="./">← Part I · The coffee</a>
 </div></nav>
 
-<header class="band hero"><div class="in">
-  <p class="kicker">Our story</p>
+<header class="band hero" id="top" data-ch="Part II"><div class="in">
+  <p class="kicker">Part II · Our story</p>
   <h1>The impact behind every <em class="foil">cup.</em></h1>
   <p class="sub">Coffee is more than a beverage. It is a chain of human stories.</p>
-</div></header>
+</div><a class="next" href="#begins"><span>Next chapter</span><b>Chapter V · Where it begins</b><i aria-hidden="true"></i></a></header>
 
-<section class="band yel wm"><div class="in split">
+<section class="band yel wm" id="begins" data-ch="V · Where it begins"><div class="in split">
   <div>
-    <p class="kicker">Where it begins</p>
+    <p class="kicker">Chapter V · Where it begins</p>
     <h2 style="margin-bottom:30px">Before the cup, there are hands.</h2>
     <p class="drop">Long before coffee reaches your cup, it begins with someone tending the land, nurturing a crop, and investing their time, knowledge, and hopes into a harvest.</p>
     <p>Yet, too often, the people at the beginning of that journey have the fewest opportunities to benefit from the value they help create.</p>
@@ -147,18 +184,18 @@ footer p{margin-top:8px}
     <p class="cap">From cherry to cup · tap a stage to jump to it</p>
     <p class="credit">Photos: David Stanley (CC BY 2.0), Alorin (CC BY 4.0), U.S. Fish and Wildlife Service, MarkSweep, Roger Burger, Edward, via Wikimedia Commons.</p>
   </div>
-</div></section>
+</div><a class="next" href="#believe"><span>Next chapter</span><b>Chapter VI · What we believe</b><i aria-hidden="true"></i></a></section>
 
-<section class="band belief wm l"><div class="in">
-  <p class="kicker">What we believe</p>
+<section class="band belief wm l" id="believe" data-ch="VI · What we believe"><div class="in">
+  <p class="kicker">Chapter VI · What we believe</p>
   <p class="pre">Shanana was built around a simple belief:</p>
   <blockquote>The people who create value should have the opportunity to <em class="foil">share in it.</em></blockquote>
   <div class="orn" aria-hidden="true"><i></i></div>
-</div></section>
+</div><a class="next" href="#vision"><span>Next chapter</span><b>Chapter VII · Our vision</b><i aria-hidden="true"></i></a></section>
 
-<section class="band yel vision wm"><div class="in split">
+<section class="band yel vision wm" id="vision" data-ch="VII · Our vision"><div class="in split">
   <div>
-    <p class="kicker">Our vision</p>
+    <p class="kicker">Chapter VII · Our vision</p>
     <h2>Partners, not just suppliers.</h2>
     <p>We envision a coffee business where farmers are recognized as business partners, communities have opportunities to grow, and customers can enjoy exceptional coffee with a deeper understanding of where it comes from.</p>
   </div>
@@ -172,10 +209,10 @@ footer p{margin-top:8px}
       <div class="lever"><b>Investment</b><span>Value that stays and compounds</span></div>
     </div>
   </div>
-</div></section>
+</div><a class="next" href="#sides"><span>Next chapter</span><b>Chapter VIII · Both sides of the cup</b><i aria-hidden="true"></i></a></section>
 
-<section class="band sides"><div class="in">
-  <p class="kicker" style="text-align:center">Both sides of the cup</p>
+<section class="band sides" id="sides" data-ch="VIII · Both sides"><div class="in">
+  <p class="kicker" style="text-align:center">Chapter VIII · Both sides of the cup</p>
   <h2>Creating opportunity on both sides of the cup.</h2>
   <div class="bridge">
     <div class="side">
@@ -205,10 +242,10 @@ footer p{margin-top:8px}
     </div>
   </div>
   <p class="connect">Every cup represents a connection between these two worlds: between the hands that cultivate coffee and the hands that enjoy it.</p>
-</div></section>
+</div><a class="next" href="#accountability"><span>Next chapter</span><b>Chapter IX · Accountability</b><i aria-hidden="true"></i></a></section>
 
-<section class="band yel results wm l"><div class="in">
-  <p class="kicker">Accountability</p>
+<section class="band yel results wm l" id="accountability" data-ch="IX · Accountability"><div class="in">
+  <p class="kicker">Chapter IX · Accountability</p>
   <h2>We believe impact should be demonstrated, not simply declared.</h2>
   <div class="trio">
     <div><small>Built on</small><b>Business.</b></div>
@@ -222,12 +259,12 @@ footer p{margin-top:8px}
       <p class="promise">Because meaningful change is not defined by the promises we make, but by the opportunities we create.</p>
     </div>
   </div>
-</div></section>
+</div><a class="next" href="#emblem"><span>Next chapter</span><b>Chapter X · Our emblem</b><i aria-hidden="true"></i></a></section>
 
-<section class="band emblem"><div class="in em-grid">
+<section class="band emblem" id="emblem" data-ch="X · Our emblem"><div class="in em-grid">
   <div class="em-logo"><img src="logo.webp" alt="The Shanana Coffee emblem: a woman in traditional attire beneath a rising sun, framed by an arch with two coffee beans"></div>
   <div>
-    <p class="kicker">Our emblem</p>
+    <p class="kicker">Chapter X · Our emblem</p>
     <h2>A sign of where we come from.</h2>
     <p class="em-intro">The Shanana Coffee logo is a bold and elegant emblem that draws from cultural heritage, natural richness, and the warmth of coffee itself.</p>
     <div class="em-pts">
@@ -236,13 +273,21 @@ footer p{margin-top:8px}
       <div><h3>The radiant sunrise</h3><p>The arching lines above suggest a rising sun: new beginnings, energy, and the start of the day, perfectly aligned with coffee as the beverage that awakens. They also hint at where coffee is grown: sunlit highlands and fertile lands.</p></div>
     </div>
   </div>
-</div></section>
+</div><a class="next" href="#close"><span>Next chapter</span><b>Epilogue</b><i aria-hidden="true"></i></a></section>
 
-<section class="band close"><div class="in">
+<section class="band close" id="close" data-ch="Epilogue"><div class="in">
   <img src="logo.webp" alt="" style="width:120px;margin:0 auto 34px">
   <h2>One cup. Shared prosperity. A better <em class="foil">future.</em></h2>
   <div class="cta"><a class="btn" href="./#partner">Become a partner</a><a class="btn ghost" href="./#collection">See the coffee</a></div>
 </div></section>
+
+<a class="turn" href="./#partner" data-ch="Partner with us →">
+  <div class="turn-bg" style="background-image:url(hills.jpg)"></div>
+  <p class="part">The final chapter</p>
+  <h2>Write the next page with us.</h2>
+  <p>From the hills of Nyaruguru to your counter: request samples, wholesale pricing and terms.</p>
+  <span class="go">Partner with Shanana <em>→</em></span>
+</a>
 
 <footer>
   <div class="mark">Shanana Coffee</div>
@@ -260,5 +305,26 @@ btns.forEach((b,i)=>b.addEventListener('click',()=>{v.currentTime=CUTS[i]+.9;v.p
 if(matchMedia('(prefers-reduced-motion: reduce)').matches){v.removeAttribute('autoplay');v.pause();v.controls=true}
 }
 </script>
+<script>
+{
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const chs=[...document.querySelectorAll('[data-ch]')];
+const rail=document.createElement('ul');rail.className='rail';rail.setAttribute('aria-label','Chapters');
+rail.innerHTML=chs.map(c=>'<li><a href="#'+c.id+'"><span></span><b></b></a></li>').join('');
+rail.querySelectorAll('span').forEach((s,i)=>s.textContent=chs[i].dataset.ch);
+document.body.appendChild(rail);
+const links=[...rail.querySelectorAll('a')];
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){const i=chs.indexOf(e.target);links.forEach((l,k)=>l.classList.toggle('on',k===i))}})},{rootMargin:'-45% 0px -50% 0px'});
+chs.forEach(c=>io.observe(c));
+if(!reduce&&'IntersectionObserver' in window){
+  const sel='section .kicker,section h2,section .lead,section .note,section .size,section .card,section .lever,section .side,section .trio>div,section .em-pts>div,section .spec>div,section .steps li,section .archv,section .arch-wrap,section blockquote,section .aro,section .sig,section .grid4,section .levers,section .cupfig,section .connect,section .callout,section .who,section .formwrap,section .em-logo,section .ar-lead,section .ar-facts,section .drop,.next,.turn h2,.turn p,.turn .go';
+  const els=[...document.querySelectorAll(sel)].filter(e=>!e.closest('.hero')&&!e.closest('.rv'));
+  els.forEach(e=>{e.classList.add('rv');const sib=[...e.parentElement.children].indexOf(e);e.style.transitionDelay=(Math.min(sib,5)*70)+'ms'});
+  const ro=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');ro.unobserve(e.target)}}),{rootMargin:'0px 0px -8% 0px',threshold:.08});
+  els.forEach(e=>ro.observe(e));
+}
+}
+</script>
+
 </body>
 </html>

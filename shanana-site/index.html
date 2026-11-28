@@ -191,6 +191,49 @@ footer .orn i{background:linear-gradient(135deg,#3c6b4a,#1f4430)}
 .offices .contact dd{font-size:19px}
 @media(max-width:1000px) and (min-width:761px){.offices{grid-template-columns:minmax(0,1fr)}}
 @media(max-width:520px){.offices{grid-template-columns:minmax(0,1fr)}}
+
+/* ---- story flow: chapters, next links, page turns, reveal ---- */
+@view-transition{navigation:auto}
+::view-transition-old(root){animation:vt-out .45s ease both}
+::view-transition-new(root){animation:vt-in .6s ease both}
+@keyframes vt-out{to{opacity:0;transform:translateY(-30px)}}
+@keyframes vt-in{from{opacity:0;transform:translateY(50px)}}
+.next{display:flex;flex-direction:column;align-items:center;gap:6px;width:max-content;max-width:100%;margin:clamp(56px,7vw,96px) auto 0;text-decoration:none;color:inherit;text-align:center}
+.next span{font-size:11px;letter-spacing:.3em;text-transform:uppercase;opacity:.65}
+.next b{font:italic 400 clamp(22px,2.4vw,28px)/1.2 "Cormorant Garamond",serif}
+.next i{display:block;position:relative;width:1px;height:52px;margin-top:6px;background:linear-gradient(currentColor,transparent);opacity:.7}
+.next i::after{content:"";position:absolute;left:-3px;top:0;width:7px;height:10px;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;background:#c9a24a;animation:drip 2.4s cubic-bezier(.5,0,.8,.6) infinite}
+@keyframes drip{0%{transform:translateY(-6px);opacity:0}15%{opacity:1}80%{transform:translateY(46px);opacity:1}100%{transform:translateY(52px);opacity:0}}
+.next:hover b{text-decoration:underline;text-underline-offset:6px;text-decoration-thickness:1px}
+.turn{position:relative;isolation:isolate;display:block;overflow:hidden;text-decoration:none;color:#faf3cf;padding-block:clamp(90px,13vw,190px);padding-left:max(6vw,16px,env(safe-area-inset-left,0px));padding-right:max(6vw,16px,env(safe-area-inset-right,0px));text-align:center}
+.turn-bg{position:absolute;inset:0;z-index:-2;background-size:cover;background-position:center;transition:transform 1.2s ease}
+.turn::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(ellipse at center,#12291dcc 0%,#12291df2 70%)}
+.turn:hover .turn-bg{transform:scale(1.05)}
+.turn .part{font:400 13px Jost,sans-serif;letter-spacing:.34em;text-transform:uppercase;color:#dcb94f}
+.turn h2{font-size:clamp(44px,6.4vw,88px);max-width:16ch;margin:18px auto 0}
+.turn p{max-width:46ch;margin:22px auto 0;color:#d6dcc2;font-size:18px}
+.turn .go{display:inline-flex;align-items:center;gap:14px;margin-top:40px;font:500 13px Jost,sans-serif;letter-spacing:.26em;text-transform:uppercase;color:#f4e0a0;border-bottom:1px solid #dcb94f88;padding-bottom:8px}
+.turn .go em{font-style:normal;transition:transform .4s}
+.turn:hover .go em{transform:translateX(8px)}
+.rail{position:fixed;right:22px;top:50%;transform:translateY(-50%);z-index:5;display:none;flex-direction:column;gap:14px;list-style:none;margin:0;padding:0}
+.rail a{display:flex;align-items:center;justify-content:flex-end;gap:12px;text-decoration:none}
+.rail b{width:9px;height:9px;border-radius:50%;border:1px solid #c9a24a;background:#0b0a0866;transition:transform .3s,background .3s;flex:none}
+.rail span{font:400 12px Jost,sans-serif;letter-spacing:.08em;color:#faf3cf;background:#12291de6;padding:4px 10px;opacity:0;transform:translateX(6px);transition:.25s;white-space:nowrap}
+.rail a:hover span,.rail a:focus-visible span{opacity:1;transform:none}
+.rail a.on b{background:#c9a24a;transform:scale(1.35)}
+@media(min-width:1100px){.rail{display:flex}}
+.rv{opacity:0;transform:translateY(26px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1;transform:none}
+.hero .kicker,.hero h1,.hero .lead,.hero .sub,.hero .cta,.hero .emblem{animation:rise 1s cubic-bezier(.2,.7,.2,1) both}
+.hero .emblem{animation-delay:.05s}.hero .kicker{animation-delay:.2s}.hero h1{animation-delay:.35s}.hero .lead,.hero .sub{animation-delay:.55s}.hero .cta{animation-delay:.7s}
+@keyframes rise{from{opacity:0;transform:translateY(24px)}}
+@media(prefers-reduced-motion:reduce){::view-transition-old(root),::view-transition-new(root){animation:none}.rv{opacity:1;transform:none;transition:none}.next i::after,.hero *{animation:none!important}.turn-bg{transition:none}}
+.hero{isolation:isolate}
+.hero::after{content:"";position:absolute;inset:-240px 0 0;z-index:0;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240' viewBox='0 0 240 240'%3E%3Cg fill='none' stroke='%23dcb94f' stroke-width='1.5' stroke-linecap='round'%3E%3Cg transform='translate(40 46) rotate(-28)'%3E%3Cellipse rx='13' ry='18'/%3E%3Cpath d='M1 -15c-6 9 6 20 -2 30'/%3E%3C/g%3E%3Cg transform='translate(150 30) rotate(40)'%3E%3Cellipse rx='10' ry='14'/%3E%3Cpath d='M1 -11c-5 7 5 15 -2 22'/%3E%3C/g%3E%3Cg transform='translate(205 120) rotate(-60)'%3E%3Cellipse rx='14' ry='19'/%3E%3Cpath d='M1 -16c-7 10 7 21 -2 32'/%3E%3C/g%3E%3Cg transform='translate(95 135) rotate(15)'%3E%3Cellipse rx='11' ry='15'/%3E%3Cpath d='M1 -12c-6 8 6 16 -2 24'/%3E%3C/g%3E%3Cg transform='translate(30 200) rotate(70)'%3E%3Cellipse rx='12' ry='16'/%3E%3Cpath d='M1 -13c-6 8 6 18 -2 26'/%3E%3C/g%3E%3Cg transform='translate(170 205) rotate(-15)'%3E%3Cellipse rx='13' ry='18'/%3E%3Cpath d='M1 -15c-6 9 6 20 -2 30'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") 0 0/240px;opacity:.22;-webkit-mask-image:radial-gradient(ellipse 60% 55% at 50% 42%,transparent 35%,#000 80%);mask-image:radial-gradient(ellipse 60% 55% at 50% 42%,transparent 35%,#000 80%);animation:beans 60s linear infinite}
+.hero>*{position:relative;z-index:1}
+@keyframes beans{to{transform:translateY(240px)}}
+@media(prefers-reduced-motion:reduce){.hero::after{animation:none}}
+.arabica .next{grid-column:1/-1;margin:0 auto 56px;color:#f3ead6}
 </style>
 </head>
 <body>
@@ -200,9 +243,9 @@ footer .orn i{background:linear-gradient(135deg,#3c6b4a,#1f4430)}
   <ul><li><a href="#origin">Origin</a></li><li><a href="#collection">Collection</a></li><li><a href="impact.html">Our story</a></li><li><a href="#partner">Wholesale</a></li></ul>
 </div></nav>
 
-<header class="hero band" id="top">
+<header class="hero band" id="top" data-ch="Prologue">
   <img class="emblem" src="logo.webp" alt="Shanana Coffee gold emblem: a Rwandan woman holding a basket of coffee beneath a rising sun">
-  <p class="kicker">Nyaruguru · Rwanda</p>
+  <p class="kicker">Part I · Nyaruguru, Rwanda</p>
   <h1>Every sip tells<br>a <em class="foil">story.</em></h1>
   <p class="lead">Born in the mountains of Rwanda. Crafted with care. Shared with the world.</p>
   <div class="cta"><a class="btn" href="#partner">Request samples</a><a class="btn ghost" href="#collection">The collection</a></div>
@@ -213,11 +256,11 @@ footer .orn i{background:linear-gradient(135deg,#3c6b4a,#1f4430)}
     <div><dt>Altitude</dt><dd>1,800–1,900 m</dd></div>
     <div><dt>Process</dt><dd>Washed</dd></div>
   </dl>
-</header>
+<a class="next" href="#origin"><span>Next chapter</span><b>Chapter I · Origin</b><i aria-hidden="true"></i></a></header>
 
-<section class="band origin wm" id="origin"><div class="in split">
+<section class="band origin wm" id="origin" data-ch="I · Origin"><div class="in split">
   <div>
-    <p class="kicker">Origin</p>
+    <p class="kicker">Chapter I · Origin</p>
     <h2>Grown where the <em>mountains</em> meet the clouds.</h2>
     <p class="lead">In the highlands of Rwanda’s Southern Province, our coffee grows slowly: at 1,800 to 1,900 meters, in a cool climate, on mountainous terrain and volcanic soils.</p>
     <p class="lead" style="margin-top:16px">Cherries are harvested, depulped, fermented, washed and dried with hands-on care from local workers, then produced and packaged in Rwanda.</p>
@@ -232,12 +275,12 @@ footer .orn i{background:linear-gradient(135deg,#3c6b4a,#1f4430)}
     <div class="note"><span class="k">Base</span><div><h3>A lingering finish</h3><p>A smooth, subtly nutty finish that lingers on the palate.</p><i>Subtly nutty</i></div></div>
   </div>
   </div>
-</div></section>
+</div><a class="next" href="#arabica"><span>Next chapter</span><b>Chapter II · The bean</b><i aria-hidden="true"></i></a></section>
 
-<section class="arabica" id="arabica">
+<section class="arabica" id="arabica" data-ch="II · The bean">
   <div class="ar-img"><img src="arabica.jpg" alt="Close-up of a single roasted Arabica coffee bean resting on ground coffee"></div>
   <div class="ar-txt">
-    <p class="kicker">The bean</p>
+    <p class="kicker">Chapter II · The bean</p>
     <h2 class="foil">Arabica</h2>
     <p class="ar-lead">The most widely grown coffee species.</p>
     <p>Known for higher acidity, more complexity, and a wider range of flavours, from fruit and florals to chocolate.</p>
@@ -247,13 +290,13 @@ footer .orn i{background:linear-gradient(135deg,#3c6b4a,#1f4430)}
       <div><dt>In the cup</dt><dd>Citrus, honey, nutty</dd></div>
     </dl>
   </div>
-</section>
+<a class="next" href="#collection"><span>Next chapter</span><b>Chapter III · The collection</b><i aria-hidden="true"></i></a></section>
 
-<section class="band coll wm g" id="collection"><div class="in">
+<section class="band coll wm g" id="collection" data-ch="III · The collection"><div class="in">
   <div class="split">
     <div class="arch-wrap"><div class="arch"><div><img src="bag.webp" alt="Matte-black Shanana Coffee bag with the gold emblem and illustrated figures"></div></div></div>
     <div>
-      <p class="kicker">The collection</p>
+      <p class="kicker">Chapter III · The collection</p>
       <h2>One origin.<br><em class="foil">Four formats.</em></h2>
       <div class="sizes" id="sizes"></div>
     </div>
@@ -267,19 +310,27 @@ footer .orn i{background:linear-gradient(135deg,#3c6b4a,#1f4430)}
     <div><dt>Packed in</dt><dd>Rwanda, finished and ready for sale</dd></div>
   </dl>
   <p class="callout"><b>Pricing and ordering.</b> Wholesale pricing, minimum orders and case packs are shared directly with approved buyers. Roast and grind options, origin collections and seasonal releases will be added as they are confirmed.</p>
-</div></section>
+<a class="next" href="#impact"><span>Next chapter</span><b>Chapter IV · Beyond the cup</b><i aria-hidden="true"></i></a></div></section>
 
-<section class="band impact wm l" id="impact"><div class="in">
-  <p class="kicker">Beyond the cup</p>
+<section class="band impact wm l" id="impact" data-ch="IV · Beyond the cup"><div class="in">
+  <p class="kicker">Chapter IV · Beyond the cup</p>
   <h2>The impact behind every cup.</h2>
   <p class="lead">Shanana is building a commercially sustainable coffee business that creates opportunity on both sides of the cup. These are our commitments and intended outcomes; we will publish impact figures only once they can be verified.</p>
   <div class="grid4" id="impactGrid"></div>
-  <p style="margin-top:48px;text-align:center"><a class="btn" href="impact.html">Read our full story</a></p>
 </div></section>
 
-<section class="band partner wm g l" id="partner"><div class="in split">
+
+<a class="turn" href="impact.html" data-ch="Part II →" id="turn">
+  <div class="turn-bg" style="background-image:url(harvest.jpg)"></div>
+  <p class="part">Turn the page · Part II</p>
+  <h2>The hands behind every cup.</h2>
+  <p>Coffee is more than a beverage. It is a chain of human stories. Read ours, from the people who grow it to the future we are building.</p>
+  <span class="go">Continue the story <em>→</em></span>
+</a>
+
+<section class="band partner wm g l" id="partner" data-ch="Partner with us"><div class="in split">
   <div>
-    <p class="kicker">Wholesale &amp; distribution</p>
+    <p class="kicker">The final chapter · Wholesale</p>
     <h2>Partner with <em class="foil">Shanana.</em></h2>
     <p class="lead">Questions, samples or wholesale pricing? Write or call, and we’ll respond directly.</p>
     <ul class="who"><li>Specialty coffee shops</li><li>Independent cafés</li><li>Specialty grocery</li><li>Restaurants &amp; hotels</li><li>Regional distributors</li><li>Commercial buyers</li></ul>
@@ -378,6 +429,27 @@ document.getElementById('copy').addEventListener('click',async e=>{
 });
 }
 </script>
+<script>
+{
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const chs=[...document.querySelectorAll('[data-ch]')];
+const rail=document.createElement('ul');rail.className='rail';rail.setAttribute('aria-label','Chapters');
+rail.innerHTML=chs.map(c=>'<li><a href="#'+c.id+'"><span></span><b></b></a></li>').join('');
+rail.querySelectorAll('span').forEach((s,i)=>s.textContent=chs[i].dataset.ch);
+document.body.appendChild(rail);
+const links=[...rail.querySelectorAll('a')];
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){const i=chs.indexOf(e.target);links.forEach((l,k)=>l.classList.toggle('on',k===i))}})},{rootMargin:'-45% 0px -50% 0px'});
+chs.forEach(c=>io.observe(c));
+if(!reduce&&'IntersectionObserver' in window){
+  const sel='section .kicker,section h2,section .lead,section .note,section .size,section .card,section .lever,section .side,section .trio>div,section .em-pts>div,section .spec>div,section .steps li,section .archv,section .arch-wrap,section blockquote,section .aro,section .sig,section .grid4,section .levers,section .cupfig,section .connect,section .callout,section .who,section .formwrap,section .em-logo,section .ar-lead,section .ar-facts,section .drop,.next,.turn h2,.turn p,.turn .go';
+  const els=[...document.querySelectorAll(sel)].filter(e=>!e.closest('.hero')&&!e.closest('.rv'));
+  els.forEach(e=>{e.classList.add('rv');const sib=[...e.parentElement.children].indexOf(e);e.style.transitionDelay=(Math.min(sib,5)*70)+'ms'});
+  const ro=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');ro.unobserve(e.target)}}),{rootMargin:'0px 0px -8% 0px',threshold:.08});
+  els.forEach(e=>ro.observe(e));
+}
+}
+</script>
+
 
 </body>
 </html>
