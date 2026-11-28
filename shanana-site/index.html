@@ -241,7 +241,7 @@ footer .orn i{background:linear-gradient(135deg,#3c6b4a,#1f4430)}
 @media(max-width:760px){.ar-img::after{background:linear-gradient(180deg,transparent 60%,#12291d)}}
 .ar-txt>p:not(.kicker):not(.ar-lead){color:#cdd5b2}
 .ar-facts dt{color:#a9b58f}
-.emblem{background:#12291d radial-gradient(ellipse at 25% 50%,#2f5a3e 0%,transparent 55%)}
+section.emblem{background:#12291d radial-gradient(ellipse at 25% 50%,#2f5a3e 0%,transparent 55%)}
 .em-pts p{color:#cdd5b2}
 /* ---- engagement: progress, sticky ask, finder ---- */
 .progress{position:fixed;top:0;left:0;right:0;height:3px;z-index:20;background:transparent;pointer-events:none}
@@ -287,6 +287,19 @@ footer .orn i{background:linear-gradient(135deg,#3c6b4a,#1f4430)}
 .bean .next{grid-column:1/-1;margin:0 auto 64px;color:#faf3cf}
 @media(max-width:760px){.bean{grid-template-columns:minmax(0,1fr)}.bean-img{min-height:360px}.bean-img::after{background:linear-gradient(180deg,transparent 55%,#12291d)}.bean-txt{padding-left:max(6vw,16px);padding-top:8px}}
 @media(max-width:460px){.sip{grid-template-columns:minmax(0,1fr);gap:0}.sip::before{top:6px;bottom:20px;left:6px;right:auto;width:1px;height:auto;background:linear-gradient(#dcb94f,#dcb94f44)}.sip li{padding:0 0 18px 30px}}
+
+/* ---- hero emblem set into the landscape like a rising sun ---- */
+.hero .emblem{filter:drop-shadow(0 6px 18px #0b1a1288);margin:0;position:relative;z-index:2}
+.sunrise{position:relative;display:grid;place-items:center;width:clamp(200px,24vw,300px);margin:0 auto 40px;isolation:isolate}
+.sunrise .ray{position:absolute;z-index:0;left:50%;top:46%;width:260%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,#f4dc8a59 0%,#dcb94f2e 22%,#dcb94f0f 42%,transparent 62%);mix-blend-mode:screen;pointer-events:none}
+.sunrise .ring{position:absolute;z-index:1;left:50%;top:50%;transform:translate(-50%,-50%);border:1px solid #dcb94f;border-radius:999px;pointer-events:none}
+.sunrise .r1{width:116%;height:110%;opacity:.4}
+.sunrise .r2{width:136%;height:122%;opacity:.18}
+.hero::before{background:radial-gradient(ellipse 55% 45% at 50% 30%,#dcb94f26 0%,transparent 70%),radial-gradient(ellipse at 50% 42%,#183a2866 0%,#183a28d9 58%,#183a28 100%)!important}
+.sunrise{animation:rise 1.2s cubic-bezier(.2,.7,.2,1) both}
+.sunrise .ray{animation:glow 6s ease-in-out infinite alternate}
+@keyframes glow{from{opacity:.75}to{opacity:1}}
+@media(prefers-reduced-motion:reduce){.sunrise,.sunrise .ray{animation:none}}
 </style>
 </head>
 <body>
@@ -297,7 +310,7 @@ footer .orn i{background:linear-gradient(135deg,#3c6b4a,#1f4430)}
 </div></nav>
 
 <header class="hero band" id="top" data-ch="Prologue">
-  <img class="emblem" src="logo.webp" alt="Shanana Coffee gold emblem: a Rwandan woman holding a basket of coffee beneath a rising sun">
+  <div class="sunrise" aria-hidden="false"><span class="ring r1"></span><span class="ring r2"></span><span class="ray"></span><img class="emblem" src="logo.webp" alt="Shanana Coffee gold emblem: a Rwandan woman holding a basket of coffee beneath a rising sun"></div>
   <p class="kicker">Part I · Nyaruguru, Rwanda</p>
   <h1>Every sip tells<br>a <em class="foil">story.</em></h1>
   <p class="lead">Born in the mountains of Rwanda. Crafted with care. Shared with the world.</p>
