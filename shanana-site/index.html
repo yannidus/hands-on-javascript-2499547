@@ -293,7 +293,7 @@ footer .orn i{background:linear-gradient(135deg,#3c6b4a,#1f4430)}
 
 <nav><div class="in">
   <a class="brand foil" href="#top">Shanana</a>
-  <ul><li><a href="#bean">The bean</a></li><li><a href="#collection">Collection</a></li><li><a href="impact.html">Our story</a></li><li><a href="#partner">Wholesale</a></li></ul>
+  <ul><li><a href="#bean">The bean</a></li><li><a href="impact.html">Our story</a></li><li><a href="#partner">Wholesale</a></li></ul>
 </div></nav>
 
 <header class="hero band" id="top" data-ch="Prologue">
@@ -301,7 +301,7 @@ footer .orn i{background:linear-gradient(135deg,#3c6b4a,#1f4430)}
   <p class="kicker">Part I · Nyaruguru, Rwanda</p>
   <h1>Every sip tells<br>a <em class="foil">story.</em></h1>
   <p class="lead">Born in the mountains of Rwanda. Crafted with care. Shared with the world.</p>
-  <div class="cta"><a class="btn" href="#partner">Request samples</a><a class="btn ghost" href="#collection">The collection</a></div>
+  <div class="cta"><a class="btn" href="#partner">Request samples</a><a class="btn ghost" href="#bean">Discover the bean</a></div>
   <dl class="in facts">
     <div><dt>Country</dt><dd>Rwanda</dd></div>
     <div><dt>Region</dt><dd>Nyaruguru</dd></div>
@@ -325,37 +325,11 @@ footer .orn i{background:linear-gradient(135deg,#3c6b4a,#1f4430)}
     </ol>
     <p class="bean-close">Every bean carries the mountain it grew on.</p>
   </div>
-  <a class="next" href="#collection"><span>Next chapter</span><b>Chapter II · The collection</b><i aria-hidden="true"></i></a>
+  <a class="next" href="#impact"><span>Next chapter</span><b>Chapter II · Beyond the cup</b><i aria-hidden="true"></i></a>
 </section>
 
-<section class="band coll wm g" id="collection" data-ch="II · The collection"><div class="in">
-  <div class="split">
-    <div class="arch-wrap"><div class="arch"><div><img src="bag.webp" alt="Matte-black Shanana Coffee bag with the gold emblem and illustrated figures"></div></div></div>
-    <div>
-      <p class="kicker">Chapter II · The collection</p>
-      <h2>One origin.<br><em class="foil">Four formats.</em></h2>
-      <div class="sizes" id="sizes"></div>
-      <div class="finder" id="finder">
-        <h3>Find your bag</h3>
-        <p class="q">What kind of business are you?</p>
-        <div class="fopts" id="fopts"></div>
-        <p class="fres" id="fres" aria-live="polite">Pick one and we’ll suggest the right size.</p>
-      </div>
-    </div>
-  </div>
-  <dl class="spec">
-    <div><dt>Origin</dt><dd>Nyaruguru, Southern Province, Rwanda</dd></div>
-    <div><dt>Variety</dt><dd>Red Bourbon</dd></div>
-    <div><dt>Altitude</dt><dd>1,800–1,900 meters</dd></div>
-    <div><dt>Process</dt><dd>Washed; hand-processed</dd></div>
-    <div><dt>Packaging</dt><dd>Matte-black bag with the Shanana emblem and illustrated figures</dd></div>
-    <div><dt>Packed in</dt><dd>Rwanda, finished and ready for sale</dd></div>
-  </dl>
-  <p class="callout"><b>Pricing and ordering.</b> Wholesale pricing, minimum orders and case packs are shared directly with approved buyers. Roast and grind options, origin collections and seasonal releases will be added as they are confirmed.</p>
-<a class="next" href="#impact"><span>Next chapter</span><b>Chapter III · Beyond the cup</b><i aria-hidden="true"></i></a></div></section>
-
-<section class="band impact wm l" id="impact" data-ch="III · Beyond the cup"><div class="in">
-  <p class="kicker">Chapter III · Beyond the cup</p>
+<section class="band impact wm l" id="impact" data-ch="II · Beyond the cup"><div class="in">
+  <p class="kicker">Chapter II · Beyond the cup</p>
   <h2>The impact behind every cup.</h2>
   <p class="lead">Shanana is building a commercially sustainable coffee business that creates opportunity on both sides of the cup. These are our commitments and intended outcomes; we will publish impact figures only once they can be verified.</p>
   <div class="grid4" id="impactGrid"></div>
@@ -401,6 +375,7 @@ footer .orn i{background:linear-gradient(135deg,#3c6b4a,#1f4430)}
         </dl>
       </div>
     </div>
+    <p class="callout" style="margin-top:30px"><b>Pricing and ordering.</b> Wholesale pricing, minimum orders and case packs are shared directly with approved buyers. Roast and grind options, origin collections and seasonal releases will be added as they are confirmed.</p>
     <p class="small">Shanana is in its U.S. market-entry phase. Import, regulatory, warehousing and distribution arrangements are being established; inventory availability is confirmed directly with approved buyers.</p>
   </div>
   <div class="formwrap"><form id="inq" novalidate>
@@ -442,7 +417,7 @@ const sizes=[
   ["1 lb","Café & Retail Bag","1 lb · 454 g","Coffee shops · Retail customers"],
   ["2 lb","Service Bag","2 lb · 907 g","Cafés · Offices · Smaller foodservice businesses"],
   ["5 lb","Commercial Bag","5 lb · 2.27 kg","Restaurants · Hotels · Commercial cafés · Distributors"]];
-document.getElementById('sizes').innerHTML=sizes.map(s=>`<div class="size"><span class="w foil">${s[0]}</span><div><h3>${s[1]}</h3><span class="m">${s[2]}</span><p>${s[3]}</p></div></div>`).join('');
+const sizesEl=document.getElementById('sizes');if(sizesEl)sizesEl.innerHTML=sizes.map(s=>`<div class="size"><span class="w foil">${s[0]}</span><div><h3>${s[1]}</h3><span class="m">${s[2]}</span><p>${s[3]}</p></div></div>`).join('');
 document.getElementById('f-sizes').innerHTML=sizes.map((s,i)=>`<label><input type="checkbox" id="f-s${i}" value="${s[0]} ${s[1]}"${i==1?' checked':''}>${s[0]}</label>`).join('');
 const impact=[
   ["Women & communities","Recognizing the work of women in coffee","Supporting women involved in cultivation and processing, and celebrating the skill of local coffee workers."],
@@ -488,31 +463,6 @@ if(!reduce&&'IntersectionObserver' in window){
   const ro=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('seen');ro.unobserve(e.target)}}),{rootMargin:'0px 0px -8% 0px',threshold:.08});
   els.forEach(e=>ro.observe(e));
 }
-}
-</script>
-<script>
-{
-const opts=[
- ['Coffee shop or café',[1,2],'Specialty coffee shop','The 1 lb Café & Retail Bag for your retail shelf, and the 2 lb Service Bag for behind the bar.'],
- ['Retail or grocery shelf',[0,1],'Specialty grocery','The 12 oz Retail Bag and the 1 lb Café & Retail Bag, both made for the shelf.'],
- ['Office',[2],'Office','The 2 lb Service Bag: enough for a busy team, fresh to the last cup.'],
- ['Restaurant or hotel',[3],'Restaurant or hotel','The 5 lb Commercial Bag, built for full service.'],
- ['Distributor',[3,0],'Regional distributor','The 5 lb Commercial Bag for foodservice accounts, and the 12 oz Retail Bag for retail partners.']];
-const box=document.getElementById('fopts'),res=document.getElementById('fres');
-box.innerHTML=opts.map(o=>'<button type="button"></button>').join('');
-const bs=[...box.children];bs.forEach((b,i)=>b.textContent=opts[i][0]);
-const rows=()=>[...document.querySelectorAll('#sizes .size')];
-bs.forEach((b,i)=>b.addEventListener('click',()=>{
-  const o=opts[i];bs.forEach(x=>x.classList.toggle('on',x===b));
-  rows().forEach((r,k)=>r.classList.toggle('pick',o[1].includes(k)));
-  res.innerHTML='<b>Our pick:</b> <span></span><br><a class="btn" href="#partner">Request samples of these</a>';
-  res.querySelector('span').textContent=o[3];
-  res.querySelector('a').addEventListener('click',()=>{
-    const t=document.getElementById('f-type');[...t.options].forEach(op=>{if(op.text===o[2])t.value=op.value});
-    document.querySelectorAll('#f-sizes input').forEach((c,k)=>c.checked=o[1].includes(k));
-    setTimeout(()=>document.getElementById('f-name').focus({preventScroll:true}),700);
-  });
-}));
 }
 </script>
 <script>
