@@ -151,11 +151,42 @@ footer p{margin-top:8px}
 .rail a.on b{background:#c9a24a;transform:scale(1.35)}
 @media(min-width:1100px){.rail{display:flex}}
 .rv{opacity:0;transform:translateY(26px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
-.rv.in{opacity:1;transform:none}
+.rv.seen{opacity:1;transform:none}
 .hero .kicker,.hero h1,.hero .lead,.hero .sub,.hero .cta,.hero .emblem{animation:rise 1s cubic-bezier(.2,.7,.2,1) both}
 .hero .emblem{animation-delay:.05s}.hero .kicker{animation-delay:.2s}.hero h1{animation-delay:.35s}.hero .lead,.hero .sub{animation-delay:.55s}.hero .cta{animation-delay:.7s}
 @keyframes rise{from{opacity:0;transform:translateY(24px)}}
 @media(prefers-reduced-motion:reduce){::view-transition-old(root),::view-transition-new(root){animation:none}.rv{opacity:1;transform:none;transition:none}.next i::after,.hero *{animation:none!important}.turn-bg{transition:none}}
+
+/* ---- one palette: coffee-leaf green + light yellow ---- */
+.arabica{background:#12291d}
+.ar-img::after{background:linear-gradient(90deg,transparent 60%,#12291d)}
+@media(max-width:760px){.ar-img::after{background:linear-gradient(180deg,transparent 60%,#12291d)}}
+.ar-txt>p:not(.kicker):not(.ar-lead){color:#cdd5b2}
+.ar-facts dt{color:#a9b58f}
+.emblem{background:#12291d radial-gradient(ellipse at 25% 50%,#2f5a3e 0%,transparent 55%)}
+.em-pts p{color:#cdd5b2}
+/* ---- engagement: progress, sticky ask, finder ---- */
+.progress{position:fixed;top:0;left:0;right:0;height:3px;z-index:20;background:transparent;pointer-events:none}
+.progress i{display:block;height:100%;width:100%;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,#3c6b4a,#dcb94f)}
+.ask{position:fixed;z-index:15;right:max(18px,env(safe-area-inset-right,0px));bottom:calc(18px + env(safe-area-inset-bottom,0px));display:flex;align-items:center;gap:10px;padding:12px 20px;background:#faf3cf;color:#12291d;text-decoration:none;font:500 13px Jost,sans-serif;letter-spacing:.18em;text-transform:uppercase;border:1px solid #dcb94f;box-shadow:0 8px 24px #0004;transform:translateY(140%);transition:transform .45s cubic-bezier(.2,.7,.2,1)}
+.ask.show{transform:none}
+.ask b{width:8px;height:8px;border-radius:50%;background:#3c6b4a;box-shadow:0 0 0 0 #3c6b4a88;animation:pulse 2s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 10px #3c6b4a00}100%{box-shadow:0 0 0 0 #3c6b4a00}}
+@media(min-width:1100px){.ask{right:64px}}
+.finder{margin-top:36px;padding:26px 26px 24px;border:1px solid #dcb94f55;background:#12291dcc}
+.finder h3{font-size:28px;font-weight:400}
+.finder p.q{color:var(--mute);font-size:15px;margin-top:4px}
+.fopts{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.fopts button{font:400 15px Jost,sans-serif;color:#faf3cf;background:transparent;border:1px solid #dcb94f66;padding:9px 16px;min-height:42px;cursor:pointer;transition:background .25s,border-color .25s}
+.fopts button:hover{border-color:#dcb94f}
+.fopts button.on{background:#dcb94f;color:#12291d;border-color:#dcb94f}
+.fres{margin-top:18px;font-size:16px;color:#e8e1c4;min-height:1.6em}
+.fres b{font:italic 400 22px "Cormorant Garamond",serif;color:#f4e0a0}
+.fres .btn{margin-top:14px}
+.size{transition:background .4s,box-shadow .4s}
+.size.pick{background:#dcb94f1f;box-shadow:inset 3px 0 0 #dcb94f}
+.readtime{display:inline-block;margin-top:26px;font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:#cdd5b2}
+@media(prefers-reduced-motion:reduce){.ask{transition:none}.ask b{animation:none}}
 </style>
 </head>
 <body>
@@ -169,6 +200,7 @@ footer p{margin-top:8px}
   <p class="kicker">Part II · Our story</p>
   <h1>The impact behind every <em class="foil">cup.</em></h1>
   <p class="sub">Coffee is more than a beverage. It is a chain of human stories.</p>
+  <span class="readtime">Part II · 4-minute read · 6 chapters</span>
 </div><a class="next" href="#begins"><span>Next chapter</span><b>Chapter V · Where it begins</b><i aria-hidden="true"></i></a></header>
 
 <section class="band yel wm" id="begins" data-ch="V · Where it begins"><div class="in split">
@@ -320,11 +352,23 @@ if(!reduce&&'IntersectionObserver' in window){
   const sel='section .kicker,section h2,section .lead,section .note,section .size,section .card,section .lever,section .side,section .trio>div,section .em-pts>div,section .spec>div,section .steps li,section .archv,section .arch-wrap,section blockquote,section .aro,section .sig,section .grid4,section .levers,section .cupfig,section .connect,section .callout,section .who,section .formwrap,section .em-logo,section .ar-lead,section .ar-facts,section .drop,.next,.turn h2,.turn p,.turn .go';
   const els=[...document.querySelectorAll(sel)].filter(e=>!e.closest('.hero')&&!e.closest('.rv'));
   els.forEach(e=>{e.classList.add('rv');const sib=[...e.parentElement.children].indexOf(e);e.style.transitionDelay=(Math.min(sib,5)*70)+'ms'});
-  const ro=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');ro.unobserve(e.target)}}),{rootMargin:'0px 0px -8% 0px',threshold:.08});
+  const ro=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('seen');ro.unobserve(e.target)}}),{rootMargin:'0px 0px -8% 0px',threshold:.08});
   els.forEach(e=>ro.observe(e));
 }
 }
 </script>
+<script>
+{
+const bar=document.createElement('div');bar.className='progress';bar.innerHTML='<i></i>';document.body.appendChild(bar);
+const fill=bar.firstChild;
+const ask=document.createElement('a');ask.className='ask';ask.href='./#partner';ask.innerHTML='<b></b><span></span>';ask.lastChild.textContent='Partner with us';document.body.appendChild(ask);
+const hide=document.querySelector('a.turn');let hideOn=false;
+if(hide){new IntersectionObserver(e=>{hideOn=e[0].isIntersecting;upd()}).observe(hide)}
+const upd=()=>{const h=document.documentElement.scrollHeight-innerHeight;const k=h>0?scrollY/h:0;fill.style.transform='scaleX('+k.toFixed(4)+')';ask.classList.toggle('show',scrollY>innerHeight*.8&&!hideOn)};
+addEventListener('scroll',upd,{passive:true});addEventListener('resize',upd);upd();
+}
+</script>
+
 
 </body>
 </html>
