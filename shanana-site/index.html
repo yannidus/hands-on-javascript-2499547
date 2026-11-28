@@ -265,13 +265,35 @@ footer .orn i{background:linear-gradient(135deg,#3c6b4a,#1f4430)}
 .size.pick{background:#dcb94f1f;box-shadow:inset 3px 0 0 #dcb94f}
 .readtime{display:inline-block;margin-top:26px;font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:#cdd5b2}
 @media(prefers-reduced-motion:reduce){.ask{transition:none}.ask b{animation:none}}
+
+/* ---- Chapter I: the Red Bourbon bean ---- */
+.bean{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);background:#12291d;color:#faf3cf}
+.bean-img{position:relative;min-height:clamp(520px,62vw,760px)}
+.bean-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 40%}
+.bean-img::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 55%,#12291d)}
+.bean-txt{align-self:center;padding:clamp(56px,7vw,110px) max(6vw,16px,env(safe-area-inset-right,0px)) clamp(40px,5vw,80px) clamp(24px,4vw,64px)}
+.bean-txt h2{font-size:clamp(44px,5.4vw,76px);max-width:14ch}
+.bean-txt h2 em{font-style:italic}
+.bean-lead{font:italic 300 clamp(22px,2.2vw,27px)/1.4 "Cormorant Garamond",serif;color:#faf3cf;margin-top:26px;max-width:30ch}
+.bean-p{color:#cdd5b2;margin-top:14px;max-width:44ch}
+.sip{list-style:none;margin:40px 0 0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;position:relative}
+.sip::before{content:"";position:absolute;top:6px;left:6px;right:12%;height:1px;background:linear-gradient(90deg,#dcb94f,#dcb94f44)}
+.sip li{position:relative;padding-top:26px}
+.sip li::before{content:"";position:absolute;top:0;left:0;width:13px;height:13px;border-radius:50%;background:#12291d;border:1px solid #dcb94f}
+.sip li:first-child::before{background:#dcb94f}
+.sip small{display:block;font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:#dcb94f}
+.sip b{display:block;margin-top:6px;font:400 22px/1.2 "Cormorant Garamond",serif}
+.bean-close{margin-top:42px;font:italic 400 clamp(24px,2.4vw,30px)/1.3 "Cormorant Garamond",serif;color:#f4e0a0}
+.bean .next{grid-column:1/-1;margin:0 auto 64px;color:#faf3cf}
+@media(max-width:760px){.bean{grid-template-columns:minmax(0,1fr)}.bean-img{min-height:360px}.bean-img::after{background:linear-gradient(180deg,transparent 55%,#12291d)}.bean-txt{padding-left:max(6vw,16px);padding-top:8px}}
+@media(max-width:460px){.sip{grid-template-columns:minmax(0,1fr);gap:0}.sip::before{top:6px;bottom:20px;left:6px;right:auto;width:1px;height:auto;background:linear-gradient(#dcb94f,#dcb94f44)}.sip li{padding:0 0 18px 30px}}
 </style>
 </head>
 <body>
 
 <nav><div class="in">
   <a class="brand foil" href="#top">Shanana</a>
-  <ul><li><a href="#arabica">The bean</a></li><li><a href="#origin">Red Bourbon</a></li><li><a href="#collection">Collection</a></li><li><a href="impact.html">Our story</a></li><li><a href="#partner">Wholesale</a></li></ul>
+  <ul><li><a href="#bean">The bean</a></li><li><a href="#collection">Collection</a></li><li><a href="impact.html">Our story</a></li><li><a href="#partner">Wholesale</a></li></ul>
 </div></nav>
 
 <header class="hero band" id="top" data-ch="Prologue">
@@ -287,50 +309,30 @@ footer .orn i{background:linear-gradient(135deg,#3c6b4a,#1f4430)}
     <div><dt>Altitude</dt><dd>1,800–1,900 m</dd></div>
     <div><dt>Process</dt><dd>Washed</dd></div>
   </dl>
-<a class="next" href="#arabica"><span>Next chapter</span><b>Chapter I · The bean</b><i aria-hidden="true"></i></a></header>
+<a class="next" href="#bean"><span>Next chapter</span><b>Chapter I · The Red Bourbon Bean</b><i aria-hidden="true"></i></a></header>
 
-<section class="arabica" id="arabica" data-ch="I · The bean">
-  <div class="ar-img"><img src="arabica.jpg" alt="Close-up of a single roasted Arabica coffee bean resting on ground coffee"></div>
-  <div class="ar-txt">
-    <p class="kicker">Chapter I · The bean</p>
-    <h2 class="foil">Arabica</h2>
-    <p class="ar-lead">The most widely grown coffee species.</p>
-    <p>Known for higher acidity, more complexity, and a wider range of flavours, from fruit and florals to chocolate.</p>
-    <p style="margin-top:14px">Ours is Red Bourbon, a classic Arabica variety and the heart of Rwanda’s specialty coffee, prized for its sweetness and balance.</p>
-    <dl class="ar-facts">
-      <div><dt>Ours</dt><dd>Red Bourbon Arabica</dd></div>
-      <div><dt>Grown at</dt><dd>1,800–1,900 m</dd></div>
-      <div><dt>In the cup</dt><dd>Citrus, honey, nutty</dd></div>
-    </dl>
+<section class="bean" id="bean" data-ch="I · The bean">
+  <div class="bean-img"><img src="arabica.jpg" alt="A single roasted Red Bourbon Arabica bean resting on ground coffee"></div>
+  <div class="bean-txt">
+    <p class="kicker">Chapter I · The Red Bourbon Bean</p>
+    <h2>Grown slowly, <em class="foil">between the clouds.</em></h2>
+    <p class="bean-lead">Red Bourbon Arabica from the mountains of Nyaruguru, 1,800 metres up, where cool air and volcanic soil give every cherry time to ripen.</p>
+    <p class="bean-p">Picked, washed and dried by hand by the people who grow it. Nothing is rushed.</p>
+    <ol class="sip" aria-label="The taste of one sip">
+      <li><small>First sip</small><b>Citrus &amp; green apple</b></li>
+      <li><small>Heart</small><b>Honey &amp; florals</b></li>
+      <li><small>Finish</small><b>Smooth, subtly nutty</b></li>
+    </ol>
+    <p class="bean-close">Every bean carries the mountain it grew on.</p>
   </div>
-<a class="next" href="#origin"><span>Next chapter</span><b>Chapter II · The Red Bourbon Bean</b><i aria-hidden="true"></i></a></section>
+  <a class="next" href="#collection"><span>Next chapter</span><b>Chapter II · The collection</b><i aria-hidden="true"></i></a>
+</section>
 
-<section class="band origin wm" id="origin" data-ch="II · Red Bourbon"><div class="in split">
-  <div>
-    <p class="kicker">Chapter II · The Red Bourbon Bean</p>
-    <h2>Grown where the <em>mountains</em> meet the clouds.</h2>
-    <p class="lead">In the highlands of Rwanda’s Southern Province, our coffee grows slowly: at 1,800 to 1,900 meters, in a cool climate, on mountainous terrain and volcanic soils.</p>
-    <p class="lead" style="margin-top:16px">Cherries are harvested, depulped, fermented, washed and dried with hands-on care from local workers, then produced and packaged in Rwanda.</p>
-    <p class="sig">These hidden layers emerge gradually from careful fermentation and slow drying, a process that draws out the full complexity of the bean rather than rushing it to market.</p>
-  </div>
-  <div>
-  <p class="kicker">Aromatic profile</p>
-  <p class="aro">Grown in the high-altitude mountains of Rwanda, our coffee develops a bright acidity and a clean, layered character shaped by the region’s cool climate, volcanic soil, and careful hand processing.</p>
-  <div class="notes">
-    <div class="note"><span class="k">Top notes</span><div><h3>A bright opening</h3><p>Citrus and green apple, bright and vibrant on the first sip.</p><i>Citrus · Green apple</i></div></div>
-    <div class="note"><span class="k">Heart</span><div><h3>Sweet at the center</h3><p>Honey and floral sweetness, emerging as the cup opens up.</p><i>Honey · Floral sweetness</i></div></div>
-    <div class="note"><span class="k">Base</span><div><h3>A lingering finish</h3><p>A smooth, subtly nutty finish that lingers on the palate.</p><i>Subtly nutty</i></div></div>
-  </div>
-  </div>
-</div><a class="next" href="#collection"><span>Next chapter</span><b>Chapter III · The collection</b><i aria-hidden="true"></i></a></section>
-
-
-
-<section class="band coll wm g" id="collection" data-ch="III · The collection"><div class="in">
+<section class="band coll wm g" id="collection" data-ch="II · The collection"><div class="in">
   <div class="split">
     <div class="arch-wrap"><div class="arch"><div><img src="bag.webp" alt="Matte-black Shanana Coffee bag with the gold emblem and illustrated figures"></div></div></div>
     <div>
-      <p class="kicker">Chapter III · The collection</p>
+      <p class="kicker">Chapter II · The collection</p>
       <h2>One origin.<br><em class="foil">Four formats.</em></h2>
       <div class="sizes" id="sizes"></div>
       <div class="finder" id="finder">
@@ -350,15 +352,14 @@ footer .orn i{background:linear-gradient(135deg,#3c6b4a,#1f4430)}
     <div><dt>Packed in</dt><dd>Rwanda, finished and ready for sale</dd></div>
   </dl>
   <p class="callout"><b>Pricing and ordering.</b> Wholesale pricing, minimum orders and case packs are shared directly with approved buyers. Roast and grind options, origin collections and seasonal releases will be added as they are confirmed.</p>
-<a class="next" href="#impact"><span>Next chapter</span><b>Chapter IV · Beyond the cup</b><i aria-hidden="true"></i></a></div></section>
+<a class="next" href="#impact"><span>Next chapter</span><b>Chapter III · Beyond the cup</b><i aria-hidden="true"></i></a></div></section>
 
-<section class="band impact wm l" id="impact" data-ch="IV · Beyond the cup"><div class="in">
-  <p class="kicker">Chapter IV · Beyond the cup</p>
+<section class="band impact wm l" id="impact" data-ch="III · Beyond the cup"><div class="in">
+  <p class="kicker">Chapter III · Beyond the cup</p>
   <h2>The impact behind every cup.</h2>
   <p class="lead">Shanana is building a commercially sustainable coffee business that creates opportunity on both sides of the cup. These are our commitments and intended outcomes; we will publish impact figures only once they can be verified.</p>
   <div class="grid4" id="impactGrid"></div>
 </div></section>
-
 
 <a class="turn" href="impact.html" data-ch="Part II →" id="turn">
   <div class="turn-bg" style="background-image:url(harvest.jpg)"></div>
@@ -481,7 +482,7 @@ const links=[...rail.querySelectorAll('a')];
 const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){const i=chs.indexOf(e.target);links.forEach((l,k)=>l.classList.toggle('on',k===i))}})},{rootMargin:'-45% 0px -50% 0px'});
 chs.forEach(c=>io.observe(c));
 if(!reduce&&'IntersectionObserver' in window){
-  const sel='section .kicker,section h2,section .lead,section .note,section .size,section .card,section .lever,section .side,section .trio>div,section .em-pts>div,section .spec>div,section .steps li,section .archv,section .arch-wrap,section blockquote,section .aro,section .sig,section .grid4,section .levers,section .cupfig,section .connect,section .callout,section .finder,section .who,section .formwrap,section .em-logo,section .ar-lead,section .ar-facts,section .drop,.next,.turn h2,.turn p,.turn .go';
+  const sel='section .kicker,section h2,section .lead,section .note,section .size,section .card,section .lever,section .side,section .trio>div,section .em-pts>div,section .spec>div,section .steps li,section .archv,section .arch-wrap,section blockquote,section .aro,section .sig,section .grid4,section .levers,section .cupfig,section .connect,section .callout,section .bean-lead,section .bean-p,section .sip li,section .bean-close,section .finder,section .who,section .formwrap,section .em-logo,section .ar-lead,section .ar-facts,section .drop,.next,.turn h2,.turn p,.turn .go';
   const els=[...document.querySelectorAll(sel)].filter(e=>!e.closest('.hero')&&!e.closest('.rv'));
   els.forEach(e=>{e.classList.add('rv');const sib=[...e.parentElement.children].indexOf(e);e.style.transitionDelay=(Math.min(sib,5)*70)+'ms'});
   const ro=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('seen');ro.unobserve(e.target)}}),{rootMargin:'0px 0px -8% 0px',threshold:.08});
@@ -525,7 +526,6 @@ const upd=()=>{const h=document.documentElement.scrollHeight-innerHeight;const k
 addEventListener('scroll',upd,{passive:true});addEventListener('resize',upd);upd();
 }
 </script>
-
 
 
 </body>
