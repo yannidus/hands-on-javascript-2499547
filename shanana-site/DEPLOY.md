@@ -23,13 +23,36 @@ To update the site later: open the project → **Create deployment** → drag th
    - It creates the `shanana-coffee` project and uploads the site.
 4. Run `bash deploy.sh` again whenever the site changes.
 
-## Use your own domain (for example shananacoffee.com)
+## Connect www.shananacafe.com
 
-1. In the Pages project, open **Custom domains** → **Set up a custom domain**.
-2. Type the domain (e.g. `shananacoffee.com`, and add `www.shananacoffee.com` too).
-3. If the domain is already on Cloudflare, it sets up DNS for you. If not, follow the
-   DNS record Cloudflare shows you at your domain registrar.
-4. HTTPS is switched on automatically within a few minutes.
+Domain names are not case-sensitive, so www.ShananaCafe.com and www.shananacafe.com are the same address.
+
+### Step 1: Put the domain on Cloudflare (recommended)
+Skip this if shananacafe.com already appears under **Websites** in your Cloudflare dashboard.
+1. In Cloudflare, click **Add a domain**, type `shananacafe.com`, choose the **Free** plan.
+2. Cloudflare shows two **nameservers** (like `ada.ns.cloudflare.com`).
+3. Log in where you bought the domain (GoDaddy, Namecheap, Google/Squarespace, etc.),
+   find **Nameservers**, choose **Custom**, and paste Cloudflare's two nameservers.
+4. Wait until Cloudflare emails you that the domain is **Active** (usually under an hour, up to 24 h).
+
+### Step 2: Attach the domain to the site
+1. Cloudflare → **Workers & Pages** → your project (`shanana-coffee`) → **Custom domains**.
+2. **Set up a custom domain** → type `www.shananacafe.com` → **Continue** → **Activate domain**.
+3. Do it again for `shananacafe.com` (without www).
+4. Wait for both to show **Active** (a few minutes). HTTPS turns on automatically.
+
+### Step 3: Send everyone to the www address
+1. Cloudflare → open **shananacafe.com** → **Rules** → **Redirect Rules** → **Create rule**.
+2. Choose the template **Redirect from Root to WWW**, then **Deploy**.
+   Now `shananacafe.com` always lands on `https://www.shananacafe.com`.
+
+### If you can't move the nameservers
+At your registrar, add a DNS record: type **CNAME**, name **www**, value **shanana-coffee.pages.dev**.
+Then do Step 2 for `www.shananacafe.com` only. Use the registrar's "domain forwarding"
+to send `shananacafe.com` to `https://www.shananacafe.com`.
+
+### Check it worked
+Open https://www.shananacafe.com and https://shananacafe.com. Both should show the site with a padlock.
 
 ## Before you share it publicly
 - The Arabica bean photo (`arabica.jpg`) came from social media: replace it unless you have the rights.
