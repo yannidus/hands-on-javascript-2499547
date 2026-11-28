@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Our Story · Shanana Coffee</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* VOICE occasion, quiet and sincere: a brand manifesto
+   IDEA the cup as a bridge: the hands that grow coffee on one side, the hands that enjoy it on the other
+   PICTURE the harvest photo full-bleed; the cherry-to-cup film in a gold arch; a two-sided cup diagram
+   COLOUR coffee-leaf green #183a28, light yellow #faf3cf, gold accents, cherry red for one detail
+   TYPE Cormorant Garamond light + Jost light, as the main page
+   LAYOUT chapters alternate green and yellow bands; text beside its picture; phone stacks */
+:root{color-scheme:light;--g:#183a28;--g2:#1f4430;--gd:#12291d;--y:#faf3cf;--y2:#f4e9b4;--ink:#1b3324;--soft:#4b5a43;--mute:#cdd5b2;--gold:#dcb94f;--cherry:#b3262d;--foil:linear-gradient(100deg,#8c6b22 0%,#e8cd7e 28%,#b78a2f 52%,#f4e0a0 74%,#9a7428 100%)}
+*{box-sizing:border-box;min-width:0}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--g);color:var(--y);font:300 17px/1.75 Jost,system-ui,sans-serif;overflow-x:clip;-webkit-text-size-adjust:100%}
+img,video{max-width:100%;display:block}
+h1,h2,h3{font-family:"Cormorant Garamond",Georgia,serif;font-weight:300;line-height:1.05;letter-spacing:-.01em;margin:0}
+h2{font-size:clamp(38px,5vw,64px)}
+p{margin:0}
+p+p{margin-top:18px}
+a{color:inherit}
+.foil{background:var(--foil);-webkit-background-clip:text;background-clip:text;color:transparent}
+.in{max-width:1200px;margin:0 auto}
+.band{position:relative;isolation:isolate;overflow:hidden;padding-block:clamp(72px,10vw,140px);padding-left:max(6vw,16px,env(safe-area-inset-left,0px));padding-right:max(6vw,16px,env(safe-area-inset-right,0px))}
+.kicker{font:400 13px Jost,sans-serif;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);margin-bottom:22px}
+.yel{background:var(--y);color:var(--ink)}
+.yel .kicker{color:var(--g2);font-weight:500}
+.yel p{color:var(--soft)}
+.wm::after{content:"";position:absolute;z-index:-1;top:50%;right:-4%;width:min(72vw,600px);aspect-ratio:1510/1943;transform:translateY(-50%);background:url(logo.webp) center/contain no-repeat;opacity:.07;pointer-events:none}
+.yel.wm::after{background-image:url(logo-green.webp);opacity:.09}
+.wm.l::after{right:auto;left:-4%}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:0 30px;background:var(--foil);background-size:160% 100%;color:#17120a;text-decoration:none;font:500 13px Jost,sans-serif;letter-spacing:.24em;text-transform:uppercase;transition:background-position .6s}
+.btn:hover{background-position:100% 0}
+.ghost{background:transparent;color:inherit;border:1px solid currentColor}
+a:focus-visible{outline:1px solid var(--gold);outline-offset:4px}
+/* nav */
+nav{position:absolute;top:0;left:0;right:0;z-index:3;padding-top:calc(env(safe-area-inset-top,0px) + 26px);padding-left:max(6vw,16px);padding-right:max(6vw,16px)}
+nav .in{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-bottom:18px;border-bottom:1px solid #ffffff2a}
+.brand{font:400 24px "Cormorant Garamond",serif;letter-spacing:.2em;text-transform:uppercase;text-decoration:none}
+nav a.back{color:#efe7cf;text-decoration:none;font-size:12px;letter-spacing:.26em;text-transform:uppercase}
+nav a.back:hover{color:#f4e0a0}
+/* hero */
+.hero{min-height:min(100svh,940px);display:grid;align-items:end;background:#183a28 url(harvest.jpg) center 40%/cover;padding-top:160px}
+.hero::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(0deg,#12291df2 0%,#12291dcc 30%,#12291d33 65%,#12291d88 100%)}
+.hero h1{font-size:clamp(52px,8.6vw,120px);max-width:11ch}
+.hero .sub{font:italic 300 clamp(22px,2.6vw,30px)/1.35 "Cormorant Garamond",serif;color:#f3ead0;margin-top:26px;max-width:34ch}
+.hero .in{width:100%}
+/* chapter 1 */
+.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(40px,7vw,110px);align-items:center}
+.drop{font-size:20px}
+.drop::first-letter{float:left;font:400 84px/.8 "Cormorant Garamond",serif;color:var(--g2);margin:8px 12px 0 0}
+.archv{max-width:380px;width:100%;justify-self:center;padding:10px;border-radius:999px 999px 6px 6px;background:var(--foil)}
+.archv video{display:block;border-radius:999px 999px 2px 2px;width:100%;aspect-ratio:9/16;object-fit:cover;background:#fff}
+.credit{font-size:11px;line-height:1.5;color:var(--soft);opacity:.8;text-align:center;margin:6px auto 0;max-width:40ch}
+.cap{font-size:13px;color:var(--soft);text-align:center;margin-top:14px}
+.stages{display:flex;flex-wrap:wrap;gap:8px;margin-top:30px;padding:0;list-style:none}
+.stages button{font:400 14px Jost,sans-serif;background:transparent;border:1px solid #1f443055;padding:8px 14px;min-height:40px;color:var(--g2);cursor:pointer;transition:background .3s,color .3s}
+.stages button:hover{border-color:var(--g2)}
+.stages button.on{background:var(--g2);color:var(--y);border-color:var(--g2)}
+/* belief */
+.belief{text-align:center}
+.belief blockquote{margin:0 auto;max-width:20ch;font:300 clamp(40px,5.6vw,76px)/1.08 "Cormorant Garamond",serif;color:var(--y)}
+.belief blockquote em{font-style:italic}
+.belief .pre{max-width:52ch;margin:0 auto 40px;color:var(--mute)}
+.orn{display:flex;align-items:center;justify-content:center;gap:14px;margin:40px 0}
+.orn::before,.orn::after{content:"";height:1px;flex:1;max-width:120px;background:linear-gradient(90deg,transparent,var(--gold))}
+.orn::after{background:linear-gradient(270deg,transparent,var(--gold))}
+.orn i{width:14px;height:8px;border-radius:0 100% 0 100%;transform:rotate(-20deg);background:var(--foil)}
+/* vision */
+.vision .split{align-items:start}
+.vision h2{margin-bottom:30px}
+.levers{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:36px}
+.lever{background:var(--g2);color:var(--y);padding:30px 20px 24px;border-radius:48px 48px 4px 4px;text-align:center;border:1px solid #dcb94f88}
+.lever b{display:block;font:400 28px "Cormorant Garamond",serif}
+.lever span{font-size:13px;color:var(--mute)}
+/* two sides */
+.sides h2{text-align:center;max-width:18ch;margin:0 auto}
+.bridge{display:grid;grid-template-columns:minmax(0,1fr) minmax(200px,300px) minmax(0,1fr);gap:clamp(20px,4vw,56px);align-items:center;margin-top:64px}
+.side{border-top:1px solid #dcb94f66;padding-top:22px}
+.side h3{font-size:30px;font-weight:400;margin-bottom:14px}
+.side .tag{font-size:12px;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;display:block}
+.side p{color:var(--mute)}
+.side.r{text-align:right}
+.cupfig svg{width:100%;height:auto;overflow:visible}
+.connect{text-align:center;margin:56px auto 0;max-width:40ch;font:italic 300 clamp(24px,2.8vw,32px)/1.35 "Cormorant Garamond",serif;color:#f3ead0}
+/* results */
+.trio{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid #1b332433;border-bottom:1px solid #1b332433;margin:48px 0}
+.trio div{padding:30px 24px}
+.trio div+div{border-left:1px solid #1b332433}
+.trio small{font-size:12px;letter-spacing:.26em;text-transform:uppercase;color:var(--g2);font-weight:500}
+.trio b{display:block;font:400 clamp(30px,3.4vw,44px)/1.1 "Cormorant Garamond",serif;color:var(--ink);margin-top:8px}
+.results .cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,5vw,80px)}
+.results .big{font:300 clamp(28px,3vw,38px)/1.25 "Cormorant Garamond",serif;color:var(--ink)}
+.promise{margin-top:28px;padding:20px 22px;border-left:3px solid var(--cherry);background:#fff8;color:var(--ink)}
+/* close */
+.close{text-align:center;background:var(--gd) url(pat-dark.png) 0 0/260px}
+.close h2{font-size:clamp(44px,6.6vw,92px);max-width:14ch;margin:0 auto}
+.close .cta{display:flex;justify-content:center;flex-wrap:wrap;gap:14px;margin-top:44px}
+.close .ghost{color:var(--y)}
+footer{background:var(--y) url(pat-green.png) 0 0/130px;color:var(--soft);font-size:13px;text-align:center;border-top:6px solid var(--g2);padding-block:44px calc(36px + env(safe-area-inset-bottom,0px));padding-left:max(6vw,16px);padding-right:max(6vw,16px)}
+footer .mark{font:400 24px "Cormorant Garamond",serif;letter-spacing:.24em;text-transform:uppercase;color:var(--g2)}
+footer p{margin-top:8px}
+@media(max-width:860px){.bridge{grid-template-columns:minmax(0,1fr)}.side.r{text-align:left}.cupfig{max-width:240px;margin:0 auto;order:-1}}
+@media(max-width:760px){.split,.results .cols{grid-template-columns:minmax(0,1fr)}.archv{max-width:300px}.wm::after{width:110vw;right:-30%}.wm.l::after{left:-30%}}
+@media(max-width:560px){.trio{grid-template-columns:minmax(0,1fr)}.trio div+div{border-left:0;border-top:1px solid #1b332433}.levers{grid-template-columns:minmax(0,1fr)}.drop::first-letter{font-size:64px}}
+@media(prefers-reduced-motion:reduce){.btn{transition:none}html{scroll-behavior:auto}}
+.emblem{background:#0b0a08 radial-gradient(ellipse at 25% 50%,#2a2312 0%,transparent 55%)}
+.em-grid{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(40px,7vw,110px);align-items:center}
+.em-logo img{width:100%;max-width:380px;margin:0 auto;filter:drop-shadow(0 0 50px #dcb94f33)}
+.emblem h2{margin-bottom:24px}
+.em-intro{color:#d8cfbd;font-size:19px;max-width:52ch}
+.em-pts{margin-top:34px}
+.em-pts div{border-top:1px solid #dcb94f40;padding:22px 0}
+.em-pts h3{font-size:28px;font-weight:400;color:#f1d98a;margin-bottom:8px}
+.em-pts p{color:#b9ae98;font-size:16px}
+@media(max-width:760px){.em-grid{grid-template-columns:minmax(0,1fr)}.em-logo img{max-width:240px}}
+</style>
+</head>
+<body>
+
+<nav><div class="in">
+  <a class="brand foil" href="./">Shanana</a>
+  <a class="back" href="./">Back to wholesale</a>
+</div></nav>
+
+<header class="band hero"><div class="in">
+  <p class="kicker">Our story</p>
+  <h1>The impact behind every <em class="foil">cup.</em></h1>
+  <p class="sub">Coffee is more than a beverage. It is a chain of human stories.</p>
+</div></header>
+
+<section class="band yel wm"><div class="in split">
+  <div>
+    <p class="kicker">Where it begins</p>
+    <h2 style="margin-bottom:30px">Before the cup, there are hands.</h2>
+    <p class="drop">Long before coffee reaches your cup, it begins with someone tending the land, nurturing a crop, and investing their time, knowledge, and hopes into a harvest.</p>
+    <p>Yet, too often, the people at the beginning of that journey have the fewest opportunities to benefit from the value they help create.</p>
+    <div class="stages" id="stages"><button type="button">Cherry</button><button type="button">Harvest</button><button type="button">Washed</button><button type="button">Roast</button><button type="button">Grind</button><button type="button">Cup</button></div>
+  </div>
+  <div>
+    <div class="archv"><video id="film" src="shanana-cherry-to-cup.mp4" poster="film-poster.jpg" autoplay muted loop playsinline aria-label="Film: coffee cherries on the branch, picked by hand, washed and dried, roasted, ground, and served in a cup"></video></div>
+    <p class="cap">From cherry to cup · tap a stage to jump to it</p>
+    <p class="credit">Photos: David Stanley (CC BY 2.0), Alorin (CC BY 4.0), U.S. Fish and Wildlife Service, MarkSweep, Roger Burger, Edward, via Wikimedia Commons.</p>
+  </div>
+</div></section>
+
+<section class="band belief wm l"><div class="in">
+  <p class="kicker">What we believe</p>
+  <p class="pre">Shanana was built around a simple belief:</p>
+  <blockquote>The people who create value should have the opportunity to <em class="foil">share in it.</em></blockquote>
+  <div class="orn" aria-hidden="true"><i></i></div>
+</div></section>
+
+<section class="band yel vision wm"><div class="in split">
+  <div>
+    <p class="kicker">Our vision</p>
+    <h2>Partners, not just suppliers.</h2>
+    <p>We envision a coffee business where farmers are recognized as business partners, communities have opportunities to grow, and customers can enjoy exceptional coffee with a deeper understanding of where it comes from.</p>
+  </div>
+  <div>
+    <p>Our ambition is not to build a business that depends on generosity, but one where economic opportunity is embedded in the way we operate.</p>
+    <p>A commercially sustainable business capable of creating lasting value through:</p>
+    <div class="levers">
+      <div class="lever"><b>Trade</b><span>Long-term buying relationships</span></div>
+      <div class="lever"><b>Employment</b><span>Jobs at origin and beyond</span></div>
+      <div class="lever"><b>Entrepreneurship</b><span>Room for new businesses to grow</span></div>
+      <div class="lever"><b>Investment</b><span>Value that stays and compounds</span></div>
+    </div>
+  </div>
+</div></section>
+
+<section class="band sides"><div class="in">
+  <p class="kicker" style="text-align:center">Both sides of the cup</p>
+  <h2>Creating opportunity on both sides of the cup.</h2>
+  <div class="bridge">
+    <div class="side">
+      <span class="tag">At origin</span>
+      <h3>The hands that cultivate</h3>
+      <p>We aspire to support stronger livelihoods, local value creation, and long-term economic opportunities.</p>
+    </div>
+    <div class="cupfig" aria-hidden="true">
+      <svg viewBox="0 0 300 240">
+        <defs><linearGradient id="gf" x1="0" x2="1"><stop offset="0" stop-color="#8c6b22"/><stop offset=".3" stop-color="#e8cd7e"/><stop offset=".55" stop-color="#b78a2f"/><stop offset=".8" stop-color="#f4e0a0"/><stop offset="1" stop-color="#9a7428"/></linearGradient></defs>
+        <path d="M18 120 H92" stroke="#dcb94f" stroke-width="1" stroke-dasharray="3 5"/>
+        <path d="M208 120 H282" stroke="#dcb94f" stroke-width="1" stroke-dasharray="3 5"/>
+        <circle cx="14" cy="120" r="5" fill="#b3262d"/>
+        <circle cx="286" cy="120" r="5" fill="#dcb94f"/>
+        <path d="M128 60 q-10 -16 0 -30 M150 56 q-10 -18 0 -36 M172 60 q-10 -16 0 -30" fill="none" stroke="#cdd5b2" stroke-width="2" stroke-linecap="round" opacity=".7"/>
+        <path d="M86 84 H214 L204 168 Q200 196 172 196 H128 Q100 196 96 168 Z" fill="url(#gf)"/>
+        <path d="M214 104 q34 0 34 30 q0 30 -40 34" fill="none" stroke="url(#gf)" stroke-width="10"/>
+        <ellipse cx="150" cy="86" rx="64" ry="9" fill="#3a2415"/>
+        <ellipse cx="150" cy="214" rx="96" ry="10" fill="#dcb94f" opacity=".35"/>
+        <path d="M60 214 H240" stroke="url(#gf)" stroke-width="3" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="side r">
+      <span class="tag">Beyond origin</span>
+      <h3>The hands that enjoy</h3>
+      <p>We aim to create opportunities for entrepreneurs, business partners, and individuals who share our belief in the power of coffee to connect people and economies.</p>
+    </div>
+  </div>
+  <p class="connect">Every cup represents a connection between these two worlds: between the hands that cultivate coffee and the hands that enjoy it.</p>
+</div></section>
+
+<section class="band yel results wm l"><div class="in">
+  <p class="kicker">Accountability</p>
+  <h2>We believe impact should be demonstrated, not simply declared.</h2>
+  <div class="trio">
+    <div><small>Built on</small><b>Business.</b></div>
+    <div><small>Driven by</small><b>Purpose.</b></div>
+    <div><small>Measured by</small><b>Results.</b></div>
+  </div>
+  <div class="cols">
+    <p class="big">Our commitments represent the future we are working toward, not achievements we claim to have already delivered.</p>
+    <div>
+      <p>As Shanana grows, we will measure our progress, hold ourselves accountable, and publish our impact only when it can be verified.</p>
+      <p class="promise">Because meaningful change is not defined by the promises we make, but by the opportunities we create.</p>
+    </div>
+  </div>
+</div></section>
+
+<section class="band emblem"><div class="in em-grid">
+  <div class="em-logo"><img src="logo.webp" alt="The Shanana Coffee emblem: a woman in traditional attire beneath a rising sun, framed by an arch with two coffee beans"></div>
+  <div>
+    <p class="kicker">Our emblem</p>
+    <h2>A sign of where we come from.</h2>
+    <p class="em-intro">The Shanana Coffee logo is a bold and elegant emblem that draws from cultural heritage, natural richness, and the warmth of coffee itself.</p>
+    <div class="em-pts">
+      <div><h3>Golden elegance</h3><p>Gold against black creates an aura of luxury, excellence and prestige, positioning Shanana as a high-quality, premium brand. Gold also reflects the richness and value of coffee as a cherished global commodity.</p></div>
+      <div><h3>Cultural identity &amp; human connection</h3><p>At the heart of the logo is the profile of a person adorned in traditional attire, symbolizing heritage, authenticity, and the human hands behind every coffee bean. It conveys a deep respect for the people, traditions, and communities that cultivate coffee.</p></div>
+      <div><h3>The radiant sunrise</h3><p>The arching lines above suggest a rising sun: new beginnings, energy, and the start of the day, perfectly aligned with coffee as the beverage that awakens. They also hint at where coffee is grown: sunlit highlands and fertile lands.</p></div>
+    </div>
+  </div>
+</div></section>
+
+<section class="band close"><div class="in">
+  <img src="logo.webp" alt="" style="width:120px;margin:0 auto 34px">
+  <h2>One cup. Shared prosperity. A better <em class="foil">future.</em></h2>
+  <div class="cta"><a class="btn" href="./#partner">Become a partner</a><a class="btn ghost" href="./#collection">See the coffee</a></div>
+</div></section>
+
+<footer>
+  <div class="mark">Shanana Coffee</div>
+  <p>U.S. · sales@yannyllc.co · +1 (617) 970-0251</p>
+  <p>Rwanda · shanana.coffee@travion.rw · +250 783 311 187 · P.O. Box 3975, Gasabo, Kigali</p>
+</footer>
+
+<script>
+{
+const v=document.getElementById('film'),btns=[...document.querySelectorAll('#stages button')];
+const CUTS=[0,5.4,8.2,10.8,13.4,16];
+const mark=()=>{const t=v.currentTime;let k=0;CUTS.forEach((c,i)=>{if(t>=c)k=i});btns.forEach((b,i)=>b.classList.toggle('on',i===k))};
+v.addEventListener('timeupdate',mark);mark();
+btns.forEach((b,i)=>b.addEventListener('click',()=>{v.currentTime=CUTS[i]+.9;v.play().catch(()=>{});mark()}));
+if(matchMedia('(prefers-reduced-motion: reduce)').matches){v.removeAttribute('autoplay');v.pause();v.controls=true}
+}
+</script>
+</body>
+</html>

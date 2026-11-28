@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Shanana Coffee: 100% Arabica from Nyaruguru, Rwanda. Wholesale partner information, samples and pricing for cafés, retailers and distributors.">
+<meta property="og:title" content="Shanana Coffee">
+<meta property="og:description" content="Every sip tells a story. 100% Arabica from Nyaruguru, Rwanda.">
+<meta property="og:image" content="hills.jpg">
+<link rel="icon" type="image/png" href="favicon.png">
+<title>Shanana Coffee</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* VOICE occasion, hushed luxury: a house in black and gold foil
+   IDEA the emblem's arch: gold-foil arches frame the bag, the cards and the form, like a jeweller's vitrine
+   PICTURE the gold emblem large on black over the misted hills; the bag standing in a gold arch
+   COLOUR near-black #0b0a08, ivory #f3ecdd, champagne-gold foil gradient, one ivory band
+   TYPE Cormorant Garamond light + Jost light
+   LAYOUT hero centred like a label; below, wide two-column bands with hairline rules; phone stacks */
+:root{color-scheme:dark;--blk:#0b0a08;--blk2:#13110e;--ivory:#f3ecdd;--ink:#1a1712;--mute:#a79d89;--mute2:#7a705f;--gold:#c9a24a;--leaf:#1f4430;--leaf-d:#12291d;--leaf-l:#3c6b4a;--leaf-pale:#9dbb8c;--hair:#c9a24a55;--foil:linear-gradient(100deg,#8c6b22 0%,#e8cd7e 28%,#b78a2f 52%,#f4e0a0 74%,#9a7428 100%)}
+*{box-sizing:border-box;min-width:0}
+html{scroll-behavior:smooth}
+body{background:var(--blk);color:var(--ivory);font:300 17px/1.75 Jost,system-ui,sans-serif;overflow-x:clip;margin:0;letter-spacing:.01em}
+h1,h2,h3{font-family:"Cormorant Garamond",Georgia,serif;font-weight:300;line-height:1.04;letter-spacing:-.01em;margin:0}
+h2{font-size:clamp(40px,5.4vw,68px)}
+h3{font-size:28px;font-weight:400}
+p{margin:0}
+a{color:inherit}
+.foil{background:var(--foil);-webkit-background-clip:text;background-clip:text;color:transparent}
+.in{max-width:1200px;margin:0 auto}
+.band{padding-block:clamp(72px,10vw,150px);padding-left:max(6vw,16px,env(safe-area-inset-left,0px));padding-right:max(6vw,16px,env(safe-area-inset-right,0px))}
+.kicker{font:400 13px Jost,sans-serif;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);margin-bottom:22px}
+.lead{font-size:18px;color:var(--mute);max-width:56ch}
+.orn{display:flex;align-items:center;gap:14px;color:var(--gold);margin:28px 0}
+.orn::before,.orn::after{content:"";height:1px;flex:1;max-width:120px;background:linear-gradient(90deg,transparent,var(--gold))}
+.orn::after{background:linear-gradient(270deg,transparent,var(--gold))}
+.orn i{width:14px;height:8px;border-radius:0 100% 0 100%;transform:rotate(-20deg);background:linear-gradient(135deg,var(--leaf-l),var(--leaf))}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:0 30px;background:var(--foil);background-size:160% 100%;background-position:0 0;color:#17120a;text-decoration:none;border:0;font:500 13px Jost,sans-serif;letter-spacing:.24em;text-transform:uppercase;cursor:pointer;transition:background-position .6s}
+.btn:hover{background-position:100% 0}
+.ghost{background:transparent;color:var(--ivory);border:1px solid var(--hair)}
+.ghost:hover{border-color:var(--gold);color:#f4e0a0}
+.btn:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:1px solid var(--gold);outline-offset:4px}
+nav{position:absolute;top:0;left:0;right:0;z-index:2;padding-top:calc(env(safe-area-inset-top,0px) + 26px);padding-left:max(6vw,16px);padding-right:max(6vw,16px)}
+nav .in{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-bottom:18px;border-bottom:1px solid #ffffff1a}
+.brand{font:400 24px "Cormorant Garamond",serif;letter-spacing:.2em;text-transform:uppercase;text-decoration:none}
+nav ul{display:flex;gap:clamp(18px,3vw,44px);list-style:none;margin:0;padding:0}
+nav ul a{color:#d9cfbb;text-decoration:none;font-size:12px;letter-spacing:.26em;text-transform:uppercase}
+nav ul a:hover{color:#f4e0a0}
+.hero{position:relative;text-align:center;background:#0b0a08 url(hills.jpg) center 60%/cover;padding-top:clamp(130px,15vw,170px);padding-bottom:clamp(56px,7vw,90px)}
+.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 42%,#12291d80 0%,#0b0f0ce0 55%,#0b0a08 100%)}
+.hero>*{position:relative}
+.emblem{width:clamp(200px,24vw,300px);display:block;margin:0 auto 34px;filter:drop-shadow(0 0 40px #c9a24a33)}
+.hero h1{font-size:clamp(54px,8.4vw,116px);font-weight:300;letter-spacing:-.015em}
+.hero h1 em{font-style:italic}
+.hero .lead{margin:26px auto 0;color:#cfc5b1;max-width:44ch;font-size:19px}
+.hero .cta{justify-content:center}
+.cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:40px}
+.facts{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));margin-top:clamp(56px,7vw,96px);border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+.facts div{padding:22px 10px}
+.facts div+div{border-left:1px solid #c9a24a2e}
+.facts dt{font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--mute)}
+.facts dd{margin:6px 0 0;font:400 24px "Cormorant Garamond",serif;white-space:nowrap}
+.origin{background:var(--ivory);color:var(--ink)}
+.origin .kicker{color:var(--leaf)}
+.origin{border-top:6px solid var(--leaf)}
+.origin .lead{color:#5b5345;margin-top:26px}
+.origin h2 em{font-style:italic;color:#8f6c1f}
+.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(40px,7vw,120px);align-items:start}
+.notes{border-top:1px solid #1a171233}
+.note{display:grid;grid-template-columns:120px minmax(0,1fr);gap:24px;padding:30px 0;border-bottom:1px solid #1a171233}
+.note .k{font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--leaf);font-weight:500;padding-top:10px}
+.note p{color:#5b5345;font-size:16px;margin-top:6px}
+.note i{display:block;margin-top:10px;font:italic 400 21px "Cormorant Garamond",serif;color:var(--ink)}
+.aro{font:italic 400 22px/1.4 "Cormorant Garamond",serif;color:var(--ink);margin-bottom:26px}
+.sig{margin-top:40px;padding-left:22px;border-left:2px solid var(--leaf-l);font:italic 300 26px/1.3 "Cormorant Garamond",serif;color:var(--leaf);max-width:40ch;font-size:23px}
+.coll{background:var(--blk) url(pat-dark.png) 0 0/260px}
+.coll .split{grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);align-items:center}
+.arch{padding:14px;border-radius:999px 999px 6px 6px;background:var(--foil)}
+.arch>div{border-radius:999px 999px 2px 2px;background:radial-gradient(ellipse at 50% 35%,#2f5a3e 0%,#12291d 75%);padding:clamp(40px,6vw,80px) clamp(20px,4vw,48px) 30px;display:grid;place-items:center}
+.arch img{width:100%;max-width:360px;filter:drop-shadow(0 30px 30px #000c)}
+.arch-wrap{max-width:440px;width:100%;justify-self:center}
+.sizes{margin-top:34px}
+.size{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:30px;align-items:baseline;padding:24px 0;border-top:1px solid #c9a24a2e}
+.size:last-child{border-bottom:1px solid #c9a24a2e}
+.size .w{font:300 50px/1 "Cormorant Garamond",serif;width:3.1ch;white-space:nowrap}
+.size h3{font-size:26px}
+.size .m{display:block;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-top:4px;white-space:nowrap}
+.size p{color:var(--mute);font-size:15px;margin-top:6px}
+.spec{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 40px;margin-top:clamp(56px,7vw,96px)}
+.spec div{border-top:1px solid #c9a24a2e;padding:18px 0}
+.spec dt{font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--mute)}
+.spec dd{margin:6px 0 0;font:400 21px/1.35 "Cormorant Garamond",serif}
+.callout{margin-top:40px;padding:26px 30px;border:1px solid var(--hair);background:#0b0a08e6;color:#d7cdb9;font-size:16px}
+.callout b{font:italic 400 20px "Cormorant Garamond",serif;color:#f4e0a0;margin-right:6px}
+.impact{background:var(--leaf) radial-gradient(ellipse at 80% 0%,#2f5a3e 0%,transparent 60%)}
+.impact .lead{margin-top:24px;color:#c9d6c0}
+.impact .kicker{color:#e1c26e}
+.grid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px;margin-top:64px}
+.card{border:1px solid #c9a24a80;border-radius:999px 999px 4px 4px;padding:70px 26px 34px;text-align:center;background:linear-gradient(180deg,#12291d,#163323)}
+.card small{display:block;font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:#e1c26e;margin-bottom:14px}
+.card h3{font-size:27px;margin-bottom:14px}
+.card p{color:#b9c8b0;font-size:15px}
+.partner{background:var(--blk) url(pat-dark.png) 0 0/260px;border-top:1px solid #c9a24a2e}
+.partner .lead{margin-top:22px}
+.who{display:flex;flex-wrap:wrap;gap:10px;margin:34px 0 40px;padding:0;list-style:none}
+.who li{border:1px solid #c9a24a40;background:#0b0a08;padding:7px 16px;font-size:14px;color:#d7cdb9}
+.steps{list-style:none;padding:0;margin:0;counter-reset:s}
+.steps li{counter-increment:s;display:grid;grid-template-columns:52px minmax(0,1fr);gap:16px;align-items:baseline;padding:16px 0;border-top:1px solid #c9a24a2e}
+.steps li::before{content:counter(s,upper-roman);font:italic 400 28px/1 "Cormorant Garamond",serif;color:var(--leaf-pale)}
+.small{font-size:14px;color:var(--mute2);margin-top:26px;max-width:56ch}
+.contact{margin-top:34px}
+.contact div{display:grid;grid-template-columns:150px minmax(0,1fr);gap:16px;padding:12px 0;border-top:1px solid #c9a24a2e}
+.contact dt{font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--mute);padding-top:5px}
+.contact dd{margin:0;overflow-wrap:anywhere;font:400 21px "Cormorant Garamond",serif}
+.contact a{text-decoration:none;color:#f4e0a0}
+.formwrap{padding:1px;border-radius:999px 999px 4px 4px;background:var(--foil)}
+form{border-radius:999px 999px 3px 3px;background:linear-gradient(180deg,#12291d 0%,#0d1a13 100%);padding:clamp(90px,11vw,130px) clamp(24px,4vw,48px) clamp(28px,4vw,44px);display:grid;gap:22px}
+form h3{text-align:center;font-size:34px}
+form .orn{margin:0 auto -4px;width:100%;justify-content:center}
+.row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:22px}
+label{display:grid;gap:4px;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--mute)}
+input,select,textarea{font:300 17px Jost,sans-serif;letter-spacing:0;text-transform:none;color:var(--ivory);background:transparent;border:0;border-bottom:1px solid #c9a24a55;border-radius:0;padding:10px 0;width:100%}
+select option{background:#12291d}
+input:focus,select:focus,textarea:focus{border-bottom-color:var(--gold)}
+textarea{min-height:90px;resize:vertical}
+fieldset{border:0;padding:0;margin:0}
+legend{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--mute);margin-bottom:12px}
+.chk{display:flex;flex-wrap:wrap;gap:10px}
+.chk label{display:flex;align-items:center;gap:10px;border:1px solid #c9a24a40;padding:10px 16px;cursor:pointer;color:var(--ivory);font:400 19px "Cormorant Garamond",serif;letter-spacing:0;text-transform:none}
+.chk label:has(input:checked){border-color:var(--gold);background:#c9a24a14}
+.chk input{width:auto;accent-color:#c9a24a}
+form>.btn{width:100%}
+.out{border:1px solid var(--hair);padding:20px;background:#c9a24a0d;font-size:15px}
+.out b{font:italic 400 21px "Cormorant Garamond",serif;color:#f4e0a0;display:block}
+.out pre{white-space:pre-wrap;overflow-wrap:anywhere;font:300 14px/1.6 Jost,sans-serif;margin:12px 0 16px;color:#d7cdb9}
+.out .cta{margin-top:0}
+footer{background:var(--leaf-d) url(pat-dark.png) 0 0/130px;color:var(--mute);font-size:13px;text-align:center;padding-block:56px calc(40px + env(safe-area-inset-bottom,0px));padding-left:max(6vw,16px);padding-right:max(6vw,16px);border-top:1px solid #c9a24a2e}
+footer .mark{font:400 26px "Cormorant Garamond",serif;letter-spacing:.24em;text-transform:uppercase}
+footer i{display:block;font:italic 300 22px "Cormorant Garamond",serif;color:#d7cdb9;margin-top:4px}
+footer{color:#a9b9a0}
+footer .orn i{background:var(--foil)}
+footer p{margin-top:22px;letter-spacing:.06em}
+@media(max-width:960px){.facts{grid-template-columns:repeat(3,minmax(0,1fr))}.facts div:nth-child(4){border-left:0}.grid4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:760px){.split,.coll .split{grid-template-columns:minmax(0,1fr)}.spec{grid-template-columns:repeat(2,minmax(0,1fr))}.arch-wrap{max-width:340px}nav ul{display:none}}
+@media(max-width:540px){.facts{grid-template-columns:repeat(2,minmax(0,1fr))}.facts div:nth-child(odd){border-left:0}.facts div:nth-child(4){border-left:1px solid #c9a24a2e}.grid4,.row,.spec{grid-template-columns:minmax(0,1fr)}.note{grid-template-columns:minmax(0,1fr);gap:2px}.note .k{padding:0}.contact div{grid-template-columns:minmax(0,1fr);gap:2px}.size{gap:20px}.size .w{font-size:40px}.card{padding-top:56px}}
+@media(prefers-reduced-motion:reduce){.btn{transition:none}html{scroll-behavior:auto}}
+/* green + light yellow palette, Shanana emblem watermarked behind each section */
+:root{--blk:#183a28;--blk2:#1f4430;--ivory:#faf3cf;--yel:#faf3cf;--yel2:#f4e9b4;--ink:#1b3324;--mute:#cdd5b2;--mute2:#b3bf98;--gold:#dcb94f;--hair:#e4c76a66;--leaf:#1f4430}
+.hero{background-color:var(--blk)}
+.hero::before{background:radial-gradient(ellipse at 50% 42%,#183a2888 0%,#183a28e0 55%,#183a28 100%)}
+.origin{background:var(--yel)}
+.origin .lead,.note p{color:#4b5a43}
+.origin h2 em{color:var(--leaf)}
+.callout{background:#12291de6}
+.impact{background:var(--yel2);color:var(--ink)}
+.impact .lead{color:#4b5a43}
+.impact .kicker{color:var(--leaf);font-weight:500}
+.card{color:var(--yel);background:linear-gradient(180deg,#1f4430,#183a28);border-color:#dcb94f99}
+.card p{color:#d3dbb9}
+.who li{background:#183a28}
+.contact a{color:#f6e39a}
+footer{background:var(--yel) url(pat-green.png) 0 0/130px;color:#4b5a43;border-top:6px solid var(--leaf)}
+footer .mark{background:none;color:var(--leaf)}
+footer i{color:var(--ink)}
+footer .orn i{background:linear-gradient(135deg,#3c6b4a,#1f4430)}
+.wm{position:relative;isolation:isolate;overflow:hidden}
+.wm::after{content:"";position:absolute;z-index:-1;top:50%;right:-4%;width:min(72vw,620px);aspect-ratio:1510/1943;transform:translateY(-50%);background:url(logo-green.webp) center/contain no-repeat;opacity:.09;pointer-events:none}
+.wm.l::after{right:auto;left:-4%}
+.wm.g::after{background-image:url(logo.webp);opacity:.08}
+@media(max-width:760px){.wm::after{width:110vw;right:-30%}.wm.l::after{left:-30%}}
+.arabica{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);background:#1a0f08;color:#f3ead6;border-top:1px solid #dcb94f40}
+.ar-img{position:relative;min-height:520px}
+.ar-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 45%}
+.ar-img::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 60%,#1a0f08)}
+.ar-txt{align-self:center;padding:clamp(48px,7vw,110px) max(6vw,16px,env(safe-area-inset-right,0px)) clamp(48px,7vw,110px) clamp(24px,4vw,64px)}
+.ar-txt h2{font-size:clamp(64px,8vw,112px);line-height:.95;margin-bottom:22px}
+.ar-txt .kicker{color:var(--gold)}
+.ar-lead{font:italic 400 26px/1.3 "Cormorant Garamond",serif;color:#f3ead6;margin-bottom:12px}
+.ar-txt>p:not(.kicker):not(.ar-lead){color:#cdbfa6;max-width:44ch}
+.ar-facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:34px;border-top:1px solid #dcb94f40}
+.ar-facts div{padding:16px 12px 0 0}
+.ar-facts dt{font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:#a8977a}
+.ar-facts dd{margin:4px 0 0;font:400 20px/1.3 "Cormorant Garamond",serif}
+@media(max-width:760px){.arabica{grid-template-columns:minmax(0,1fr)}.ar-img{min-height:380px}.ar-img::after{background:linear-gradient(180deg,transparent 60%,#1a0f08)}.ar-txt{padding-left:max(6vw,16px)}}
+@media(max-width:420px){.ar-facts{grid-template-columns:minmax(0,1fr)}}
+.offices{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;margin-top:26px}
+.office{font:400 13px Jost,sans-serif;letter-spacing:.28em;text-transform:uppercase;color:var(--gold)}
+.offices .contact{margin-top:10px}
+.offices .contact div{grid-template-columns:minmax(0,1fr);gap:2px}
+.offices .contact dd{font-size:19px}
+@media(max-width:1000px) and (min-width:761px){.offices{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:520px){.offices{grid-template-columns:minmax(0,1fr)}}
+</style>
+</head>
+<body>
+
+<nav><div class="in">
+  <a class="brand foil" href="#top">Shanana</a>
+  <ul><li><a href="#origin">Origin</a></li><li><a href="#collection">Collection</a></li><li><a href="impact.html">Our story</a></li><li><a href="#partner">Wholesale</a></li></ul>
+</div></nav>
+
+<header class="hero band" id="top">
+  <img class="emblem" src="logo.webp" alt="Shanana Coffee gold emblem: a Rwandan woman holding a basket of coffee beneath a rising sun">
+  <p class="kicker">Nyaruguru · Rwanda</p>
+  <h1>Every sip tells<br>a <em class="foil">story.</em></h1>
+  <p class="lead">Born in the mountains of Rwanda. Crafted with care. Shared with the world.</p>
+  <div class="cta"><a class="btn" href="#partner">Request samples</a><a class="btn ghost" href="#collection">The collection</a></div>
+  <dl class="in facts">
+    <div><dt>Country</dt><dd>Rwanda</dd></div>
+    <div><dt>Region</dt><dd>Nyaruguru</dd></div>
+    <div><dt>Variety</dt><dd>100% Arabica</dd></div>
+    <div><dt>Altitude</dt><dd>1,800–1,900 m</dd></div>
+    <div><dt>Process</dt><dd>Washed</dd></div>
+  </dl>
+</header>
+
+<section class="band origin wm" id="origin"><div class="in split">
+  <div>
+    <p class="kicker">Origin</p>
+    <h2>Grown where the <em>mountains</em> meet the clouds.</h2>
+    <p class="lead">In the highlands of Rwanda’s Southern Province, our coffee grows slowly: at 1,800 to 1,900 meters, in a cool climate, on mountainous terrain and volcanic soils.</p>
+    <p class="lead" style="margin-top:16px">Cherries are harvested, depulped, fermented, washed and dried with hands-on care from local workers, then produced and packaged in Rwanda.</p>
+    <p class="sig">These hidden layers emerge gradually from careful fermentation and slow drying, a process that draws out the full complexity of the bean rather than rushing it to market.</p>
+  </div>
+  <div>
+  <p class="kicker">Aromatic profile</p>
+  <p class="aro">Grown in the high-altitude mountains of Rwanda, our coffee develops a bright acidity and a clean, layered character shaped by the region’s cool climate, volcanic soil, and careful hand processing.</p>
+  <div class="notes">
+    <div class="note"><span class="k">Top notes</span><div><h3>A bright opening</h3><p>Citrus and green apple, bright and vibrant on the first sip.</p><i>Citrus · Green apple</i></div></div>
+    <div class="note"><span class="k">Heart</span><div><h3>Sweet at the center</h3><p>Honey and floral sweetness, emerging as the cup opens up.</p><i>Honey · Floral sweetness</i></div></div>
+    <div class="note"><span class="k">Base</span><div><h3>A lingering finish</h3><p>A smooth, subtly nutty finish that lingers on the palate.</p><i>Subtly nutty</i></div></div>
+  </div>
+  </div>
+</div></section>
+
+<section class="arabica" id="arabica">
+  <div class="ar-img"><img src="arabica.jpg" alt="Close-up of a single roasted Arabica coffee bean resting on ground coffee"></div>
+  <div class="ar-txt">
+    <p class="kicker">The bean</p>
+    <h2 class="foil">Arabica</h2>
+    <p class="ar-lead">The most widely grown coffee species.</p>
+    <p>Known for higher acidity, more complexity, and a wider range of flavours, from fruit and florals to chocolate.</p>
+    <dl class="ar-facts">
+      <div><dt>Ours</dt><dd>100% Arabica</dd></div>
+      <div><dt>Grown at</dt><dd>1,800–1,900 m</dd></div>
+      <div><dt>In the cup</dt><dd>Citrus, honey, nutty</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section class="band coll wm g" id="collection"><div class="in">
+  <div class="split">
+    <div class="arch-wrap"><div class="arch"><div><img src="bag.webp" alt="Matte-black Shanana Coffee bag with the gold emblem and illustrated figures"></div></div></div>
+    <div>
+      <p class="kicker">The collection</p>
+      <h2>One origin.<br><em class="foil">Four formats.</em></h2>
+      <div class="sizes" id="sizes"></div>
+    </div>
+  </div>
+  <dl class="spec">
+    <div><dt>Origin</dt><dd>Nyaruguru, Southern Province, Rwanda</dd></div>
+    <div><dt>Variety</dt><dd>100% Arabica</dd></div>
+    <div><dt>Altitude</dt><dd>1,800–1,900 meters</dd></div>
+    <div><dt>Process</dt><dd>Washed; hand-processed</dd></div>
+    <div><dt>Packaging</dt><dd>Matte-black bag with the Shanana emblem and illustrated figures</dd></div>
+    <div><dt>Packed in</dt><dd>Rwanda, finished and ready for sale</dd></div>
+  </dl>
+  <p class="callout"><b>Pricing and ordering.</b> Wholesale pricing, minimum orders and case packs are shared directly with approved buyers. Roast and grind options, origin collections and seasonal releases will be added as they are confirmed.</p>
+</div></section>
+
+<section class="band impact wm l" id="impact"><div class="in">
+  <p class="kicker">Beyond the cup</p>
+  <h2>The impact behind every cup.</h2>
+  <p class="lead">Shanana is building a commercially sustainable coffee business that creates opportunity on both sides of the cup. These are our commitments and intended outcomes; we will publish impact figures only once they can be verified.</p>
+  <div class="grid4" id="impactGrid"></div>
+  <p style="margin-top:48px;text-align:center"><a class="btn" href="impact.html">Read our full story</a></p>
+</div></section>
+
+<section class="band partner wm g l" id="partner"><div class="in split">
+  <div>
+    <p class="kicker">Wholesale &amp; distribution</p>
+    <h2>Partner with <em class="foil">Shanana.</em></h2>
+    <p class="lead">Questions, samples or wholesale pricing? Write or call, and we’ll respond directly.</p>
+    <ul class="who"><li>Specialty coffee shops</li><li>Independent cafés</li><li>Specialty grocery</li><li>Restaurants &amp; hotels</li><li>Regional distributors</li><li>Commercial buyers</li></ul>
+    <ol class="steps">
+      <li>Tell us about your business and the sizes you’re interested in.</li>
+      <li>Request samples.</li>
+      <li>Receive wholesale pricing and terms directly.</li>
+    </ol>
+    <dl class="contact">
+      <div><dt>Founder &amp; CEO</dt><dd>Leandre Mubera, based in Rwanda</dd></div>
+    </dl>
+    <div class="offices">
+      <div>
+        <h3 class="office">United States</h3>
+        <dl class="contact">
+          <div><dt>Sales</dt><dd>U.S. wholesale enquiries</dd></div>
+          <div><dt>Email</dt><dd><a href="mailto:sales@yannyllc.co">sales@yannyllc.co</a></dd></div>
+          <div><dt>Phone</dt><dd><a href="tel:+16179700251">+1 (617) 970-0251</a></dd></div>
+        </dl>
+      </div>
+      <div>
+        <h3 class="office">Rwanda</h3>
+        <dl class="contact">
+          <div><dt>Address</dt><dd>Gasabo, Kigali<br>P.O. Box 3975, Kigali, Rwanda</dd></div>
+          <div><dt>Email</dt><dd><a href="mailto:shanana.coffee@travion.rw">shanana.coffee@travion.rw</a></dd></div>
+          <div><dt>Phone</dt><dd><a href="tel:+250783311187">+250 783 311 187</a></dd></div>
+        </dl>
+      </div>
+    </div>
+    <p class="small">Shanana is in its U.S. market-entry phase. Import, regulatory, warehousing and distribution arrangements are being established; inventory availability is confirmed directly with approved buyers.</p>
+  </div>
+  <div class="formwrap"><form id="inq" novalidate>
+    <h3>A wholesale inquiry</h3>
+    <div class="orn" aria-hidden="true"><i></i></div>
+    <div class="row">
+      <label>Your name<input id="f-name" required autocomplete="name"></label>
+      <label>Business<input id="f-biz" required autocomplete="organization"></label>
+    </div>
+    <div class="row">
+      <label>Business type<select id="f-type"><option>Specialty coffee shop</option><option>Independent café</option><option>Specialty grocery</option><option>Restaurant or hotel</option><option>Regional distributor</option><option>Office</option><option>Other commercial buyer</option></select></label>
+      <label>City / country<input id="f-city" autocomplete="address-level2"></label>
+    </div>
+    <label>Send to<select id="f-office"><option value="sales@yannyllc.co|+1 (617) 970-0251">United States office</option><option value="shanana.coffee@travion.rw|+250 783 311 187">Rwanda office</option></select></label>
+    <fieldset><legend>Sizes of interest</legend><div class="chk" id="f-sizes"></div></fieldset>
+    <label>Anything else<textarea id="f-msg" placeholder="Expected monthly volume, timing, questions about samples"></textarea></label>
+    <button class="btn" type="submit">Prepare my inquiry</button>
+    <div class="out" id="out" hidden>
+      <b>Your inquiry is ready to send.</b> Email it to <span id="o-mail">sales@yannyllc.co</span>, or call <span id="o-tel">+1 (617) 970-0251</span>.
+      <pre id="draft"></pre>
+      <div class="cta"><a class="btn" id="mail" href="#">Open in email</a><button class="btn ghost" type="button" id="copy">Copy text</button></div>
+    </div>
+  </form></div>
+</div></section>
+
+<footer>
+  <div class="mark foil">Shanana Coffee</div>
+  <i>Every sip tells a story.</i>
+  <div class="orn" aria-hidden="true" style="justify-content:center"><i></i></div>
+  <p>U.S. · sales@yannyllc.co · +1 (617) 970-0251</p>
+  <p style="margin-top:6px">Rwanda · shanana.coffee@travion.rw · +250 783 311 187 · P.O. Box 3975, Gasabo, Kigali</p>
+  <p style="margin-top:6px">Grown in Nyaruguru, Southern Province, Rwanda</p>
+</footer>
+
+<script>
+{
+const sizes=[
+  ["12 oz","Retail Bag","12 oz · 340 g","Specialty retailers · Café retail shelves"],
+  ["1 lb","Café & Retail Bag","1 lb · 454 g","Coffee shops · Retail customers"],
+  ["2 lb","Service Bag","2 lb · 907 g","Cafés · Offices · Smaller foodservice businesses"],
+  ["5 lb","Commercial Bag","5 lb · 2.27 kg","Restaurants · Hotels · Commercial cafés · Distributors"]];
+document.getElementById('sizes').innerHTML=sizes.map(s=>`<div class="size"><span class="w foil">${s[0]}</span><div><h3>${s[1]}</h3><span class="m">${s[2]}</span><p>${s[3]}</p></div></div>`).join('');
+document.getElementById('f-sizes').innerHTML=sizes.map((s,i)=>`<label><input type="checkbox" id="f-s${i}" value="${s[0]} ${s[1]}"${i==1?' checked':''}>${s[0]}</label>`).join('');
+const impact=[
+  ["Women & communities","Recognizing the work of women in coffee","Supporting women involved in cultivation and processing, and celebrating the skill of local coffee workers."],
+  ["Families & education","Steadier incomes for farming families","Helping families build more stable incomes and the ability to invest in their children’s education."],
+  ["Employment","Value created close to the farm","Production, packaging and logistics in Rwanda support local jobs and promote Rwandan coffee internationally."],
+  ["Rwanda & the U.S.","A lasting trade connection","Long-term relationships with American cafés, retailers and distributors, and more people tasting Rwandan coffee."]];
+document.getElementById('impactGrid').innerHTML=impact.map(p=>`<div class="card"><small>${p[0]}</small><h3>${p[1]}</h3><p>${p[2]}</p></div>`).join('');
+
+const form=document.getElementById('inq'),out=document.getElementById('out'),draft=document.getElementById('draft'),v=id=>document.getElementById(id).value.trim();
+let text='';
+form.addEventListener('submit',e=>{
+  e.preventDefault();
+  const name=document.getElementById('f-name'),biz=document.getElementById('f-biz');
+  if(!name.value.trim()){name.focus();return}
+  if(!biz.value.trim()){biz.focus();return}
+  const picked=[...document.querySelectorAll('#f-sizes input:checked')].map(c=>c.value);
+  text=`Hello Shanana Coffee,\n\nI'd like to request samples and wholesale pricing.\n\nName: ${v('f-name')}\nBusiness: ${v('f-biz')} (${v('f-type')})${v('f-city')?`\nLocation: ${v('f-city')}`:''}\nSizes of interest: ${picked.length?picked.join(', '):'Not sure yet'}${v('f-msg')?`\n\n${v('f-msg')}`:''}\n\nThank you,\n${v('f-name')}`;
+  draft.textContent=text;
+  const [om,ot]=v('f-office').split('|');document.getElementById('o-mail').textContent=om;document.getElementById('o-tel').textContent=ot;
+  document.getElementById('mail').href='mailto:'+om+'?subject='+encodeURIComponent('Wholesale inquiry: '+v('f-biz'))+'&body='+encodeURIComponent(text);
+  out.hidden=false;out.scrollIntoView({block:'nearest',behavior:'smooth'});
+});
+document.getElementById('copy').addEventListener('click',async e=>{
+  try{await navigator.clipboard.writeText(text);e.target.textContent='Copied'}catch(_){e.target.textContent='Select the text above to copy'}
+});
+}
+</script>
+
+</body>
+</html>
